@@ -1,4 +1,4 @@
-﻿<div class="p10 col-xs-12"  ng-controller="settingDetailCtrl">
+﻿<div class="p10 col-xs-12" ng-controller="settingDetailCtrl">
     <div class="col-xs-12 BGFFF p20 r5">
         <div class="col-xs-6 f16 fb p0 mb5">系统设置【颜色】</div>
         <div class="col-xs-6 f14 p0 mb5 tr">
@@ -12,7 +12,8 @@
                         <td class="tc w200">
                             <input class="form-control" type="text" autocomplete="off" ng-model="model.key" required
                                    ng-if="model.id==null">
-                            <input class="form-control cursor-not" type="text" autocomplete="off" ng-model="model.key" readonly
+                            <input class="form-control cursor-not" type="text" autocomplete="off" ng-model="model.key"
+                                   readonly
                                    ng-if="model.id!=null">
                         </td>
                     </tr>
@@ -22,7 +23,8 @@
                             <div class="form-group col-xs-6 p0">
                                 <div class="input-group">
                                     <div class="input-group-addon">颜色</div>
-                                    <input class="form-control" type="text" autocomplete="off" required ng-model="model.value">
+                                    <input class="form-control" type="text" autocomplete="off" required
+                                           ng-model="model.value">
                                 </div>
                             </div>
                             <div class="col-xs-6 p0 pl20">
@@ -33,7 +35,8 @@
                     <tr>
                         <td class="tc">类型</td>
                         <td class="tc">
-                            <input class="form-control cursor-not" id="typeName" type="text" autocomplete="off" ng-model="model.typeName"
+                            <input class="form-control cursor-not" id="typeName" type="text" autocomplete="off"
+                                   ng-model="model.typeName"
                                    placeholder="点击输入框选择类型" readonly>
                         </td>
                     </tr>

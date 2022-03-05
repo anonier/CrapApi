@@ -6,7 +6,7 @@ import lombok.Getter;
  * @author Ehsan
  * @date 2018/6/30 14:17
  */
-public class UserQuery extends BaseQuery<UserQuery>{
+public class UserQuery extends BaseQuery<UserQuery> {
     @Getter
     private String thirdlyId;
     @Getter
@@ -31,7 +31,7 @@ public class UserQuery extends BaseQuery<UserQuery>{
     private String orTrueName;
 
     @Override
-    public UserQuery getQuery(){
+    public UserQuery getQuery() {
         return this;
     }
 

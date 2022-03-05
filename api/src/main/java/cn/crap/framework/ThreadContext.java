@@ -78,6 +78,7 @@ public class ThreadContext implements Filter {
 
     /**
      * 判断地址是否是需要忽略的
+     *
      * @param request
      * @return
      */
@@ -102,7 +103,7 @@ public class ThreadContext implements Filter {
     }
 
     public static HttpServletRequest request() {
-        if (THREAD_OBJECT.get() == null){
+        if (THREAD_OBJECT.get() == null) {
             return null;
         }
         return THREAD_OBJECT.get().request;
@@ -112,12 +113,12 @@ public class ThreadContext implements Filter {
         THREAD_OBJECT.set(new ThreadObject(request, response));
     }
 
-    public static void clear(){
+    public static void clear() {
         THREAD_OBJECT.set(null);
     }
 
     public static HttpServletResponse response() {
-        if (THREAD_OBJECT.get() == null){
+        if (THREAD_OBJECT.get() == null) {
             return null;
         }
         return THREAD_OBJECT.get().response;

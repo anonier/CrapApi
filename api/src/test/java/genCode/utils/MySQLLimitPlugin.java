@@ -38,7 +38,7 @@ public class MySQLLimitPlugin extends PluginAdapter {
      */
     @Override
     public boolean sqlMapSelectByExampleWithoutBLOBsElementGenerated(XmlElement element,
-            IntrospectedTable introspectedTable) {
+                                                                     IntrospectedTable introspectedTable) {
 
         XmlElement choose = new XmlElement("choose");
         XmlElement rangeLimitWhen = new XmlElement("when");
@@ -53,8 +53,7 @@ public class MySQLLimitPlugin extends PluginAdapter {
         return super.sqlMapUpdateByExampleWithoutBLOBsElementGenerated(element, introspectedTable);
     }
 
-    private void addLimit(TopLevelClass topLevelClass, IntrospectedTable introspectedTable, String name)
-    {
+    private void addLimit(TopLevelClass topLevelClass, IntrospectedTable introspectedTable, String name) {
         CommentGenerator commentGenerator = this.context.getCommentGenerator();
         Field field = new Field();
         field.setVisibility(JavaVisibility.PROTECTED);

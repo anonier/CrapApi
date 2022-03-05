@@ -109,6 +109,7 @@ public class HttpPostGet {
         method.setConfig(requestConfig);
         return getResponse(method, headers);
     }
+
     public static String patch(String path, Map<String, String> params, Map<String, String> headers) throws Exception {
         HttpPatch method = new HttpPatch(path);
         RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(3000).setConnectTimeout(3000)
@@ -142,7 +143,7 @@ public class HttpPostGet {
     }
 
     public static String postBody(String url, String body, Map<String, String> headers) throws Exception {
-       return postBody(url, body, headers, 3000);
+        return postBody(url, body, headers, 3000);
     }
 
 
@@ -167,8 +168,8 @@ public class HttpPostGet {
     }
 
     /*********************************私有方法***************************************************/
-    public static HttpClient buildHttpClient(String url) throws Exception{
-        if (url.startsWith("https")){
+    public static HttpClient buildHttpClient(String url) throws Exception {
+        if (url.startsWith("https")) {
             SSLContext sslcontext = createIgnoreVerifySSL();
             //创建自定义的httpclient对象
             SSLConnectionSocketFactory fac = new SSLConnectionSocketFactory(sslcontext,
@@ -211,7 +212,7 @@ public class HttpPostGet {
             }
         };
 
-        sc.init(null, new TrustManager[] { trustManager }, null);
+        sc.init(null, new TrustManager[]{trustManager}, null);
         return sc;
     }
 

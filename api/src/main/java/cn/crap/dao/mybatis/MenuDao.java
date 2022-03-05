@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface MenuDao extends BaseDao<Menu>{
+public interface MenuDao extends BaseDao<Menu> {
     int countByExample(MenuCriteria example);
 
     int deleteByExample(MenuCriteria example);

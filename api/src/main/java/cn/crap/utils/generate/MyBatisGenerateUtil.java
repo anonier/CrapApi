@@ -23,7 +23,7 @@ public class MyBatisGenerateUtil extends BaseGenerateUtil {
     private static String RESUMT_MAP_ID = "\n\t<id column=\"%s\" property=\"%s\"/>";
     // private static String RESUMT_MAP_ID_WITH_JDBC = "<id column=\"%s\" property=\"%s\" jdbcType=\"%s\"/>";
 
-    public boolean canExecute(String type){
+    public boolean canExecute(String type) {
         if (GenerateType.MY_BATIS_XML.name().equals(type)) {
             return true;
         }
@@ -32,11 +32,12 @@ public class MyBatisGenerateUtil extends BaseGenerateUtil {
 
     /**
      * 数据库表
+     *
      * @return
      */
-    public String execute(String fields) throws Exception{
+    public String execute(String fields) throws Exception {
         Set<String> fieldSet = getFields(fields);
-        if(fieldSet.size() == 0){
+        if (fieldSet.size() == 0) {
             return "字段不能为空，请选择字段";
         }
 
@@ -45,7 +46,7 @@ public class MyBatisGenerateUtil extends BaseGenerateUtil {
         StringBuilder resultMaps = new StringBuilder();
         StringBuilder updateSet = new StringBuilder();
 
-        for (String field : fieldSet){
+        for (String field : fieldSet) {
             field = field.split("_CA_SEPARATOR_")[0];
             resultColumns.append(field + ",");
             javaFields.append("#{" + getCamel(field) + "},");
@@ -66,9 +67,9 @@ public class MyBatisGenerateUtil extends BaseGenerateUtil {
         sqlType = sqlType.toLowerCase();
         if (sqlType.indexOf("bit") >= 0) {
             return "BIT";
-        } else if (sqlType.indexOf("tinyint") >=0 ) {
+        } else if (sqlType.indexOf("tinyint") >= 0) {
             return "TINYINT";
-        } else if (sqlType.indexOf("smallint") >=0 ) {
+        } else if (sqlType.indexOf("smallint") >= 0) {
             return "SMALLINT";
         } else if (sqlType.indexOf("bigint") >= 0) {
             return "BIGINT";
@@ -84,7 +85,7 @@ public class MyBatisGenerateUtil extends BaseGenerateUtil {
             return "DATE";
         } else if (sqlType.indexOf("text") >= 0) {
             return "TEXT";
-        } else if (sqlType.indexOf("timestamp") >= 0){
+        } else if (sqlType.indexOf("timestamp") >= 0) {
             return "TIMESTAMP";
         }
         return "未知类型";

@@ -15,17 +15,19 @@ public abstract class BaseGenerateUtil {
 
     /**
      * 数据库表
+     *
      * @return
      */
     public abstract String execute(String fieldNames) throws Exception;
 
     /**
      * 分割参数
+     *
      * @param fieldNames
      * @return
      */
-    public Set<String> getFields(String fieldNames){
-        if (StringUtils.isEmpty(fieldNames)){
+    public Set<String> getFields(String fieldNames) {
+        if (StringUtils.isEmpty(fieldNames)) {
             return new HashSet<>();
         }
         Set<String> fieldSet = new HashSet<>();
@@ -35,11 +37,12 @@ public abstract class BaseGenerateUtil {
 
     /**
      * 首字母大写
+     *
      * @param field
      * @return
      */
-    public String upperCaseFirst(String field){
-        if (StringUtils.isEmpty(field)){
+    public String upperCaseFirst(String field) {
+        if (StringUtils.isEmpty(field)) {
             return field;
         }
         return field.substring(0, 1).toUpperCase() + field.substring(1);
@@ -50,7 +53,7 @@ public abstract class BaseGenerateUtil {
      * 例：user_name --> userName
      */
     public static String getCamel(String field) {
-        if (StringUtils.isEmpty(field)){
+        if (StringUtils.isEmpty(field)) {
             return field;
         }
         while (field.indexOf("_") > 0) {

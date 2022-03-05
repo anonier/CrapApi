@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface ErrorDao extends BaseDao<Error>{
+public interface ErrorDao extends BaseDao<Error> {
     int countByExample(ErrorCriteria example);
 
     int deleteByExample(ErrorCriteria example);

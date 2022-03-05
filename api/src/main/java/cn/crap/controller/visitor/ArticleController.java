@@ -32,6 +32,7 @@ import java.util.Map;
 
 /**
  * visitor article page
+ *
  * @author Ehsan
  */
 @Controller("visitorArticleController")
@@ -70,10 +71,10 @@ public class ArticleController extends BaseController {
     @RequestMapping("/article/list.do")
     @ResponseBody
     public JsonResult articleList(@ModelAttribute ArticleQuery query,
-                           String password,
-                           String visitCode) throws MyException {
+                                  String password,
+                                  String visitCode) throws MyException {
         Page page = new Page(query);
-        if (query.getStatus() == null || !query.getStatus().equals(ArticleStatus.RECOMMEND.getStatus())){
+        if (query.getStatus() == null || !query.getStatus().equals(ArticleStatus.RECOMMEND.getStatus())) {
             ModulePO module = moduleCache.get(query.getModuleId());
             ProjectPO project = projectCache.get(module.getProjectId());
 
@@ -104,7 +105,7 @@ public class ArticleController extends BaseController {
         Map<String, Object> others = MyHashMap.getMap("type", ArticleType.valueOf(query.getType()).getName())
                 .put("category", query.getCategory())
                 .put("categorys", categories)
-                .put("crumbs", Tools.getCrumbs( "推荐文档列表", "void"))
+                .put("crumbs", Tools.getCrumbs("推荐文档列表", "void"))
                 .getMap();
 
         return new JsonResult().success().data(articleDtos).page(page).others(others);
@@ -114,15 +115,15 @@ public class ArticleController extends BaseController {
     @RequestMapping("/article/detail.do")
     @ResponseBody
     public JsonResult articleDetail(@RequestParam String id,
-                                String password, String visitCode,
-                                 Integer currentPage) throws MyException {
+                                    String password, String visitCode,
+                                    Integer currentPage) throws MyException {
         Map<String, Object> returnMap = new HashMap<>();
         ArticleWithBLOBs article = null;
 
         article = articleService.getById(id);
         if (article == null) {
             List<Article> tempArticle = articleService.query(new ArticleQuery().setKey(id).setPageSize(1));
-            if (!CollectionUtils.isEmpty(tempArticle)){
+            if (!CollectionUtils.isEmpty(tempArticle)) {
                 article = articleService.getById(tempArticle.get(0).getId());
             }
         }
@@ -146,10 +147,10 @@ public class ArticleController extends BaseController {
         articleService.updateClickById(id);
 
         List<CrumbDto> crumbDtos = MyCrumbDtoList.getList("模块:" + project.getName(), "#/module/list?projectId=" + project.getId())
-                .add("文档:" + module.getName(), "#/article/list?projectId=" + project.getId() +"&moduleId=" + module.getId() + "&type=ARTICLE")
+                .add("文档:" + module.getName(), "#/article/list?projectId=" + project.getId() + "&moduleId=" + module.getId() + "&type=ARTICLE")
                 .add(article.getName(), "void")
                 .getList();
         returnMap.put("crumbs", crumbDtos);
-        return new JsonResult(1,  ArticleAdapter.getDtoWithBLOBs(article, module, project), null, returnMap);
+        return new JsonResult(1, ArticleAdapter.getDtoWithBLOBs(article, module, project), null, returnMap);
     }
 }

@@ -22,7 +22,7 @@ import java.util.Set;
  * @author Ehsan
  * @date 2018/10/6 12:34
  */
-public class PermissionUtil implements IConst{
+public class PermissionUtil implements IConst {
     /**
      * 用户页面权限检查
      *
@@ -30,7 +30,7 @@ public class PermissionUtil implements IConst{
      * @throws MyException
      */
     public static void checkPermission(ProjectPO project, ProjectPermissionEnum needPermission) throws MyException {
-        if (project == null || project.getId() == null){
+        if (project == null || project.getId() == null) {
             throw new MyException(MyError.E000022, "项目有误，没有查询到该项目");
         }
         LoginInfoDto user = LoginUserHelper.getUser(MyError.E000021);
@@ -46,7 +46,7 @@ public class PermissionUtil implements IConst{
          * 拥有项目权限的管理员可以操作用户项目
          */
         String authority = user.getAuthStr();
-        if(user.getType() == UserType.ADMIN.getType() && authority != null && (","+authority).indexOf(","+ C_AUTH_PROJECT +",")>=0){
+        if (user.getType() == UserType.ADMIN.getType() && authority != null && ("," + authority).indexOf("," + C_AUTH_PROJECT + ",") >= 0) {
             return;
         }
 
@@ -88,14 +88,14 @@ public class PermissionUtil implements IConst{
         throw new MyException(MyError.E000022, needPermission.getDesc());
     }
 
-    public static Set<String> getSet(String permissionsStr){
-        if (MyString.isEmpty(permissionsStr)){
+    public static Set<String> getSet(String permissionsStr) {
+        if (MyString.isEmpty(permissionsStr)) {
             return Sets.newHashSet();
         }
 
         Set<String> attributeSet = Sets.newHashSet();
         Splitter.on(",").omitEmptyStrings().split(StringEscapeUtils.unescapeHtml(permissionsStr))
-                .forEach(permissionStr-> attributeSet.add(permissionStr));
+                .forEach(permissionStr -> attributeSet.add(permissionStr));
         return attributeSet;
     }
 }

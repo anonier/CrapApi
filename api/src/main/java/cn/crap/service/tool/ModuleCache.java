@@ -13,63 +13,63 @@ import org.springframework.stereotype.Service;
 import java.util.concurrent.TimeUnit;
 
 @Service("moduleCache")
-public class ModuleCache{
-	private static Cache<String, ModulePO> cache;
-	public static final String CACHE_PREFIX = "module:";
+public class ModuleCache {
+    private static Cache<String, ModulePO> cache;
+    public static final String CACHE_PREFIX = "module:";
 
-	@Autowired
-	private ModuleService moduleService;
+    @Autowired
+    private ModuleService moduleService;
 
-	public Cache<String, ModulePO> getCache(){
-		if (cache == null) {
-			cache = CacheBuilder.newBuilder()
-					.initialCapacity(10)
-					.concurrencyLevel(5)
-					.expireAfterWrite(Config.cacheTime, TimeUnit.SECONDS)
-					.build();
-		}
-		return cache;
-	}
-	
-	public ModulePO get(String moduleId){
-		if(MyString.isEmpty(moduleId)){
-			ModulePO module = new ModulePO();
-			module.setUrl("");
-			return module;
-		}
+    public Cache<String, ModulePO> getCache() {
+        if (cache == null) {
+            cache = CacheBuilder.newBuilder()
+                    .initialCapacity(10)
+                    .concurrencyLevel(5)
+                    .expireAfterWrite(Config.cacheTime, TimeUnit.SECONDS)
+                    .build();
+        }
+        return cache;
+    }
 
-		String cacheKey = assembleKey(moduleId);
-		ModulePO module = getCache().getIfPresent(cacheKey);
-		if(module != null){
-			return module;
-		}
+    public ModulePO get(String moduleId) {
+        if (MyString.isEmpty(moduleId)) {
+            ModulePO module = new ModulePO();
+            module.setUrl("");
+            return module;
+        }
 
-		module = moduleService.get(moduleId);
-		if(module == null) {
-			module = new ModulePO();
-			module.setUrl("");
-			return module;
-		}
+        String cacheKey = assembleKey(moduleId);
+        ModulePO module = getCache().getIfPresent(cacheKey);
+        if (module != null) {
+            return module;
+        }
 
-		getCache().put(cacheKey, module);
-		//内存缓存时拷贝对象，防止在Controller中将密码修改为空时导致问题
-		ModulePO p = new ModulePO();
-		BeanUtils.copyProperties(module, p);
-		return p;
-	}
+        module = moduleService.get(moduleId);
+        if (module == null) {
+            module = new ModulePO();
+            module.setUrl("");
+            return module;
+        }
 
-    public boolean del(String moduleId){
-		getCache().invalidate(assembleKey(moduleId));
+        getCache().put(cacheKey, module);
+        //内存缓存时拷贝对象，防止在Controller中将密码修改为空时导致问题
+        ModulePO p = new ModulePO();
+        BeanUtils.copyProperties(module, p);
+        return p;
+    }
+
+    public boolean del(String moduleId) {
+        getCache().invalidate(assembleKey(moduleId));
         return true;
     }
-	
 
-    public boolean flushDB(){
-		getCache().invalidateAll();
-	    return true;
+
+    public boolean flushDB() {
+        getCache().invalidateAll();
+        return true;
     }
 
-	private String assembleKey(String moduleId) {
-		return CACHE_PREFIX + moduleId;
-	}
+    private String assembleKey(String moduleId) {
+        return CACHE_PREFIX + moduleId;
+    }
 }

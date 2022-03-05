@@ -30,18 +30,18 @@ public class DownloadUtils {
             // 缓冲区
             int bytesToRead = -1;
             // 通过循环将读入的Word文件的内容输出到浏览器中
-            while ((bytesToRead = bin.read(buffer)) != -1){
+            while ((bytesToRead = bin.read(buffer)) != -1) {
                 out.write(buffer, 0, bytesToRead);
             }
             out.flush();
         } finally {
-            if (fin != null){
+            if (fin != null) {
                 fin.close();
             }
-            if (out != null){
+            if (out != null) {
                 out.close();
             }
-            if (bin != null){
+            if (bin != null) {
                 bin.close();
             }
             if (file != null) {

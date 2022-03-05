@@ -13,19 +13,19 @@ import java.util.List;
 @Service
 public class CustomArticleDao {
 
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
-    public void updateClickById(String id){
-		jdbcTemplate.update("update article set click=click+1 where id=?", id);
-	}
+    public void updateClickById(String id) {
+        jdbcTemplate.update("update article set click=click+1 where id=?", id);
+    }
 
-	public void updateTypeToNullById(String id){
-		jdbcTemplate.update("update article set mkey=null where id=? and status!=" + ArticleStatus.PAGE.getStatus(), id);
-	}
+    public void updateTypeToNullById(String id) {
+        jdbcTemplate.update("update article set mkey=null where id=? and status!=" + ArticleStatus.PAGE.getStatus(), id);
+    }
 
-	public List<String> queryTop10RecommendCategory(){
-		return jdbcTemplate.queryForList("select distinct category from article where category is not null and category !='' " +
-				"and status=" + ArticleStatus.RECOMMEND.getStatus() + " limit 10", String.class);
-	}
+    public List<String> queryTop10RecommendCategory() {
+        return jdbcTemplate.queryForList("select distinct category from article where category is not null and category !='' " +
+                "and status=" + ArticleStatus.RECOMMEND.getStatus() + " limit 10", String.class);
+    }
 }

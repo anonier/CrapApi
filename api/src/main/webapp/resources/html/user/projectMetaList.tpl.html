@@ -3,9 +3,11 @@
         <div class="btn-group btn-group-sm r3 fl mr10">
             <a type="button" class="btn btn-default" onclick="history.back(-1);"><i
                     class="iconfont mt-3">&#xe697;&nbsp;</i>后退</a>
-            <a type="button" class="btn btn-default" id="refresh" ng-click="queryProjectMetaList(list.page.currentPage)"><i
+            <a type="button" class="btn btn-default" id="refresh"
+               ng-click="queryProjectMetaList(list.page.currentPage)"><i
                     class="iconfont mt-3">&#xe6aa;&nbsp;</i>刷新</a>
-            <a type="button" ng-class="{true: 'btn btn-default btn-sm', false:'btn btn-default btn-sm disabled'}[isProjectUser('addEnv')]"
+            <a type="button"
+               ng-class="{true: 'btn btn-default btn-sm', false:'btn btn-default btn-sm disabled'}[isProjectUser('addEnv')]"
                ng-click="detail('新增项目环境',700,'user/projectMeta/detail.do?id=NULL&type=1&projectId=' + $stateParams.projectId);">
                 <i class="iconfont mt-3">&#xe604;</i>&nbsp;新增
             </a>
@@ -29,7 +31,7 @@
             <table class="table table-hover table-striped f13">
                 <thead>
                 <tr class="f14 C000 fw500">
-                    <td class="min-w300">类型 / 标题 / 内容  <span class="f12 C999">（用于在项目调试时快速切换环境）</span></td>
+                    <td class="min-w300">类型 / 标题 / 内容 <span class="f12 C999">（用于在项目调试时快速切换环境）</span></td>
                     <td>创建时间</td>
                     <td class="w100">操作</td>
                 </tr>
@@ -39,10 +41,11 @@
                     <td>
                         <div class="C000 f14">
                             <span class="badge f12 fn main-bg o5">{{item.typeStr}}</span>
-                            {{item.name| cut:true:40:' ...'}}
+                            {{item.name | cut:true:40:' ...'}}
                         </div>
                         <div class="f10 mt5 C999" ng-if="item.type==1">
-                            URL <span class="C555">{{item.envUrl}}</span> 替换为  <span class="main-color">{{item.value}}</span>
+                            URL <span class="C555">{{item.envUrl}}</span> 替换为 <span
+                                class="main-color">{{item.value}}</span>
                         </div>
                     </td>
                     <td>{{item.createTimeStr}}</td>

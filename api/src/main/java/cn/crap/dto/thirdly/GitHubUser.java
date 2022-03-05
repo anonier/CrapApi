@@ -2,12 +2,12 @@ package cn.crap.dto.thirdly;
 
 import java.io.Serializable;
 
-public class GitHubUser implements Serializable{
+public class GitHubUser implements Serializable {
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private String login;// 用户登录名
+     *
+     */
+    private static final long serialVersionUID = 1L;
+    private String login;// 用户登录名
     private String id;// 用户唯一编码
     private String avatar_url;// 用户头像
     private String email;

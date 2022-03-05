@@ -27,7 +27,7 @@ public class ProjectUserAdapter {
         projectUser.setUserName(loginInfoDto.getUserName());
         projectUser.setType(ProjectUserType.MEMBER.getByteType());
         StringBuilder sb = new StringBuilder(",");
-        for(ProjectPermissionEnum permissionEnum : ProjectPermissionEnum.values()){
+        for (ProjectPermissionEnum permissionEnum : ProjectPermissionEnum.values()) {
             if (ProjectPermissionEnum.isDefaultPermission(permissionEnum)) {
                 sb.append(permissionEnum.getValue() + ",");
             }
@@ -36,20 +36,20 @@ public class ProjectUserAdapter {
         return projectUser;
     }
 
-    public static ProjectUserDto getDto(ProjectUserPO model, ProjectPO project){
-        if (model == null){
+    public static ProjectUserDto getDto(ProjectUserPO model, ProjectPO project) {
+        if (model == null) {
             return null;
         }
 
         ProjectUserDto dto = new ProjectUserDto();
-		BeanUtil.copyProperties(model, dto);
-		dto.setProjectName(project == null ? "" : project.getName());
-		dto.setCrShowPermissionSet(PermissionUtil.getSet(model.getPermission()));
-		List<PermissionDTO> permissionLit = Lists.newArrayList();
-		StringBuilder permissionSb = new StringBuilder();
+        BeanUtil.copyProperties(model, dto);
+        dto.setProjectName(project == null ? "" : project.getName());
+        dto.setCrShowPermissionSet(PermissionUtil.getSet(model.getPermission()));
+        List<PermissionDTO> permissionLit = Lists.newArrayList();
+        StringBuilder permissionSb = new StringBuilder();
         dto.getCrShowPermissionSet().stream().forEach(value -> {
             ProjectPermissionEnum permissionEnum = ProjectPermissionEnum.getByValue(value);
-            if (permissionEnum != null){
+            if (permissionEnum != null) {
                 permissionLit.add(new PermissionDTO(permissionEnum.getValue(), permissionEnum.getDesc()));
                 permissionSb.append(permissionEnum.getDesc() + ",");
             }
@@ -61,21 +61,21 @@ public class ProjectUserAdapter {
         return dto;
     }
 
-    public static ProjectUserPO getModel(ProjectUserDto dto){
-        if (dto == null){
+    public static ProjectUserPO getModel(ProjectUserDto dto) {
+        if (dto == null) {
             return null;
         }
         ProjectUserPO model = new ProjectUserPO();
-		BeanUtil.copyProperties(dto, model);
+        BeanUtil.copyProperties(dto, model);
         return model;
     }
 
-    public static List<ProjectUserDto> getDto(List<ProjectUserPO> models){
-        if (models == null){
+    public static List<ProjectUserDto> getDto(List<ProjectUserPO> models) {
+        if (models == null) {
             return new ArrayList<>();
         }
         List<ProjectUserDto> dtos = new ArrayList<>();
-        for (ProjectUserPO model : models){
+        for (ProjectUserPO model : models) {
             dtos.add(getDto(model, null));
         }
         return dtos;

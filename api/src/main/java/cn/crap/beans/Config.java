@@ -7,29 +7,29 @@ import cn.crap.utils.MyString;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class Config{
-	public static String clientID;
-	public static String clientSecret;
+public class Config {
+    public static String clientID;
+    public static String clientSecret;
     public static String oschinaClientID;
-	public static String oschinaClientSecret;
+    public static String oschinaClientSecret;
     public static int cacheTime;
     public static int loginInforTime;
     public static int fileSize;
-	public static String imageType;
-	public static String fileType;
-	public static boolean openRegister;
-	public static boolean luceneSearchNeedLogin;
-	// public static String baidu;
-	public static boolean canRepeatUrl;
-	public static String mail;
-	public static String accessKeyId;
-	public static String accessKeySecret;
-	public static String endPoint;
-	public static String bucketName;
-	public static String imgPrefix;
+    public static String imageType;
+    public static String fileType;
+    public static boolean openRegister;
+    public static boolean luceneSearchNeedLogin;
+    // public static String baidu;
+    public static boolean canRepeatUrl;
+    public static String mail;
+    public static String accessKeyId;
+    public static String accessKeySecret;
+    public static String endPoint;
+    public static String bucketName;
+    public static String imgPrefix;
 
-	public static void init(){
-	    try {
+    public static void init() {
+        try {
             Properties properties = new Properties();
             // 使用ClassLoader加载properties配置文件生成对应的输入流
             InputStream in = SystemService.class.getResourceAsStream("/config.properties");
@@ -54,13 +54,14 @@ public class Config{
             Config.endPoint = properties.getProperty(Config.getConfigEndPoint());
             Config.bucketName = properties.getProperty(Config.getConfigBucketName());
             Config.imgPrefix = properties.getProperty(Config.getConfigImgPrefix());
-            if (Config.imgPrefix == null || Config.imgPrefix.equals("")){
+            if (Config.imgPrefix == null || Config.imgPrefix.equals("")) {
                 Config.imgPrefix = "";
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     private static String getConfigClientID() {
         return "github.clientID";
     }

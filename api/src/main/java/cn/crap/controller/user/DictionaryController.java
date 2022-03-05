@@ -18,35 +18,36 @@ import java.util.List;
 @Controller
 @RequestMapping("/user/dictionary")
 public class DictionaryController extends BaseController {
-	@Autowired
-	private ArticleService articleService;
-	@Autowired
-	private ISearchService luceneService;
-	@Autowired
-	private CommentService commentService;
-	@Autowired
-	private ProjectCache projectCache;
-	@Autowired
-	private ModuleCache moduleCache;
-	@Autowired
+    @Autowired
+    private ArticleService articleService;
+    @Autowired
+    private ISearchService luceneService;
+    @Autowired
+    private CommentService commentService;
+    @Autowired
+    private ProjectCache projectCache;
+    @Autowired
+    private ModuleCache moduleCache;
+    @Autowired
     private List<BaseGenerateUtil> baseGenerateUtils;
 
 
-	/**
-	 * 代码生成
-	 * @param type
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/generateCode.do")
-	@ResponseBody
-	public JsonResult addOrUpdate(String fieldNames, String type) throws Exception {
-        for(BaseGenerateUtil baseGenerateUtil: baseGenerateUtils){
+    /**
+     * 代码生成
+     *
+     * @param type
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/generateCode.do")
+    @ResponseBody
+    public JsonResult addOrUpdate(String fieldNames, String type) throws Exception {
+        for (BaseGenerateUtil baseGenerateUtil : baseGenerateUtils) {
             if (baseGenerateUtil.canExecute(type)) {
                 return new JsonResult(1, baseGenerateUtil.execute(fieldNames));
             }
         }
         return new JsonResult(1, "抱歉，暂不支持该类型的代码自动生成");
-	}
+    }
 
 }

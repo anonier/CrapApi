@@ -28,8 +28,9 @@
         <div class="col-xs-12 BGFFF p10">
             <div class="text-error b0 mb20 tl pl10" id="no-plug">
                 将采用代理运行，如需调试本地接口，或支持host配置，请
-                <a target="_blank" href="index.do#/article/detail?projectId=help&amp;moduleId=help&amp;type=ARTICLE&amp;id=153908629593401000133">
-                下载接口调试增强插件
+                <a target="_blank"
+                   href="index.do#/article/detail?projectId=help&amp;moduleId=help&amp;type=ARTICLE&amp;id=153908629593401000133">
+                    下载接口调试增强插件
                 </a>
             </div>
 
@@ -38,19 +39,21 @@
             </div>
 
 
-
             <h4 class="main-bl-3 p5 pl20" ng-bind="'接口：' + model.interfaceName"></h4>
             <table class="w mt20">
                 <tr>
-                <td class="w100">
-                        <input class="form-control cursor w100 btn-group" type="text" autocomplete="off" readonly id="method"
+                    <td class="w100">
+                        <input class="form-control cursor w100 btn-group" type="text" autocomplete="off" readonly
+                               id="method"
                                placeholder="请点击输入框选择" required ng-model="model.method"
                                ng-focus="loadPickByName('iwidth=220|radio=true|iheight=250|tag=method|code=REQUEST_METHOD|def='+model.method,$event)">
                     </td>
                     <td class="pl10">
                         <div class="input-group">
-                            <input type="text" autocomplete="off" class="form-control btn-group" placeholder="请输入url" id="crap-debug-url" ng-model="model.fullUrl">
-                            <span class="input-group-addon cursor btn-main" ng-click="debugInterface();" id="crap-debug-send">
+                            <input type="text" autocomplete="off" class="form-control btn-group" placeholder="请输入url"
+                                   id="crap-debug-url" ng-model="model.fullUrl">
+                            <span class="input-group-addon cursor btn-main" ng-click="debugInterface();"
+                                  id="crap-debug-send">
                                 <i class="iconfont">&#xe634;</i>发送
                             </span>
                             <span class="input-group-addon cursor btn-main none" id="crap-debug-send-new">
@@ -111,7 +114,8 @@
 
             <input type="hidden" value="{{model.paramType}}" id="crap-debug-paramType">
             <div ng-class="{true: 'p10 bt1', false:'p10 bt1 none'}[model.paramType == 'RAW']">
-                <textarea class="form-control no-resize" rows="8" ng-model="model.param" placeholder="请输入自定义/RAW/源数据" id="crap-debug-raw"></textarea>
+                <textarea class="form-control no-resize" rows="8" ng-model="model.param" placeholder="请输入自定义/RAW/源数据"
+                          id="crap-debug-raw"></textarea>
             </div>
 
             <div ng-class="{true: 'pt0', false:'pt0 none'}[model.paramType == 'FORM']">
@@ -146,14 +150,16 @@
 <script type="text/javascript">
     function loadEnvPick($this, e) {
         var obj = $($this);
-        var config = {async: true, url:'newPick.do', type:'POST', timeout: 3000, loading:'PROP_UP', loadingText: '加载中...',
-            tipTime:3, width:150, height:200, position: 5, tag: 'change-env'};
+        var config = {
+            async: true, url: 'newPick.do', type: 'POST', timeout: 3000, loading: 'PROP_UP', loadingText: '加载中...',
+            tipTime: 3, width: 150, height: 200, position: 5, tag: 'change-env'
+        };
         showTipNew(config, e);
         callAjaxNew(config, {
             tag: 'change-env',
             code: 'PROJECT_ENV',
-            key : obj.attr('crap-project-id'),
-            iCallBack : 'changeProjectEnv'
+            key: obj.attr('crap-project-id'),
+            iCallBack: 'changeProjectEnv'
         });
     }
 

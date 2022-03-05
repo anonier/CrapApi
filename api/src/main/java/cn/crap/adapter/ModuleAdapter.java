@@ -20,8 +20,8 @@ import java.util.List;
  * Avoid exposing sensitive data and modifying data that is not allowed to be modified
  */
 public class ModuleAdapter {
-    public static ModuleDTO getDto(ModulePO model, ProjectPO project, Interface templeteInterface){
-        if (model == null){
+    public static ModuleDTO getDto(ModulePO model, ProjectPO project, Interface templeteInterface) {
+        if (model == null) {
             return null;
         }
 
@@ -31,42 +31,42 @@ public class ModuleAdapter {
         if (model.getCreateTime() != null) {
             dto.setCreateTimeStr(DateFormartUtil.getDateByTimeMillis(model.getCreateTime().getTime()));
         }
-		if (project != null) {
+        if (project != null) {
             dto.setProjectName(project.getName());
         }
-		if (templeteInterface != null){
+        if (templeteInterface != null) {
             dto.setTemplateName(templeteInterface.getInterfaceName());
         }
         dto.setHasStaticize(false);
         String path = Tools.getStaticPath(project) + "/" + model.getId() + "-articleList--1.html";
         File file = new File(path);
-        if (file.exists()){
+        if (file.exists()) {
             dto.setHasStaticize(true);
         }
         return dto;
     }
 
-    public static ModulePO getModel(ModuleDTO dto){
-        if (dto == null){
+    public static ModulePO getModel(ModuleDTO dto) {
+        if (dto == null) {
             return null;
         }
         ModulePO model = new ModulePO();
         model.setId(dto.getId());
-		model.setName(dto.getName());
-		model.setSequence(dto.getSequence());
-		model.setUrl(dto.getUrl());
-		model.setRemark(dto.getRemark());
-		model.setCategory(dto.getCategory());
-		
+        model.setName(dto.getName());
+        model.setSequence(dto.getSequence());
+        model.setUrl(dto.getUrl());
+        model.setRemark(dto.getRemark());
+        model.setCategory(dto.getCategory());
+
         return model;
     }
 
-    public static List<ModuleDTO> getDto(List<ModulePO> models, ProjectPO project){
-        if (CollectionUtils.isEmpty(models)){
+    public static List<ModuleDTO> getDto(List<ModulePO> models, ProjectPO project) {
+        if (CollectionUtils.isEmpty(models)) {
             return new ArrayList<>();
         }
         List<ModuleDTO> dtos = new ArrayList<>();
-        for (ModulePO model : models){
+        for (ModulePO model : models) {
             dtos.add(getDto(model, project, null));
         }
         return dtos;

@@ -16,8 +16,8 @@ import java.util.Map;
 
 
 public class ProjectMetaAdapter {
-    public static ProjectMetaDTO getDto(ProjectMetaPO po, ModulePO module){
-        if (po == null){
+    public static ProjectMetaDTO getDto(ProjectMetaPO po, ModulePO module) {
+        if (po == null) {
             return null;
         }
 
@@ -27,19 +27,19 @@ public class ProjectMetaAdapter {
             dto.setCreateTimeStr(DateFormartUtil.getDateByTimeMillis(po.getCreateTime().getTime()));
         }
         dto.setEnvUrl(AttributeUtils.getAttr(po.getAttributes(), AttributeEnum.ENV_URL));
-        if (module != null){
+        if (module != null) {
             dto.setModuleName(module.getName());
         }
         dto.setTypeStr(ProjectMetaType.getNameByType(po.getType()));
         return dto;
     }
 
-    public static List<ProjectMetaDTO> getDto(List<ProjectMetaPO> pos){
-        if (pos == null){
+    public static List<ProjectMetaDTO> getDto(List<ProjectMetaPO> pos) {
+        if (pos == null) {
             return new ArrayList<>();
         }
         List<ProjectMetaDTO> dtos = new ArrayList<>();
-        for (ProjectMetaPO po : pos){
+        for (ProjectMetaPO po : pos) {
             dtos.add(getDto(po, null));
         }
         return dtos;
@@ -49,8 +49,8 @@ public class ProjectMetaAdapter {
      * @param dto
      * @return
      */
-    public static ProjectMetaPO getModel(ProjectMetaDTO dto){
-        if (dto == null){
+    public static ProjectMetaPO getModel(ProjectMetaDTO dto) {
+        if (dto == null) {
             return null;
         }
         ProjectMetaPO po = new ProjectMetaPO();

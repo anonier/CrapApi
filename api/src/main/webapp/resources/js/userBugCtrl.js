@@ -2,12 +2,12 @@
  * bug管理系统 controller
  */
 // bug列表
-bugModule.controller('userBugCtrl', function($rootScope,$scope, $http, $state,$location,$stateParams,httpService) {
+bugModule.controller('userBugCtrl', function ($rootScope, $scope, $http, $state, $location, $stateParams, httpService) {
     var VO_NAME = 'bugVO';
     var VO_LIST_NAME = 'bugVOList';
 
     // 公用分页方法
-    $scope.pageMethod = function(callBackMethod, page, updateUrl) {
+    $scope.pageMethod = function (callBackMethod, page, updateUrl) {
         $scope[callBackMethod](page, updateUrl);
     };
     /**
@@ -15,7 +15,7 @@ bugModule.controller('userBugCtrl', function($rootScope,$scope, $http, $state,$l
      * @param page
      * @param updateUrl
      */
-    $scope.setFilter= function (name, value) {
+    $scope.setFilter = function (name, value) {
         $stateParams[name] = value;
         $scope.queryBugList(1);
     }
@@ -55,13 +55,13 @@ bugModule.controller('userBugCtrl', function($rootScope,$scope, $http, $state,$l
     $scope.getBugDetail = function () {
         var params = "iUrl=user/bug/detail.do|iLoading=FLOAT|iPost=POST|iParams=&id=" + $stateParams.id +
             "&moduleId=" + $stateParams.moduleId + "&projectId=" + $stateParams.projectId;
-        $rootScope.getBaseDataToDataKey($scope,$http,params,null, VO_NAME, function () {
+        $rootScope.getBaseDataToDataKey($scope, $http, params, null, VO_NAME, function () {
             bugEdit = createWangEditor("bug-editor", $rootScope[VO_NAME].content, initBugEditor, "300px");
             $rootScope[VO_NAME].oldName = $rootScope[VO_NAME].name;
             $rootScope[VO_NAME].oldContent = $rootScope[VO_NAME].content;
             $rootScope[VO_NAME].isEdit = false;
             $rootScope[VO_NAME].isAdd = false;
-            if ($stateParams.id == 'NULL' || $stateParams.id == 'null'){
+            if ($stateParams.id == 'NULL' || $stateParams.id == 'null') {
                 $("#bug-name").focus();
                 $rootScope[VO_NAME].isEdit = true;
                 $rootScope[VO_NAME].isAdd = true;
@@ -73,16 +73,16 @@ bugModule.controller('userBugCtrl', function($rootScope,$scope, $http, $state,$l
     /**
      * 名称
      */
-    $scope.updateBugName = function() {
+    $scope.updateBugName = function () {
         var id = $rootScope[VO_NAME].id;
-        if (!id || id == null || id == 'null' || id == 'NULL'){
+        if (!id || id == null || id == 'null' || id == 'NULL') {
             return;
         }
         var name = $rootScope[VO_NAME].name;
-        if ($rootScope[VO_NAME].oldName != name){
-            var params = "iUrl=user/bug/changeBug.do|iLoading=FLOAT|iPost=POST|iParams=&type=name&value=" +name +
-            "&id=" + id;
-            $rootScope.getBaseDataToDataKey($scope,$http,params,null, null, function () {
+        if ($rootScope[VO_NAME].oldName != name) {
+            var params = "iUrl=user/bug/changeBug.do|iLoading=FLOAT|iPost=POST|iParams=&type=name&value=" + name +
+                "&id=" + id;
+            $rootScope.getBaseDataToDataKey($scope, $http, params, null, null, function () {
                 $rootScope[VO_NAME].oldName = name;
                 $scope.queryBugLogList();
             });
@@ -92,11 +92,11 @@ bugModule.controller('userBugCtrl', function($rootScope,$scope, $http, $state,$l
     /**
      * 内容
      */
-    $scope.updateBugContent = function() {
+    $scope.updateBugContent = function () {
         var content = $rootScope[VO_NAME].content;
-        var params = "iUrl=user/bug/changeBug.do|iLoading=FLOAT|iPost=POST|iParams=&type=content&value=" +content +
-            "&id=" +$rootScope[VO_NAME].id ;
-        $rootScope.getBaseDataToDataKey($scope,$http,params,null, null, function () {
+        var params = "iUrl=user/bug/changeBug.do|iLoading=FLOAT|iPost=POST|iParams=&type=content&value=" + content +
+            "&id=" + $rootScope[VO_NAME].id;
+        $rootScope.getBaseDataToDataKey($scope, $http, params, null, null, function () {
             $rootScope[VO_NAME].isEdit = false;
             $rootScope[VO_NAME].oldContent = $rootScope[VO_NAME].content;
             $scope.queryBugLogList();
@@ -105,13 +105,13 @@ bugModule.controller('userBugCtrl', function($rootScope,$scope, $http, $state,$l
     /**
      * 取消编辑
      */
-    $scope.cancelBugContent = function() {
-       $rootScope[VO_NAME].content = $rootScope[VO_NAME].oldContent;
-       bugEdit.txt.html($rootScope[VO_NAME].content);
-       $rootScope[VO_NAME].isEdit = false;
+    $scope.cancelBugContent = function () {
+        $rootScope[VO_NAME].content = $rootScope[VO_NAME].oldContent;
+        bugEdit.txt.html($rootScope[VO_NAME].content);
+        $rootScope[VO_NAME].isEdit = false;
     }
 
-    $scope.addBug = function() {
+    $scope.addBug = function () {
         var params = "iUrl=user/bug/add.do|iLoading=FLOAT|iPost=POST|iParams=&" + $.param($rootScope[VO_NAME]);
         $rootScope.getBaseDataToDataKey($scope, $http, params, null, null, function () {
             goBack();
@@ -125,10 +125,10 @@ function loadBugPick($this, $event, iwidth, iheight, type) {
     var obj = $($this);
     var tag = obj.attr('id');
     $("#pickContent").html(loadText);
-    callAjaxByName("iUrl=user/bug/pick.do|isHowMethod=updateDiv|iPost=POST|iParams=&type="+type+"&tag="+ tag +
+    callAjaxByName("iUrl=user/bug/pick.do|isHowMethod=updateDiv|iPost=POST|iParams=&type=" + type + "&tag=" + tag +
         "&def=" + obj.attr("crap-def") + "&pickParam=" + obj.attr('crap-pick-param'));
     lookUp('lookUp', $event, iheight, iwidth, 5, tag);
-    showMessage('lookUp','false',false,-1);
+    showMessage('lookUp', 'false', false, -1);
 }
 
 function initBugEditor(editor) {

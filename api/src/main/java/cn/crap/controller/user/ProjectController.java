@@ -64,13 +64,11 @@ public class ProjectController extends BaseController {
 
         query.setSort(TableField.SORT.SEQUENCE_DESC);
 
-        if (isPlug){
+        if (isPlug) {
             query.setPageSize(VipUtil.getPostWomanPlugProjectNum(settingCache, user));
             page = new Page(query);
             models = projectService.query(userId, false, null, page);
-        }
-
-        else if (ProjectShowType.CREATE_JOIN.getType() == projectShowType) {
+        } else if (ProjectShowType.CREATE_JOIN.getType() == projectShowType) {
             page.setAllRow(projectService.count(userId, false, query.getName()));
             models = projectService.query(userId, false, query.getName(), page);
         }
@@ -82,7 +80,7 @@ public class ProjectController extends BaseController {
         }
 
         // 管理员查看所有项目
-        else if(ProjectShowType.ALL.getType() == projectShowType && user.getType() == UserType.ADMIN.getType()){
+        else if (ProjectShowType.ALL.getType() == projectShowType && user.getType() == UserType.ADMIN.getType()) {
             page.setAllRow(projectService.count(query));
             models = projectService.select(query);
         }
@@ -115,17 +113,17 @@ public class ProjectController extends BaseController {
         dto.setInviteUrl(projectService.getInviteUrl(dto));
 
         LoginInfoDto user = LoginUserHelper.getUser();
-        if (Tools.isSuperAdmin(user.getAuthStr())){
+        if (Tools.isSuperAdmin(user.getAuthStr())) {
             return new JsonResult(1, dto);
         }
 
-        if (user.getId().equals(projectPO.getUserId())){
+        if (user.getId().equals(projectPO.getUserId())) {
             dto.setProjectPermission(ProjectPermissionEnum.MY_DATE.getValue());
             return new JsonResult(1, dto);
         }
 
         List<ProjectUserPO> projectUserPOList = projectUserService.select(new ProjectUserQuery().setUserId(user.getId()).setProjectId(projectPO.getId()));
-        if (CollectionUtils.isEmpty(projectUserPOList)){
+        if (CollectionUtils.isEmpty(projectUserPOList)) {
             throw new MyException(MyError.E000022);
         }
 

@@ -2,10 +2,12 @@ package cn.crap.dao.mybatis;
 
 import cn.crap.model.HotSearch;
 import cn.crap.model.HotSearchCriteria;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
-public interface HotSearchDao extends BaseDao<HotSearch>{
+public interface HotSearchDao extends BaseDao<HotSearch> {
     int countByExample(HotSearchCriteria example);
 
     int deleteByExample(HotSearchCriteria example);

@@ -48,18 +48,19 @@ public class BugService extends NewBaseService<BugPO, BugQuery> implements ILuce
 
     /**
      * 新增
+     *
      * @param bug
      * @return
      */
     @Override
-    public boolean insert(BugPO bug) throws MyException{
+    public boolean insert(BugPO bug) throws MyException {
         Assert.notNull(bug);
         Assert.notNull(bug.getProjectId());
         if (bug == null) {
             return false;
         }
 
-        if (bug.getContent() == null){
+        if (bug.getContent() == null) {
             bug.setContent("");
         }
         LoginInfoDto user = LoginUserHelper.getUser();
@@ -70,44 +71,44 @@ public class BugService extends NewBaseService<BugPO, BugQuery> implements ILuce
     }
 
     @Override
-    public List<SearchDto> selectOrderById(String projectId, String id, int pageSize){
+    public List<SearchDto> selectOrderById(String projectId, String id, int pageSize) {
         Assert.isTrue(pageSize > 0 && pageSize <= 1000);
         BugQuery bugQuery = new BugQuery().setProjectId(projectId).setPageSize(pageSize).setIdGreatThen(id).setSort(TableField.SORT.ID_ASC);
         return BugAdapter.getSearchDto(bugDao.select(bugQuery));
     }
 
-    public BugPO getChangeBugPO(String id, String type, String value, BugLogPO bugLogPO, BugPO dbBug) throws Exception{
+    public BugPO getChangeBugPO(String id, String type, String value, BugLogPO bugLogPO, BugPO dbBug) throws Exception {
         BugPO bug = new BugPO();
         bug.setId(id);
-        if (PickCode.BUG_STATUS.getCode().equals(type)){
+        if (PickCode.BUG_STATUS.getCode().equals(type)) {
             BugStatus bugStatus = Optional.ofNullable(BugStatus.getByValue(value)).orElseThrow(() -> new MyException(MyError.E000065, "状态有误"));
             bug.setStatus(bugStatus.getByteValue());
 
             bugLogPO.setType(BugLogType.STATUS.getByteType());
             bugLogPO.setOriginalValue(BugStatus.getNameByValue(dbBug.getStatus()));
             bugLogPO.setNewValue(BugStatus.getNameByValue(bugStatus.getByteValue()));
-        } else if (PickCode.SEVERITY.getCode().equals(type)){
+        } else if (PickCode.SEVERITY.getCode().equals(type)) {
             BugSeverity bugSeverity = Optional.ofNullable(BugSeverity.getByValue(value)).orElseThrow(() -> new MyException(MyError.E000065, "严重程度有误"));
             bug.setSeverity(bugSeverity.getByteValue());
 
             bugLogPO.setType(BugLogType.SEVERITY.getByteType());
             bugLogPO.setOriginalValue(BugSeverity.getNameByValue(dbBug.getSeverity()));
             bugLogPO.setNewValue(BugSeverity.getNameByValue(bugSeverity.getByteValue()));
-        } else if (PickCode.BUG_TYPE.getCode().equals(type)){
+        } else if (PickCode.BUG_TYPE.getCode().equals(type)) {
             BugType bugType = Optional.ofNullable(BugType.getByValue(value)).orElseThrow(() -> new MyException(MyError.E000065, "跟踪类型有误"));
             bug.setType(bugType.getByteValue());
 
             bugLogPO.setType(BugLogType.TYPE.getByteType());
             bugLogPO.setOriginalValue(BugType.getNameByValue(dbBug.getType()));
             bugLogPO.setNewValue(BugType.getNameByValue(bugType.getByteValue()));
-        } else if (PickCode.PRIORITY.getCode().equals(type)){
+        } else if (PickCode.PRIORITY.getCode().equals(type)) {
             BugPriority bugPriority = Optional.ofNullable(BugPriority.getByValue(value)).orElseThrow(() -> new MyException(MyError.E000065, "优先级有误"));
             bug.setPriority(bugPriority.getByteValue());
 
             bugLogPO.setType(BugLogType.PRIORITY.getByteType());
             bugLogPO.setOriginalValue(BugPriority.getNameByValue(dbBug.getPriority()));
             bugLogPO.setNewValue(BugPriority.getNameByValue(bugPriority.getByteValue()));
-        } else if (PickCode.MY_MODULE.getCode().equals(type) || PickCode.PROJECT_MODULES.getCode().equals(type)){
+        } else if (PickCode.MY_MODULE.getCode().equals(type) || PickCode.PROJECT_MODULES.getCode().equals(type)) {
             ModulePO module = moduleCache.get(value);
             Optional.ofNullable(module.getId()).orElseThrow(() -> new MyException(MyError.E000065, "模块有误"));
             bug.setModuleId(module.getId());
@@ -118,7 +119,7 @@ public class BugService extends NewBaseService<BugPO, BugQuery> implements ILuce
             bugLogPO.setType(BugLogType.MODULE.getByteType());
             bugLogPO.setOriginalValue(originalModule.getName());
             bugLogPO.setNewValue(module.getName());
-        } else if (PickCode.EXECUTOR.getCode().equals(type)){
+        } else if (PickCode.EXECUTOR.getCode().equals(type)) {
             // TODO 用户是否是项目成员
             UserPO user = userService.get(value);
             Optional.ofNullable(user).orElseThrow(() -> new MyException(MyError.E000065, "用户有误"));
@@ -130,7 +131,7 @@ public class BugService extends NewBaseService<BugPO, BugQuery> implements ILuce
             bugLogPO.setOriginalValue(dbBug.getExecutorStr());
             bugLogPO.setJunior(bug.getExecutor());
             bugLogPO.setNewValue(bug.getExecutorStr());
-        } else if (PickCode.TESTER.getCode().equals(type)){
+        } else if (PickCode.TESTER.getCode().equals(type)) {
             // TODO 用户是否是项目成员
             UserPO user = userService.get(value);
             Optional.ofNullable(user).orElseThrow(() -> new MyException(MyError.E000065, "用户有误"));
@@ -142,7 +143,7 @@ public class BugService extends NewBaseService<BugPO, BugQuery> implements ILuce
             bugLogPO.setOriginalValue(dbBug.getTesterStr());
             bugLogPO.setJunior(bug.getTester());
             bugLogPO.setNewValue(bug.getTesterStr());
-        } else if (PickCode.TRACER.getCode().equals(type)){
+        } else if (PickCode.TRACER.getCode().equals(type)) {
             // TODO 用户是否是项目成员
             UserPO user = userService.get(value);
             Optional.ofNullable(user).orElseThrow(() -> new MyException(MyError.E000065, "用户有误"));
@@ -154,13 +155,13 @@ public class BugService extends NewBaseService<BugPO, BugQuery> implements ILuce
             bugLogPO.setOriginalValue(dbBug.getTracerStr());
             bugLogPO.setJunior(bug.getTracer());
             bugLogPO.setNewValue(bug.getTracerStr());
-        } else if ("NAME".equalsIgnoreCase(type)){
+        } else if ("NAME".equalsIgnoreCase(type)) {
             bug.setName(value);
 
             bugLogPO.setType(BugLogType.TITLE.getByteType());
             bugLogPO.setOriginalValue(dbBug.getName());
             bugLogPO.setNewValue(bug.getName());
-        } else if ("CONTENT".equalsIgnoreCase(type)){
+        } else if ("CONTENT".equalsIgnoreCase(type)) {
             bug.setContent(value);
 
             bugLogPO.setType(BugLogType.CONTENT.getByteType());

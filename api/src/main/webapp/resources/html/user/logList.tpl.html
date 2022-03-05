@@ -1,4 +1,4 @@
-<div class="p0 col-xs-12"  ng-init="queryLogList()">
+<div class="p0 col-xs-12" ng-init="queryLogList()">
     <div class="col-xs-12 main-nav">
         <div class="btn-group btn-group-sm r3 fl mr10">
             <a type="button" class="btn btn-default" onclick="history.back(-1);"><i
@@ -42,7 +42,7 @@
                 <tbody>
                 <tr class="cursor" ng-repeat="item in logs">
                     <td class="tc">{{item.modelName}}</td>
-                    <td class="tc" title="{{item.remark}}">{{item.remark| cut:true:50:' ...'}}</td>
+                    <td class="tc" title="{{item.remark}}">{{item.remark | cut:true:50:' ...'}}</td>
                     <td class="tc">{{item.type}}</td>
                     <td class="tc">{{item.updateBy}}</td>
                     <td class="tc">{{item.createTimeStr}}</td>

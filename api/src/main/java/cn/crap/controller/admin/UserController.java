@@ -40,7 +40,7 @@ public class UserController extends BaseController {
     @RequestMapping("/list.do")
     @ResponseBody
     @AuthPassport(authority = C_AUTH_USER)
-    public JsonResult list(@ModelAttribute UserQuery query) throws MyException{
+    public JsonResult list(@ModelAttribute UserQuery query) throws MyException {
         Page page = new Page(query);
 
         page.setAllRow(userService.count(query));
@@ -68,20 +68,20 @@ public class UserController extends BaseController {
         }
 
         UserPO user = UserAdapter.getModel(userDto);
-        if (MyString.isNotEmpty(password)){
+        if (MyString.isNotEmpty(password)) {
             user.setPassword(password);
         }
 
         UserQuery query = new UserQuery().setEqualEmail(userDto.getEmail().toLowerCase());
-        if (MyString.isEmpty(userDto.getId())){
-            if(userService.count(query) > 0){
+        if (MyString.isEmpty(userDto.getId())) {
+            if (userService.count(query) > 0) {
                 throw new MyException(MyError.E000065, "邮箱已经注册");
             }
             return addUser(user);
-        }else{
+        } else {
             UserPO dbUser = userService.get(user.getId());
-            if(dbUser.getEmail() == null || !dbUser.getEmail().equalsIgnoreCase(userDto.getEmail())){
-                if (userService.count(query) > 0){
+            if (dbUser.getEmail() == null || !dbUser.getEmail().equalsIgnoreCase(userDto.getEmail())) {
+                if (userService.count(query) > 0) {
                     throw new MyException(MyError.E000065, "邮箱已经注册");
                 }
             }
@@ -122,10 +122,10 @@ public class UserController extends BaseController {
     }
 
     private JsonResult updateUser(@ModelAttribute UserPO user, String attrKey, String attrVal) throws MyException {
-        Assert.notNull(user,"user不能为空");
+        Assert.notNull(user, "user不能为空");
         Assert.notNull(user.getId(), "user.id不能为空");
         // 判断是否重名
-        
+
         if (customUserService.countByNameExceptUserId(user.getUserName(), user.getId()) > 0) {
             throw new MyException(MyError.E000015);
         }
@@ -186,13 +186,13 @@ public class UserController extends BaseController {
         UserQuery userQuery = new UserQuery();
         userQuery.setEqualEmail(user.getEmail()).setLoginType(user.getLoginType()).setNotEqualId(dbUser.getId());
         int userSize = userService.count(userQuery);
-        if (userSize > 0){
+        if (userSize > 0) {
             throw new MyException(MyError.E000062);
         }
 
         userService.update(user);
 
-        if (superAdmin && MyString.isNotEmptyOrNUll(attrKey) && MyString.isNotEmptyOrNUll(attrVal)){
+        if (superAdmin && MyString.isNotEmptyOrNUll(attrKey) && MyString.isNotEmptyOrNUll(attrVal)) {
             userService.updateAttribute(user.getId(), attrKey, attrVal, new UserPO());
         }
 

@@ -6,14 +6,14 @@ import java.util.List;
  * @author Ehsan
  * @date 2018/6/30 14:17
  */
-public class MenuQuery extends BaseQuery<MenuQuery>{
+public class MenuQuery extends BaseQuery<MenuQuery> {
     private String parentId;
     private List<String> parentIds;
     private String menuName;
     private String type;
 
     @Override
-    public MenuQuery getQuery(){
+    public MenuQuery getQuery() {
         return this;
     }
 

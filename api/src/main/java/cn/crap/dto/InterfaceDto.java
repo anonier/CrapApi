@@ -9,57 +9,57 @@ import java.util.List;
  * Automatic generation by tools
  * dto: exchange data with view
  */
-public class InterfaceDto{
-	private String id;
-	private String url;
-	private String method;
-	private String param;
-	private String paramRemark;
-	private String requestExam;
-	private String responseParam;
-	// 错误码，多个错误码使用,分割
-	private String errorList;
-	private String trueExam;
-	private String falseExam;
-	private Byte status;
-	private String statusName;
-	private String moduleId;
-	private String moduleName;
-	private String moduleUrl;
-	private String interfaceName;
-	private String remark;
-	// 错误码，json
-	private String errors;
-	private String updateBy;
+public class InterfaceDto {
+    private String id;
+    private String url;
+    private String method;
+    private String param;
+    private String paramRemark;
+    private String requestExam;
+    private String responseParam;
+    // 错误码，多个错误码使用,分割
+    private String errorList;
+    private String trueExam;
+    private String falseExam;
+    private Byte status;
+    private String statusName;
+    private String moduleId;
+    private String moduleName;
+    private String moduleUrl;
+    private String interfaceName;
+    private String remark;
+    // 错误码，json
+    private String errors;
+    private String updateBy;
     private String createTimeStr;
     private String updateTimeStr;
-	private String version;
-	private Long sequence;
-	private String header;
-	private String fullUrl;
-	private Integer monitorType;
-	private String monitorText;
-	private String monitorEmails;
-	private Boolean isTemplate;
-	private String projectId;
-	private String projectName;
-	private String remarkNoHtml;
+    private String version;
+    private Long sequence;
+    private String header;
+    private String fullUrl;
+    private Integer monitorType;
+    private String monitorText;
+    private String monitorEmails;
+    private Boolean isTemplate;
+    private String projectId;
+    private String projectName;
+    private String remarkNoHtml;
 
-	@Getter
-	@Setter
-	private String uniKey;
+    @Getter
+    @Setter
+    private String uniKey;
 
-	/**
-	 * 返回类型
-	 */
-	private String contentType;
+    /**
+     * 返回类型
+     */
+    private String contentType;
     private String contentTypeName;
-	/**
-	 * 请求类型
-	 */
-	private String reqContentType;
+    /**
+     * 请求类型
+     */
+    private String reqContentType;
 
-	/**
+    /**
      * crShow开头的参数仅用于显示，请求中crShow开头的参数将被过滤
      */
     private List<ParamDto> crShowResponseParamList;
@@ -68,204 +68,229 @@ public class InterfaceDto{
     // 参数类型：FORM、CUSTOM
     private String paramType;
 
-	public void setId(String id){
-		this.id=id;
-	}
-	public String getId(){
-		return id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public void setUrl(String url){
-		this.url=url;
-	}
-	public String getUrl(){
-		return url;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setMethod(String method){
-		this.method=method;
-	}
-	public String getMethod(){
-		return method;
-	}
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
-	public void setParam(String param){
-		this.param=param;
-	}
-	public String getParam(){
-		return param;
-	}
+    public String getUrl() {
+        return url;
+    }
 
-	public void setParamRemark(String paramRemark){
-		this.paramRemark=paramRemark;
-	}
-	public String getParamRemark(){
-		return paramRemark;
-	}
+    public void setMethod(String method) {
+        this.method = method;
+    }
 
-	public void setRequestExam(String requestExam){
-		this.requestExam=requestExam;
-	}
-	public String getRequestExam(){
-		return requestExam;
-	}
+    public String getMethod() {
+        return method;
+    }
 
-	public void setResponseParam(String responseParam){
-		this.responseParam=responseParam;
-	}
-	public String getResponseParam(){
-		return responseParam;
-	}
+    public void setParam(String param) {
+        this.param = param;
+    }
 
-	public void setErrorList(String errorList){
-		this.errorList=errorList;
-	}
-	public String getErrorList(){
-		return errorList;
-	}
+    public String getParam() {
+        return param;
+    }
 
-	public void setTrueExam(String trueExam){
-		this.trueExam=trueExam;
-	}
-	public String getTrueExam(){
-		return trueExam;
-	}
+    public void setParamRemark(String paramRemark) {
+        this.paramRemark = paramRemark;
+    }
 
-	public void setFalseExam(String falseExam){
-		this.falseExam=falseExam;
-	}
-	public String getFalseExam(){
-		return falseExam;
-	}
+    public String getParamRemark() {
+        return paramRemark;
+    }
 
-	public void setStatus(Byte status){
-		this.status=status;
-	}
-	public Byte getStatus(){
-		return status;
-	}
+    public void setRequestExam(String requestExam) {
+        this.requestExam = requestExam;
+    }
 
-	public void setModuleId(String moduleId){
-		this.moduleId=moduleId;
-	}
-	public String getModuleId(){
-		return moduleId;
-	}
+    public String getRequestExam() {
+        return requestExam;
+    }
 
-	public void setInterfaceName(String interfaceName){
-		this.interfaceName=interfaceName;
-	}
-	public String getInterfaceName(){
-		return interfaceName;
-	}
+    public void setResponseParam(String responseParam) {
+        this.responseParam = responseParam;
+    }
 
-	public void setRemark(String remark){
-		this.remark=remark;
-	}
-	public String getRemark(){
-		return remark;
-	}
+    public String getResponseParam() {
+        return responseParam;
+    }
 
-	public void setErrors(String errors){
-		this.errors=errors;
-	}
-	public String getErrors(){
-		return errors;
-	}
+    public void setErrorList(String errorList) {
+        this.errorList = errorList;
+    }
 
-	public void setUpdateBy(String updateBy){
-		this.updateBy=updateBy;
-	}
-	public String getUpdateBy(){
-		return updateBy;
-	}
+    public String getErrorList() {
+        return errorList;
+    }
 
-	public void setVersion(String version){
-		this.version=version;
-	}
-	public String getVersion(){
-		return version;
-	}
+    public void setTrueExam(String trueExam) {
+        this.trueExam = trueExam;
+    }
 
-	public void setSequence(Long sequence){
-		this.sequence=sequence;
-	}
-	public Long getSequence(){
-		return sequence;
-	}
+    public String getTrueExam() {
+        return trueExam;
+    }
 
-	public void setHeader(String header){
-		this.header=header;
-	}
-	public String getHeader(){
-		return header;
-	}
+    public void setFalseExam(String falseExam) {
+        this.falseExam = falseExam;
+    }
 
-	public void setFullUrl(String fullUrl){
-		this.fullUrl=fullUrl;
-	}
-	public String getFullUrl(){
-		return fullUrl;
-	}
+    public String getFalseExam() {
+        return falseExam;
+    }
 
-	public void setMonitorType(Integer monitorType){
-		this.monitorType=monitorType;
-	}
-	public Integer getMonitorType(){
-		return monitorType;
-	}
+    public void setStatus(Byte status) {
+        this.status = status;
+    }
 
-	public void setMonitorText(String monitorText){
-		this.monitorText=monitorText;
-	}
-	public String getMonitorText(){
-		return monitorText;
-	}
+    public Byte getStatus() {
+        return status;
+    }
 
-	public void setMonitorEmails(String monitorEmails){
-		this.monitorEmails=monitorEmails;
-	}
-	public String getMonitorEmails(){
-		return monitorEmails;
-	}
+    public void setModuleId(String moduleId) {
+        this.moduleId = moduleId;
+    }
 
-	public void setIsTemplate(Boolean isTemplate){
-		this.isTemplate=isTemplate;
-	}
-	public Boolean getIsTemplate(){
-		return isTemplate;
-	}
+    public String getModuleId() {
+        return moduleId;
+    }
 
-	public void setProjectId(String projectId){
-		this.projectId=projectId;
-	}
-	public String getProjectId(){
-		return projectId;
-	}
+    public void setInterfaceName(String interfaceName) {
+        this.interfaceName = interfaceName;
+    }
 
-	public String getModuleName() {
-		return moduleName;
-	}
+    public String getInterfaceName() {
+        return interfaceName;
+    }
 
-	public void setModuleName(String moduleName) {
-		this.moduleName = moduleName;
-	}
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
-	public String getModuleUrl() {
-		return moduleUrl;
-	}
+    public String getRemark() {
+        return remark;
+    }
 
-	public void setModuleUrl(String moduleUrl) {
-		this.moduleUrl = moduleUrl;
-	}
+    public void setErrors(String errors) {
+        this.errors = errors;
+    }
 
-	public Boolean getTemplate() {
-		return isTemplate;
-	}
+    public String getErrors() {
+        return errors;
+    }
 
-	public void setTemplate(Boolean template) {
-		isTemplate = template;
-	}
+    public void setUpdateBy(String updateBy) {
+        this.updateBy = updateBy;
+    }
+
+    public String getUpdateBy() {
+        return updateBy;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setSequence(Long sequence) {
+        this.sequence = sequence;
+    }
+
+    public Long getSequence() {
+        return sequence;
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
+    }
+
+    public String getHeader() {
+        return header;
+    }
+
+    public void setFullUrl(String fullUrl) {
+        this.fullUrl = fullUrl;
+    }
+
+    public String getFullUrl() {
+        return fullUrl;
+    }
+
+    public void setMonitorType(Integer monitorType) {
+        this.monitorType = monitorType;
+    }
+
+    public Integer getMonitorType() {
+        return monitorType;
+    }
+
+    public void setMonitorText(String monitorText) {
+        this.monitorText = monitorText;
+    }
+
+    public String getMonitorText() {
+        return monitorText;
+    }
+
+    public void setMonitorEmails(String monitorEmails) {
+        this.monitorEmails = monitorEmails;
+    }
+
+    public String getMonitorEmails() {
+        return monitorEmails;
+    }
+
+    public void setIsTemplate(Boolean isTemplate) {
+        this.isTemplate = isTemplate;
+    }
+
+    public Boolean getIsTemplate() {
+        return isTemplate;
+    }
+
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
+    }
+
+    public String getProjectId() {
+        return projectId;
+    }
+
+    public String getModuleName() {
+        return moduleName;
+    }
+
+    public void setModuleName(String moduleName) {
+        this.moduleName = moduleName;
+    }
+
+    public String getModuleUrl() {
+        return moduleUrl;
+    }
+
+    public void setModuleUrl(String moduleUrl) {
+        this.moduleUrl = moduleUrl;
+    }
+
+    public Boolean getTemplate() {
+        return isTemplate;
+    }
+
+    public void setTemplate(Boolean template) {
+        isTemplate = template;
+    }
 
     public String getStatusName() {
         return statusName;
@@ -291,21 +316,21 @@ public class InterfaceDto{
         this.updateTimeStr = updateTimeStr;
     }
 
-	public String getRemarkNoHtml() {
-		return remarkNoHtml;
-	}
+    public String getRemarkNoHtml() {
+        return remarkNoHtml;
+    }
 
-	public void setRemarkNoHtml(String remarkNoHtml) {
-		this.remarkNoHtml = remarkNoHtml;
-	}
+    public void setRemarkNoHtml(String remarkNoHtml) {
+        this.remarkNoHtml = remarkNoHtml;
+    }
 
-	public String getContentType() {
-		return contentType;
-	}
+    public String getContentType() {
+        return contentType;
+    }
 
-	public void setContentType(String contentType) {
-		this.contentType = contentType;
-	}
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
 
     public String getContentTypeName() {
         return contentTypeName;
@@ -315,13 +340,13 @@ public class InterfaceDto{
         this.contentTypeName = contentTypeName;
     }
 
-	public String getProjectName() {
-		return projectName;
-	}
+    public String getProjectName() {
+        return projectName;
+    }
 
-	public void setProjectName(String projectName) {
-		this.projectName = projectName;
-	}
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
 
     public List<ParamDto> getCrShowResponseParamList() {
         return crShowResponseParamList;
@@ -355,11 +380,11 @@ public class InterfaceDto{
         this.crShowParamList = crShowParamList;
     }
 
-	public String getReqContentType() {
-		return reqContentType;
-	}
+    public String getReqContentType() {
+        return reqContentType;
+    }
 
-	public void setReqContentType(String reqContentType) {
-		this.reqContentType = reqContentType;
-	}
+    public void setReqContentType(String reqContentType) {
+        this.reqContentType = reqContentType;
+    }
 }

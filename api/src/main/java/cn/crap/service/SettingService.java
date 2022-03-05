@@ -27,7 +27,7 @@ public class SettingService extends BaseService<Setting, SettingDao> {
     }
 
     @Override
-    public boolean insert(Setting setting) throws MyException{
+    public boolean insert(Setting setting) throws MyException {
         if (setting == null) {
             return false;
         }
@@ -36,6 +36,7 @@ public class SettingService extends BaseService<Setting, SettingDao> {
 
     /**
      * 查询设置
+     *
      * @param query
      * @return
      * @throws MyException
@@ -54,6 +55,7 @@ public class SettingService extends BaseService<Setting, SettingDao> {
 
     /**
      * 查询设置数量
+     *
      * @param query
      * @return
      * @throws MyException
@@ -78,21 +80,21 @@ public class SettingService extends BaseService<Setting, SettingDao> {
         return example;
     }
 
-    public Setting getByKey(String key){
+    public Setting getByKey(String key) {
         Assert.notNull(key);
         SettingCriteria example = new SettingCriteria();
         SettingCriteria.Criteria criteria = example.createCriteria();
         criteria.andMkeyEqualTo(key);
 
         List<Setting> settings = settingDao.selectByExample(example);
-        if (!CollectionUtils.isEmpty(settings)){
+        if (!CollectionUtils.isEmpty(settings)) {
             return settings.get(0);
         }
 
         return null;
     }
 
-    public List<Setting> getAll(){
+    public List<Setting> getAll() {
         SettingCriteria example = new SettingCriteria();
         return settingDao.selectByExample(example);
     }

@@ -25,10 +25,11 @@ import java.util.TreeSet;
 /**
  * 采用责任链模式
  * 下拉选择框
+ *
  * @author Ehsan
  */
 @Service("userPickService")
-public class UserPickService implements IPickService{
+public class UserPickService implements IPickService {
     @Autowired
     private ErrorService errorService;
     @Autowired
@@ -96,8 +97,8 @@ public class UserPickService implements IPickService{
                     pick = new PickDto(IConst.C_SEPARATOR, p.getName());
                     picks.add(pick);
                     List<ModulePO> moduleList = moduleService.select(new ModuleQuery().setProjectId(p.getId()).setPageSize(100));
-                    if (CollectionUtils.isEmpty(moduleList)){
-                        pick = new PickDto(System.currentTimeMillis() + Tools.getChar(20), null,"项目下尚未创建模块");
+                    if (CollectionUtils.isEmpty(moduleList)) {
+                        pick = new PickDto(System.currentTimeMillis() + Tools.getChar(20), null, "项目下尚未创建模块");
                         picks.add(pick);
                         continue;
                     }
@@ -139,7 +140,7 @@ public class UserPickService implements IPickService{
                 // TODO 项目允许的最大成员数，项目成员中需要更新用户真实姓名
                 for (ProjectUserPO m : projectUserService.select(new ProjectUserQuery().setProjectId(key))) {
                     UserPO projectUser = userService.get(m.getUserId());
-                    if (projectUser == null || projectUser.getId().equals(creator.getId())){
+                    if (projectUser == null || projectUser.getId().equals(creator.getId())) {
                         continue;
                     }
                     pick = new PickDto(projectUser.getId(), MyString.isEmpty(projectUser.getTrueName()) ? projectUser.getUserName() : projectUser.getTrueName());

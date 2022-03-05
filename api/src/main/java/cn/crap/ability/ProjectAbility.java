@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * 项目能力
+ *
  * @author Ehsan
  * @date 2020/2/29 23:11
  */
@@ -26,11 +27,12 @@ public class ProjectAbility {
 
     /**
      * 添加项目:需要将自己设置为项目用户，查询的时候可以不需要关联查询
+     *
      * @param project
      * @return
      * @throws Exception
      */
-    public boolean addProject(ProjectPO project, LoginInfoDto user) throws Exception{
+    public boolean addProject(ProjectPO project, LoginInfoDto user) throws Exception {
         if (projectService.insert(project)) {
             ProjectUserPO projectUser = ProjectUserAdapter.getInitProjectUserPO(project, user);
             projectUser.setType(ProjectUserType.CREATOR.getByteType());

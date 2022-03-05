@@ -8,6 +8,7 @@ public interface ProjectUserDao extends NewBaseDao<ProjectUserPO, ProjectUserQue
 
     /**
      * 更新项目用户排序：和项目排序一致，查询时直接使用
+     *
      * @param po
      * @return
      */
@@ -15,6 +16,7 @@ public interface ProjectUserDao extends NewBaseDao<ProjectUserPO, ProjectUserQue
 
     /**
      * 根据项目ID删除用户
+     *
      * @param projectId
      * @return
      */

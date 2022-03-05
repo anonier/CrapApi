@@ -39,6 +39,7 @@ public class BugLogService extends NewBaseService<BugLogPO, BugLogQuery> impleme
 
     /**
      * 新增
+     *
      * @param bugLog
      * @return
      */

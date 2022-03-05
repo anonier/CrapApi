@@ -9,18 +9,18 @@ import java.util.List;
  * @author Ehsan
  * @date 2018/6/30 14:17
  */
-public class ErrorQuery extends BaseQuery<ErrorQuery>{
+public class ErrorQuery extends BaseQuery<ErrorQuery> {
     private String errorCode;
     private String equalErrorCode;
     private String errorMsg;
     private List<String> errorCodeList;
 
     @Override
-    public ErrorQuery getQuery(){
+    public ErrorQuery getQuery() {
         return this;
     }
 
-    public String getErrorCode() throws MyException{
+    public String getErrorCode() throws MyException {
         SafetyUtil.checkSqlParam(errorCode);
         return errorCode;
     }
@@ -30,7 +30,7 @@ public class ErrorQuery extends BaseQuery<ErrorQuery>{
         return this;
     }
 
-    public String getEqualErrorCode() throws MyException{
+    public String getEqualErrorCode() throws MyException {
         SafetyUtil.checkSqlParam(equalErrorCode);
         return equalErrorCode;
     }
@@ -40,7 +40,7 @@ public class ErrorQuery extends BaseQuery<ErrorQuery>{
         return this;
     }
 
-    public String getErrorMsg() throws MyException{
+    public String getErrorMsg() throws MyException {
         SafetyUtil.checkSqlParam(errorMsg);
         return errorMsg;
     }

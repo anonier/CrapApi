@@ -32,6 +32,7 @@ public class DebugService extends BaseService<Debug, DebugDao> {
 
     /**
      * 查询调试
+     *
      * @param query
      * @return
      * @throws MyException
@@ -47,6 +48,7 @@ public class DebugService extends BaseService<Debug, DebugDao> {
 
     /**
      * 查询调试数量
+     *
      * @param query
      * @return
      * @throws MyException
@@ -67,10 +69,10 @@ public class DebugService extends BaseService<Debug, DebugDao> {
         if (query.getModuleId() != null) {
             criteria.andModuleIdEqualTo(query.getModuleId());
         }
-        if (!CollectionUtils.isEmpty(query.getModuleIds())){
+        if (!CollectionUtils.isEmpty(query.getModuleIds())) {
             criteria.andModuleIdIn(query.getModuleIds());
         }
-        if (query.getUserId() != null){
+        if (query.getUserId() != null) {
             criteria.andUidEqualTo(query.getUserId());
         }
 

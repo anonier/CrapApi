@@ -21,9 +21,10 @@
 
     <!-- 基本的字段，供其他查询引用-->
     <sql id="baseColumn">
-        id,operatorStr,createTime,junior,operator,status,senior,remark,type,updateTime,sequence,bugId,
+        id
+        ,operatorStr,createTime,junior,operator,status,senior,remark,type,updateTime,sequence,bugId,
         projectId,originalValue,newValue
-  </sql>
+    </sql>
     <sql id="querySql">
         <where>
             <if test="query.projectId != null">
@@ -36,15 +37,17 @@
     <!-- 新增 -->
     <insert id="insert" parameterType="cn.crap.model.BugLogPO">
         insert into bug_log (
-          <include refid="baseColumn"/>
+        <include refid="baseColumn"/>
         )
         values (#{id},#{operatorStr},NOW(),#{junior},#{operator},#{status},#{senior},#{remark},#{type},
         NOW(),#{sequence},#{bugId},#{projectId},#{originalValue},#{newValue})
-   </insert>
+    </insert>
 
     <!-- 删除 -->
     <delete id="delete">
-        delete from bug_log where id=#{id}
+        delete
+        from bug_log
+        where id = #{id}
     </delete>
 
 

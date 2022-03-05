@@ -84,7 +84,7 @@ public class MenuService extends BaseService<Menu, MenuDao> {
         if (query.getMenuName() != null) {
             criteria.andMenuNameLike("%" + query.getMenuName() + "%");
         }
-        if (query.getType() != null){
+        if (query.getType() != null) {
             criteria.andTypeEqualTo(query.getType());
         }
         return example;
@@ -139,7 +139,7 @@ public class MenuService extends BaseService<Menu, MenuDao> {
                     + "&nbsp;&nbsp; <span class='cidName'>%s</span><br></div>";
 
             for (PickDto p : picks) {
-                if (p.getValue() == null){
+                if (p.getValue() == null) {
                     pickContent.append(String.format(nullValue, p.getName()));
                 } else if (p.getValue().equals(IConst.C_SEPARATOR)) {
                     pickContent.append(String.format(separator, p.getName()));

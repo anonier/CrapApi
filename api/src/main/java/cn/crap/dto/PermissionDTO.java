@@ -1,10 +1,10 @@
 package cn.crap.dto;
 
-public class PermissionDTO{
-	private String value;
+public class PermissionDTO {
+    private String value;
     private String desc;
 
-    public PermissionDTO(String value, String desc){
+    public PermissionDTO(String value, String desc) {
         this.value = value;
         this.desc = desc;
     }

@@ -16,8 +16,8 @@ import java.util.List;
  * Avoid exposing sensitive data and modifying data that is not allowed to be modified
  */
 public class BugLogAdapter {
-    public static BugLogDTO getDto(BugLogPO model){
-        if (model == null){
+    public static BugLogDTO getDto(BugLogPO model) {
+        if (model == null) {
             return null;
         }
 
@@ -29,8 +29,8 @@ public class BugLogAdapter {
         return dto;
     }
 
-    public static BugLogPO getPO(BugLogDTO bugDTO){
-        if (bugDTO == null){
+    public static BugLogPO getPO(BugLogDTO bugDTO) {
+        if (bugDTO == null) {
             return null;
         }
 
@@ -40,8 +40,8 @@ public class BugLogAdapter {
     }
 
 
-    public static BugLogPO getDTO(BugLogDTO dto){
-        if (dto == null){
+    public static BugLogPO getDTO(BugLogDTO dto) {
+        if (dto == null) {
             return null;
         }
         BugLogPO model = new BugLogPO();
@@ -50,12 +50,12 @@ public class BugLogAdapter {
         return model;
     }
 
-    public static List<BugLogDTO> getDto(List<BugLogPO> models){
-        if (models == null){
+    public static List<BugLogDTO> getDto(List<BugLogPO> models) {
+        if (models == null) {
             return new ArrayList<>();
         }
         List<BugLogDTO> dtos = new ArrayList<>();
-        for (BugLogPO model : models){
+        for (BugLogPO model : models) {
             dtos.add(getDto(model));
         }
         return dtos;

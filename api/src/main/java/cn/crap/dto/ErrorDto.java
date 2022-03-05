@@ -6,58 +6,64 @@ import cn.crap.service.tool.ProjectCache;
 import java.util.Date;
 
 public class ErrorDto {
-	private String id;
-	private String errorCode;
-	private String errorMsg;
-	private String projectId;
-	private Byte status;
-	private Long sequence;
+    private String id;
+    private String errorCode;
+    private String errorMsg;
+    private String projectId;
+    private Byte status;
+    private Long sequence;
 
-	public void setId(String id){
-		this.id=id;
-	}
-	public String getId(){
-		return id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public void setErrorCode(String errorCode){
-		this.errorCode=errorCode;
-	}
-	public String getErrorCode(){
-		return errorCode;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setErrorMsg(String errorMsg){
-		this.errorMsg=errorMsg;
-	}
-	public String getErrorMsg(){
-		return errorMsg;
-	}
+    public void setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
+    }
 
-	public void setProjectId(String projectId){
-		this.projectId=projectId;
-	}
-	public String getProjectId(){
-		return projectId;
-	}
+    public String getErrorCode() {
+        return errorCode;
+    }
 
-	public void setStatus(Byte status){
-		this.status=status;
-	}
-	public Byte getStatus(){
-		return status;
-	}
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+    }
 
-	public void setSequence(Long sequence){
-		this.sequence=sequence;
-	}
-	public Long getSequence(){
-		return sequence;
-	}
+    public String getErrorMsg() {
+        return errorMsg;
+    }
 
-	public String getProjectName(){
-		ProjectCache projectCache = SpringContextHolder.getBean("projectCache", ProjectCache.class);
-		return projectCache.get(projectId).getName();
-	}
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
+    }
+
+    public String getProjectId() {
+        return projectId;
+    }
+
+    public void setStatus(Byte status) {
+        this.status = status;
+    }
+
+    public Byte getStatus() {
+        return status;
+    }
+
+    public void setSequence(Long sequence) {
+        this.sequence = sequence;
+    }
+
+    public Long getSequence() {
+        return sequence;
+    }
+
+    public String getProjectName() {
+        ProjectCache projectCache = SpringContextHolder.getBean("projectCache", ProjectCache.class);
+        return projectCache.get(projectId).getName();
+    }
 
 }

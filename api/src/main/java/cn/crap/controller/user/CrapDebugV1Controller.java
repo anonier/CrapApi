@@ -77,14 +77,14 @@ public class CrapDebugV1Controller extends BaseController {
          * 调试项目ID唯一，根据用户ID生成，不在CrapApi网站显示
          */
         ProjectPO project = null;
-        if (MyString.isNotEmptyOrNUll(projectUniKey)){
+        if (MyString.isNotEmptyOrNUll(projectUniKey)) {
             ProjectUserPO projectUserPO = projectUserService.getByProjectUniKey(user.getId(), projectUniKey);
-            if (projectUserPO != null){
+            if (projectUserPO != null) {
                 project = projectService.get(projectUserPO.getProjectId());
             }
         }
 
-        if (project == null){
+        if (project == null) {
             project = projectService.get(generateProjectId(user));
         }
 
@@ -103,7 +103,7 @@ public class CrapDebugV1Controller extends BaseController {
          * 2.处理模块+接口
          */
         long moduleSequence = System.currentTimeMillis();
-        Map<String, ModulePO> moduleUniKeyMap = moduleService.select(new ModuleQuery().setProjectId(projectId).setQueryAll(true)).stream().collect(Collectors.toMap(ModulePO::getUniKey, a -> a,(k1, k2)->k1));
+        Map<String, ModulePO> moduleUniKeyMap = moduleService.select(new ModuleQuery().setProjectId(projectId).setQueryAll(true)).stream().collect(Collectors.toMap(ModulePO::getUniKey, a -> a, (k1, k2) -> k1));
 
         for (DebugInterfaceParamDto debutModuleDTO : list) {
 
@@ -121,7 +121,7 @@ public class CrapDebugV1Controller extends BaseController {
             // 处理模块：删除、更新、添加，处理异常
             modulePO = handelModule(user, project, modulePO, moduleSequence, debutModuleDTO);
             moduleSequence = moduleSequence - 1;
-            if (modulePO == null){
+            if (modulePO == null) {
                 continue;
             }
 
@@ -142,7 +142,7 @@ public class CrapDebugV1Controller extends BaseController {
             int maxInterNum = VipUtil.getPostWomanPlugInterNum(settingCache, user);
             if (totalNum > maxInterNum) {
                 log.error("sync addDebug error, totalNum:" + maxInterNum + ",userId:" + userId);
-                return new JsonResult(0, null , MyError.E000058.name(), "最多允许同步" + maxInterNum + "个接口，请删除部分接口再试，或联系管理员修改数量！");
+                return new JsonResult(0, null, MyError.E000058.name(), "最多允许同步" + maxInterNum + "个接口，请删除部分接口再试，或联系管理员修改数量！");
             }
         }
 
@@ -151,7 +151,7 @@ public class CrapDebugV1Controller extends BaseController {
          *  id 全部使用uniKey替代
          */
         List<ModulePO> modules = moduleService.select(new ModuleQuery().setProjectId(projectId).setPageSize(100));
-        Map<String, ModulePO> moduleMap = modules.stream().collect(Collectors.toMap(ModulePO::getId, a -> a,(k1, k2)->k1));
+        Map<String, ModulePO> moduleMap = modules.stream().collect(Collectors.toMap(ModulePO::getId, a -> a, (k1, k2) -> k1));
 
         List<InterfaceWithBLOBs> debugs = interfaceService.queryAll(new InterfaceQuery().setProjectId(projectId));
         Map<String, List<DebugDto>> mapDebugs = new HashMap<>();
@@ -168,11 +168,11 @@ public class CrapDebugV1Controller extends BaseController {
                     continue;
                 }
                 moduleDebugs.add(dtoFromInterface);
-            } catch (Throwable e){
+            } catch (Throwable e) {
                 e.printStackTrace();
                 try {
                     log.error("getDtoFromInterface error:" + JSON.toJSONString(d));
-                } catch (Throwable e2){
+                } catch (Throwable e2) {
                     e2.printStackTrace();
                 }
             }
@@ -194,7 +194,7 @@ public class CrapDebugV1Controller extends BaseController {
                 e.printStackTrace();
                 try {
                     log.error("returnList error:" + JSON.toJSONString(m));
-                } catch (Throwable e2){
+                } catch (Throwable e2) {
                     e2.printStackTrace();
                 }
             }
@@ -213,7 +213,7 @@ public class CrapDebugV1Controller extends BaseController {
     }
 
     private int addDebug(String projectId, ModulePO module, LoginInfoDto user, DebugInterfaceParamDto moduleDTO, int totalNum) throws MyException {
-        if (module == null){
+        if (module == null) {
             return totalNum;
         }
 
@@ -242,8 +242,8 @@ public class CrapDebugV1Controller extends BaseController {
 
                 String uniKey = debug.getUniKey() == null ? debug.getId() : debug.getUniKey();
                 InterfaceWithBLOBs old = interfaceMap.get(uniKey);
-                if (old != null){
-                    if (old.getVersionNum() >= debug.getVersion()){
+                if (old != null) {
+                    if (old.getVersionNum() >= debug.getVersion()) {
                         log.error("addDebug ignore name:" + debug.getId());
                         continue;
                     }
@@ -265,7 +265,7 @@ public class CrapDebugV1Controller extends BaseController {
             } catch (Throwable e) {
                 try {
                     log.error("addDebug error:" + JSON.toJSONString(debug));
-                } catch (Throwable e2){
+                } catch (Throwable e2) {
                     e2.printStackTrace();
                 }
                 e.printStackTrace();
@@ -276,7 +276,7 @@ public class CrapDebugV1Controller extends BaseController {
     }
 
 
-    private void deleteDebug(ModulePO module, DebugInterfaceParamDto moduleDTO) throws Exception{
+    private void deleteDebug(ModulePO module, DebugInterfaceParamDto moduleDTO) throws Exception {
         Assert.notNull(module, "deleteDebug module is null");
         if (moduleDTO.getStatus() == -1) {
             return;
@@ -297,7 +297,7 @@ public class CrapDebugV1Controller extends BaseController {
         interfaceService.deleteByModuleId(moduleId, uniKeyList);
     }
 
-    private ModulePO handelModule(LoginInfoDto user, ProjectPO project, ModulePO module, long moduleSequence, DebugInterfaceParamDto moduleDTO) throws Exception{
+    private ModulePO handelModule(LoginInfoDto user, ProjectPO project, ModulePO module, long moduleSequence, DebugInterfaceParamDto moduleDTO) throws Exception {
 
         // 新增模块
         if (module == null && moduleDTO.getStatus() != -1) {
@@ -310,7 +310,7 @@ public class CrapDebugV1Controller extends BaseController {
             try {
                 interfaceService.deleteByModuleId(module.getId());
                 moduleService.delete(module.getId());
-            } catch (MyException e){
+            } catch (MyException e) {
                 log.error("crapDebugController delete module fail:" + module.getId() + "," + e.getErrorCode());
             }
         }
@@ -326,7 +326,7 @@ public class CrapDebugV1Controller extends BaseController {
         return module;
     }
 
-    private ModulePO buildModule( ProjectPO project, long moduleSequence, DebugInterfaceParamDto d) {
+    private ModulePO buildModule(ProjectPO project, long moduleSequence, DebugInterfaceParamDto d) {
         ModulePO module = new ModulePO();
         module.setName(d.getModuleName());
         module.setCreateTime(new Date());

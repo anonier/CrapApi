@@ -33,11 +33,11 @@ public class InitSystem {
     private SettingService settingService;
 
     /**
-     *  PostConstruct修饰的方法会在服务器加载Servlet的时候运行，并且只会被服务器执行一次
-     *  PostConstruct在构造函数之后执行,init()方法之前执行
+     * PostConstruct修饰的方法会在服务器加载Servlet的时候运行，并且只会被服务器执行一次
+     * PostConstruct在构造函数之后执行,init()方法之前执行
      */
     @PostConstruct
-    public void init(){
+    public void init() {
         log.info("初始化系统数据中....");
         initConfig();
         initSetting();
@@ -50,15 +50,15 @@ public class InitSystem {
     /**
      * 初始化系统配置
      */
-    public void initSetting(){
+    public void initSetting() {
         List<SettingDto> settingDtos = settingCache.getAll();
         Map<String, SettingDto> settingDtoMap = new HashMap<>();
-        for (SettingDto settingDto : settingDtos){
+        for (SettingDto settingDto : settingDtos) {
             settingDtoMap.put(settingDto.getKey(), settingDto);
         }
 
         // 新增加且没有写入数据库的配置，并储存至数据库
-        for (SettingEnum settingEnum : SettingEnum.values()){
+        for (SettingEnum settingEnum : SettingEnum.values()) {
             try {
                 String key = settingEnum.getKey();
                 if (!settingDtoMap.containsKey(key)) {
@@ -70,7 +70,7 @@ public class InitSystem {
                 SettingDto settingDto = settingDtoMap.get(key);
                 boolean needUpdate = ((!settingDto.getStatus().equals(settingEnum.getStatus())) ||
                         (!settingDto.getType().equals(settingEnum.getType())));
-                if (needUpdate){
+                if (needUpdate) {
                     Setting setting = SettingAdapter.getModel(settingDto);
                     setting.setStatus(settingEnum.getStatus());
                     setting.setType(settingEnum.getType());
@@ -80,7 +80,7 @@ public class InitSystem {
                     settingCache.del(key);
                     continue;
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 log.error("初始化setting数据异常....", e);
             }
         }
@@ -89,11 +89,11 @@ public class InitSystem {
     /**
      * 合并资源
      */
-    public void mergeSource(){
-        try{
+    public void mergeSource() {
+        try {
             log.info("合并资源....");
             systemService.mergeSource();
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("合并资源文件异常....", e);
         }
     }
@@ -101,20 +101,20 @@ public class InitSystem {
     /**
      * 将config配置加载至静态类
      */
-    public void initConfig(){
-        try{
+    public void initConfig() {
+        try {
             log.info("初始化config....");
             Config.init();
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("初始化config....", e);
         }
     }
 
-    public void updateDataBase(){
-        try{
+    public void updateDataBase() {
+        try {
             log.info("更新数据库结构....");
             systemService.updateDataBase();
-        }catch (Throwable e){
+        } catch (Throwable e) {
             log.error("更新数据库结构失败....", e);
         }
     }

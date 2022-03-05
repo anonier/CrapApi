@@ -29,13 +29,13 @@ public class LogController extends BaseController {
 
     @RequestMapping("/list.do")
     @ResponseBody
-    public JsonResult list(@ModelAttribute LogQuery query) throws Exception{
+    public JsonResult list(@ModelAttribute LogQuery query) throws Exception {
         Page page = new Page(query);
 
         page.setAllRow(logService.count(query));
         List<Log> logList = logService.query(query);
 
-        if (logList.size() > 0){
+        if (logList.size() > 0) {
             checkPermission(logService.getProjectIdByLog(logList.get(0)), ProjectPermissionEnum.MY_DATE);
         }
 
@@ -44,7 +44,7 @@ public class LogController extends BaseController {
 
     @RequestMapping("/detail.do")
     @ResponseBody
-    public JsonResult detail(@ModelAttribute Log log) throws Exception{
+    public JsonResult detail(@ModelAttribute Log log) throws Exception {
         Log model;
         if (!log.getId().equals(IConst.NULL_ID)) {
             model = logService.getById(log.getId());
@@ -58,7 +58,8 @@ public class LogController extends BaseController {
     @RequestMapping("/recover.do")
     @ResponseBody
     public JsonResult recover(@ModelAttribute Log log) throws MyException {
-        log = logService.getById(log.getId());;
+        log = logService.getById(log.getId());
+        ;
         checkPermission(logService.getProjectIdByLog(log), ProjectPermissionEnum.MY_DATE);
         logService.recover(log);
         return new JsonResult(1, null);

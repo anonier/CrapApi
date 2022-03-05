@@ -22,7 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
-public class ModuleService extends NewBaseService<ModulePO, ModuleQuery>  implements ILogConst, IConst{
+public class ModuleService extends NewBaseService<ModulePO, ModuleQuery> implements ILogConst, IConst {
     @Autowired
     private LogService logService;
     @Autowired
@@ -35,44 +35,45 @@ public class ModuleService extends NewBaseService<ModulePO, ModuleQuery>  implem
     private ArticleService articleService;
 
     private ModuleDao moduleDao;
+
     @Resource
     public void ModuleDao(ModuleDao moduleDao) {
         this.moduleDao = moduleDao;
         super.setBaseDao(moduleDao, TableId.MODULE);
     }
 
-    public ModulePO getByUniKey(String projectId, String uniKey) throws Exception{
+    public ModulePO getByUniKey(String projectId, String uniKey) throws Exception {
         Assert.notNull(projectId, "projectId");
         Assert.notNull(uniKey, "uniKey");
 
         List<ModulePO> modulePOS = super.select(new ModuleQuery().setProjectId(projectId).setUniKey(uniKey));
-       return CollectionUtils.isEmpty(modulePOS) ? null : modulePOS.get(0);
+        return CollectionUtils.isEmpty(modulePOS) ? null : modulePOS.get(0);
     }
 
-    public boolean insert(ModulePO po) throws MyException{
+    public boolean insert(ModulePO po) throws MyException {
         Assert.notNull(po, "ModuleService insert po is null");
 
-        if (po.getUniKey() == null){
+        if (po.getUniKey() == null) {
             po.setUniKey(IdGenerator.getId(TableId.MODULE));
         }
 
-        if (po.getVersionNum() == null){
+        if (po.getVersionNum() == null) {
             po.setVersionNum(0);
         }
 
-        if (po.getUrl() == null){
+        if (po.getUrl() == null) {
             po.setUrl("");
         }
 
-        if (po.getCanDelete() == null){
+        if (po.getCanDelete() == null) {
             po.setCanDelete(CanDeleteEnum.CAN.getCanDelete());
         }
 
-        if (po.getCategory() == null){
+        if (po.getCategory() == null) {
             po.setCategory("");
         }
 
-        if (po.getStatus() == null){
+        if (po.getStatus() == null) {
             po.setStatus(Byte.valueOf("1"));
         }
 
@@ -81,11 +82,12 @@ public class ModuleService extends NewBaseService<ModulePO, ModuleQuery>  implem
 
     /**
      * 更新模块
+     *
      * @param model
      * @param needAddLog 是否需要添加日志
      * @return
      */
-    public boolean update(ModulePO model, boolean needAddLog) throws MyException{
+    public boolean update(ModulePO model, boolean needAddLog) throws MyException {
         if (model == null) {
             return false;
         }
@@ -96,32 +98,32 @@ public class ModuleService extends NewBaseService<ModulePO, ModuleQuery>  implem
         }
 
         model.setProjectId(null);
-        if (model.getUrl() == null){
+        if (model.getUrl() == null) {
             model.setUrl("");
         }
         return super.update(model);
     }
 
-    public boolean delete(String id) throws MyException{
+    public boolean delete(String id) throws MyException {
         Assert.notNull(id, "id can't be null");
 
-        if(interfaceService.count(new InterfaceQuery().setModuleId(id)) >0 ){
+        if (interfaceService.count(new InterfaceQuery().setModuleId(id)) > 0) {
             throw new MyException(MyError.E000024);
         }
 
-        if(articleService.count(new ArticleQuery().setModuleId(id).setType(ArticleType.ARTICLE.name())) >0 ){
+        if (articleService.count(new ArticleQuery().setModuleId(id).setType(ArticleType.ARTICLE.name())) > 0) {
             throw new MyException(MyError.E000034);
         }
 
-        if(sourceService.count(new SourceQuery().setModuleId(id)) >0 ){
+        if (sourceService.count(new SourceQuery().setModuleId(id)) > 0) {
             throw new MyException(MyError.E000035);
         }
 
-        if(articleService.count(new ArticleQuery().setModuleId(id).setType(ArticleType.DICTIONARY.name())) >0 ){
+        if (articleService.count(new ArticleQuery().setModuleId(id).setType(ArticleType.DICTIONARY.name())) > 0) {
             throw new MyException(MyError.E000036);
         }
 
-        if(bugService.count(new BugQuery().setModuleId(id)) >0 ){
+        if (bugService.count(new BugQuery().setModuleId(id)) > 0) {
             throw new MyException(MyError.E000076);
         }
 
@@ -134,13 +136,14 @@ public class ModuleService extends NewBaseService<ModulePO, ModuleQuery>  implem
 
     /**
      * 根据模块id查询分类
+     *
      * @param moduleId
      * @return
      */
-    public List<String> queryCategoryByModuleId(String moduleId){
+    public List<String> queryCategoryByModuleId(String moduleId) {
         Assert.notNull(moduleId);
         ModulePO module = super.get(moduleId);
-        if (module == null || MyString.isEmpty(module.getCategory())){
+        if (module == null || MyString.isEmpty(module.getCategory())) {
             return new ArrayList<>();
         }
         List<String> categories = Arrays.asList(module.getCategory().split(","));

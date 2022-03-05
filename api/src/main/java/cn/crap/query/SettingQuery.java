@@ -4,12 +4,12 @@ package cn.crap.query;
  * @author Ehsan
  * @date 2018/6/30 14:17
  */
-public class SettingQuery extends BaseQuery<SettingQuery>{
+public class SettingQuery extends BaseQuery<SettingQuery> {
     private String key;
     private String remark;
 
     @Override
-    public SettingQuery getQuery(){
+    public SettingQuery getQuery() {
         return this;
     }
 

@@ -7,18 +7,18 @@ import cn.crap.utils.SafetyUtil;
  * @author Ehsan
  * @date 2018/6/30 14:17
  */
-public class ProjectQuery extends BaseQuery<ProjectQuery>{
+public class ProjectQuery extends BaseQuery<ProjectQuery> {
     private String name;
     private String userId;
     private String uniKey;
     private Byte type;
 
     @Override
-    public ProjectQuery getQuery(){
+    public ProjectQuery getQuery() {
         return this;
     }
 
-    public String getName() throws MyException{
+    public String getName() throws MyException {
         SafetyUtil.checkSqlParam(name);
         return name;
     }

@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 public class TaskUtil {
     private static ThreadPoolExecutor executor = new ThreadPoolExecutor(3, 6, 5, TimeUnit.SECONDS, new LinkedBlockingDeque<Runnable>());
 
-    public static void execute(AbstractTask task){
+    public static void execute(AbstractTask task) {
         executor.execute(task);
     }
 }

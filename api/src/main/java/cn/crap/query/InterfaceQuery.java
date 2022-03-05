@@ -7,7 +7,7 @@ import cn.crap.utils.SafetyUtil;
  * @author Ehsan
  * @date 2018/6/30 14:17
  */
-public class InterfaceQuery extends BaseQuery<InterfaceQuery>{
+public class InterfaceQuery extends BaseQuery<InterfaceQuery> {
     private String fullUrl;
     private String exceptId;
     private String interfaceName;
@@ -17,7 +17,7 @@ public class InterfaceQuery extends BaseQuery<InterfaceQuery>{
     private String uniKey;
 
     @Override
-    public InterfaceQuery getQuery(){
+    public InterfaceQuery getQuery() {
         return this;
     }
 
@@ -39,7 +39,7 @@ public class InterfaceQuery extends BaseQuery<InterfaceQuery>{
         return this;
     }
 
-    public String getInterfaceName() throws MyException{
+    public String getInterfaceName() throws MyException {
         SafetyUtil.checkSqlParam(interfaceName);
         return interfaceName;
     }

@@ -40,14 +40,14 @@
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="cn.crap.dao" />
+        <property name="basePackage" value="cn.crap.dao"/>
         <property name="sqlSessionFactoryBeanName" value="mybatisqlSessionFactory"></property>
     </bean>
 
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" abstract="false"
           lazy-init="false" autowire="default">
         <property name="dataSource">
-            <ref bean="mybatisDataSource" />
+            <ref bean="mybatisDataSource"/>
         </property>
     </bean>
 

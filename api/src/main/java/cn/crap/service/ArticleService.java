@@ -45,10 +45,11 @@ public class ArticleService extends BaseService<ArticleWithBLOBs, ArticleDao> im
 
     /**
      * 新增
+     *
      * @param model
      * @return
      */
-    public boolean insert(ArticleWithBLOBs model) throws MyException{
+    public boolean insert(ArticleWithBLOBs model) throws MyException {
         if (model == null) {
             return false;
         }
@@ -58,7 +59,7 @@ public class ArticleService extends BaseService<ArticleWithBLOBs, ArticleDao> im
         if (model.getMarkdown() == null) {
             model.setMarkdown("");
         }
-        if (model.getContent() == null){
+        if (model.getContent() == null) {
             model.setContent("");
         }
         if (model.getStatus() == null) {
@@ -72,6 +73,7 @@ public class ArticleService extends BaseService<ArticleWithBLOBs, ArticleDao> im
 
     /**
      * 查询文档
+     *
      * @param query
      * @return
      * @throws MyException
@@ -80,7 +82,7 @@ public class ArticleService extends BaseService<ArticleWithBLOBs, ArticleDao> im
         Assert.notNull(query);
         Page page = new Page(query);
         ArticleCriteria example = getArticleCriteria(query);
-        if (page.getSize() != ALL_PAGE_SIZE){
+        if (page.getSize() != ALL_PAGE_SIZE) {
             example.setLimitStart(page.getStart());
             example.setMaxResults(page.getSize());
         }
@@ -90,6 +92,7 @@ public class ArticleService extends BaseService<ArticleWithBLOBs, ArticleDao> im
 
     /**
      * 查询文档数量
+     *
      * @param query
      * @return
      * @throws MyException
@@ -128,10 +131,9 @@ public class ArticleService extends BaseService<ArticleWithBLOBs, ArticleDao> im
 
         return example;
     }
-    
 
 
-    public List<String> queryTop10RecommendCategory(){
+    public List<String> queryTop10RecommendCategory() {
         return customArticleMapper.queryTop10RecommendCategory();
     }
 
@@ -143,7 +145,7 @@ public class ArticleService extends BaseService<ArticleWithBLOBs, ArticleDao> im
      * @param modelName
      * @param remark
      */
-    public void update(ArticleWithBLOBs model, String modelName, String remark) throws MyException{
+    public void update(ArticleWithBLOBs model, String modelName, String remark) throws MyException {
         Article dbModel = getById(model.getId());
         if (MyString.isEmpty(remark)) {
             remark = model.getName();
@@ -157,11 +159,12 @@ public class ArticleService extends BaseService<ArticleWithBLOBs, ArticleDao> im
 
     /**
      * 更新属性
+     *
      * @param id
      * @param attributeEnum
      * @throws MyException
      */
-    public void updateAttribute(String id, AttributeEnum attributeEnum) throws MyException{
+    public void updateAttribute(String id, AttributeEnum attributeEnum) throws MyException {
         Assert.notNull(id);
         Assert.notNull(attributeEnum);
         Article dbModel = getById(id);
@@ -177,11 +180,12 @@ public class ArticleService extends BaseService<ArticleWithBLOBs, ArticleDao> im
 
     /**
      * 删除属性值
+     *
      * @param id
      * @param attributeEnum
      * @throws MyException
      */
-    public void deleteAttribute(String id, AttributeEnum attributeEnum) throws MyException{
+    public void deleteAttribute(String id, AttributeEnum attributeEnum) throws MyException {
         Assert.notNull(id);
         Assert.notNull(attributeEnum);
         Article dbModel = getById(id);
@@ -195,7 +199,7 @@ public class ArticleService extends BaseService<ArticleWithBLOBs, ArticleDao> im
     }
 
 
-    public void delete(String id, String modelName, String remark) throws MyException{
+    public void delete(String id, String modelName, String remark) throws MyException {
         Assert.notNull(id);
         Article dbModel = getById(id);
         if (MyString.isEmpty(remark)) {
@@ -208,15 +212,15 @@ public class ArticleService extends BaseService<ArticleWithBLOBs, ArticleDao> im
     }
 
     @Override
-    public List<SearchDto> selectOrderById(String projectId, String id, int pageSize){
+    public List<SearchDto> selectOrderById(String projectId, String id, int pageSize) {
         Assert.isTrue(pageSize > 0 && pageSize <= 1000);
         ArticleCriteria example = new ArticleCriteria();
         ArticleCriteria.Criteria criteria = example.createCriteria();
-        if (projectId != null){
+        if (projectId != null) {
             criteria.andProjectIdEqualTo(projectId);
         }
         example.setMaxResults(pageSize);
-        if (id != null){
+        if (id != null) {
             criteria.andIdGreaterThan(id);
         }
         example.setOrderByClause(TableField.SORT.ID_ASC);
@@ -233,7 +237,7 @@ public class ArticleService extends BaseService<ArticleWithBLOBs, ArticleDao> im
         customArticleMapper.updateClickById(id);
     }
 
-    public List<Article> queryTop100Page(){
+    public List<Article> queryTop100Page() {
         ArticleCriteria articleCriteria = new ArticleCriteria();
         articleCriteria.createCriteria().andStatusEqualTo(ArticleStatus.PAGE.getStatus()).andMkeyIsNotNull();
         articleCriteria.setMaxResults(100);

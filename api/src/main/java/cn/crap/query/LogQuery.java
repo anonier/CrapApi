@@ -4,11 +4,12 @@ package cn.crap.query;
  * @author Ehsan
  * @date 2018/6/30 14:17
  */
-public class LogQuery extends BaseQuery<LogQuery>{
+public class LogQuery extends BaseQuery<LogQuery> {
     private String identy;
     private String modelName;
+
     @Override
-    public LogQuery getQuery(){
+    public LogQuery getQuery() {
         return this;
     }
 

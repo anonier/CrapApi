@@ -35,15 +35,16 @@ public class Tools {
     /**
      * 获取系统部署的url
      * 如：http://localhost:8080/api
+     *
      * @return
      */
-    public static String getUrlPath(){
+    public static String getUrlPath() {
         try {
             HttpServletRequest request = Tools.getRequest();
             String uri = request.getRequestURI();//返回请求行中的资源名称
             String url = request.getRequestURL().toString();//获得客户端发送请求的完整url
             return url.substring(0, url.length() - uri.length()) + request.getContextPath();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -304,14 +305,15 @@ public class Tools {
     }
 
     public static String getStaticPath(ProjectPO project) {
-        if (project == null){
+        if (project == null) {
             return null;
         }
-        return Tools.getServicePath() + "static/"+project.getId();
+        return Tools.getServicePath() + "static/" + project.getId();
     }
 
     public static String getServicePath() {
-        String path = Tools.class.getClassLoader().getResource("").getPath().replace("WEB-INF/classes/", "");;
+        String path = Tools.class.getClassLoader().getResource("").getPath().replace("WEB-INF/classes/", "");
+        ;
         return path.endsWith("/") ? path : path + "/";
     }
 
@@ -387,12 +389,12 @@ public class Tools {
         return inputStr;
     }
 
-    public static String escapeHtml(String inputStr){
+    public static String escapeHtml(String inputStr) {
         return StringEscapeUtils.escapeHtml(inputStr);
     }
 
-    public static String escapeHtmlExceptBr(String str){
-        if (str == null){
+    public static String escapeHtmlExceptBr(String str) {
+        if (str == null) {
             return "";
         }
         str = str.replaceAll("<br/>", "_CARP_BR_");
@@ -404,6 +406,7 @@ public class Tools {
         str = str.replaceAll("&nbsp;", " ");
         return str.replaceAll("_CARP_BR_", "<w:br/>");
     }
+
     public static String subString(String str, int length, String suffix) {
         if (MyString.isEmpty(str)) {
             return "";
@@ -467,24 +470,25 @@ public class Tools {
         }
 
         String userIdMD5 = getUserIdMD5(user);
-        if (id.endsWith(userIdMD5)){
+        if (id.endsWith(userIdMD5)) {
             return id;
         }
 
         // 删除id中其他人的用户MD5信息
-        if (id.lastIndexOf("-") > 0 && id.substring(id.lastIndexOf("-")).length() == 5){
+        if (id.lastIndexOf("-") > 0 && id.substring(id.lastIndexOf("-")).length() == 5) {
             id = id.substring(0, id.lastIndexOf("-"));
         }
 
         return id + userIdMD5;
     }
 
-    public static String getUserIdMD5(LoginInfoDto user){
-        if (user == null){
+    public static String getUserIdMD5(LoginInfoDto user) {
+        if (user == null) {
             return "";
         }
         return "-" + MD5.encrytMD5(user.getId(), "").substring(0, 5);
     }
+
     public static String getRgba(float opacity, String colorStr) {
 
         try {

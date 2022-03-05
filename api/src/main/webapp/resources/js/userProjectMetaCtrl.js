@@ -1,12 +1,12 @@
 /**
  * projectMeta管理系统 controller
  */
-projectMetaModule.controller('userProjectMetaCtrl', function($rootScope,$scope, $http, $state,$location,$stateParams,httpService) {
+projectMetaModule.controller('userProjectMetaCtrl', function ($rootScope, $scope, $http, $state, $location, $stateParams, httpService) {
     var VO_NAME = 'projectMetaVO';
     var VO_LIST_NAME = 'projectMetaVOList';
 
     // 公用分页方法
-    $scope.pageMethod = function(callBackMethod, page, updateUrl) {
+    $scope.pageMethod = function (callBackMethod, page, updateUrl) {
         $scope[callBackMethod](page, updateUrl);
     };
 

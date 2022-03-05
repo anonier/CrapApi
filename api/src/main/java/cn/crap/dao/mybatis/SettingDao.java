@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface SettingDao extends BaseDao<Setting>{
+public interface SettingDao extends BaseDao<Setting> {
     int countByExample(SettingCriteria example);
 
     int deleteByExample(SettingCriteria example);

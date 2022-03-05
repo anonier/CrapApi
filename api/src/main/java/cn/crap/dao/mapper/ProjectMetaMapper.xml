@@ -16,8 +16,9 @@
 
     <!-- 基本的字段，供其他查询引用-->
     <sql id="baseColumn">
-        id,type,createTime,value,moduleId,attributes,projectId,name,sequence,status
-  </sql>
+        id
+        ,type,createTime,value,moduleId,attributes,projectId,name,sequence,status
+    </sql>
 
     <sql id="querySql">
         <where>
@@ -46,7 +47,9 @@
 
     <!-- 删除 -->
     <delete id="delete">
-        delete from project_meta where id=#{id}
+        delete
+        from project_meta
+        where id = #{id}
     </delete>
 
 
@@ -79,7 +82,8 @@
 
     <!-- 查询 -->
     <select id="select" resultMap="resultMap">
-        select <include refid="baseColumn"/>
+        select
+        <include refid="baseColumn"/>
         from project_meta
         <include refid="querySql"/>
         <if test="query.sort != null">
@@ -90,7 +94,7 @@
         </if>
     </select>
 
-    
+
     <!-- 查询 -->
     <select id="get" resultMap="resultMap">
         select

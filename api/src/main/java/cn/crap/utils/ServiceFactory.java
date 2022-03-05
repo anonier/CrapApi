@@ -5,6 +5,7 @@ import cn.crap.service.tool.ProjectCache;
 import lombok.Getter;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
+
 import javax.annotation.Resource;
 
 /**
@@ -25,12 +26,13 @@ public class ServiceFactory implements InitializingBean {
 
     /************* 以下方法不要改动 **********/
     private static ServiceFactory instance = null;
-    public static ServiceFactory getInstance(){
+
+    public static ServiceFactory getInstance() {
         return instance;
     }
 
     @Override
-    public void afterPropertiesSet(){
+    public void afterPropertiesSet() {
         instance = this;
     }
 

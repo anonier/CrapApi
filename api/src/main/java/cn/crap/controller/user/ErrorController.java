@@ -27,12 +27,13 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/user/error")
-public class ErrorController extends BaseController{
+public class ErrorController extends BaseController {
     @Autowired
     private ErrorService errorService;
 
     /**
      * 错误码列表
+     *
      * @return
      * @throws MyException
      */
@@ -82,7 +83,7 @@ public class ErrorController extends BaseController{
         if (MyString.isNotEmpty(dto.getId())) {
             // 错误码重复及权限检查
             Error dbError = errorService.getById(dto.getId());
-            if (!dbError.getErrorCode().equals(dto.getErrorCode())){
+            if (!dbError.getErrorCode().equals(dto.getErrorCode())) {
                 boolean existSameErrorCode = errorService.count(new ErrorQuery().setProjectId(projectId).setEqualErrorCode(errorCode)) > 0;
                 if (existSameErrorCode) {
                     return new JsonResult(MyError.E000002);
@@ -100,7 +101,7 @@ public class ErrorController extends BaseController{
         if (existSameErrorCode) {
             return new JsonResult(MyError.E000002);
         }
-        if (errorService.count(new ErrorQuery().setProjectId(projectId)) > settingCache.getInt(SettingEnum.MAX_ERROR)){
+        if (errorService.count(new ErrorQuery().setProjectId(projectId)) > settingCache.getInt(SettingEnum.MAX_ERROR)) {
             return new JsonResult(MyError.E000072);
         }
 

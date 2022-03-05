@@ -1,9 +1,10 @@
-<div class="r0 p0 col-xs-12"  ng-init="queryProjectUserList()">
+<div class="r0 p0 col-xs-12" ng-init="queryProjectUserList()">
     <div class="col-xs-12 main-nav">
         <div class="btn-group btn-group-sm r3 fl mr10">
             <a type="button" class="btn btn-default" onclick="history.back(-1);"><i
                     class="iconfont mt-3">&#xe697;&nbsp;</i>后退</a>
-            <a type="button" class="btn btn-default" id="refresh" ng-click="queryProjectUserList(list.page.currentPage)"><i
+            <a type="button" class="btn btn-default" id="refresh"
+               ng-click="queryProjectUserList(list.page.currentPage)"><i
                     class="iconfont mt-3">&#xe6aa;&nbsp;</i>刷新</a>
             <a type="button" class="btn btn-default btn-sm"
                ng-href="#/user/project?pageName=项目详情&dataType=interface&menu_a=menu-project&menu_b=menu_main&projectId={{$stateParams.projectId}}&projectName={{$stateParams.projectName}}">
@@ -29,7 +30,8 @@
                     <td>{{item.userEmail}}</td>
 
                     <td>
-                        <span ng-repeat="permission in item.crShowPermissionList" class="r20 mr10 mt5 btn btn-xs btn-adorn">{{permission.desc}}</span><br/>
+                        <span ng-repeat="permission in item.crShowPermissionList"
+                              class="r20 mr10 mt5 btn btn-xs btn-adorn">{{permission.desc}}</span><br/>
                     </td>
 
                     <td class="f12">

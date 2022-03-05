@@ -32,7 +32,7 @@ public class MenuController extends BaseController {
     @RequestMapping("/menu/list.do")
     @ResponseBody
     @AuthPassport(authority = C_AUTH_MENU)
-    public JsonResult list(@ModelAttribute MenuQuery query) throws MyException{
+    public JsonResult list(@ModelAttribute MenuQuery query) throws MyException {
         Page page = new Page(query);
 
         page.setAllRow(menuService.count(query));
@@ -41,9 +41,10 @@ public class MenuController extends BaseController {
 
     /**
      * 菜单详情
+     *
      * @param id
      * @param parentId
-     * @param type 菜单类型，当id为null，parentId为null时，表示新增父菜单，需要根据传入的type默认选中菜单类型
+     * @param type     菜单类型，当id为null，parentId为null时，表示新增父菜单，需要根据传入的type默认选中菜单类型
      * @return
      */
     @RequestMapping("/menu/detail.do")
@@ -55,7 +56,7 @@ public class MenuController extends BaseController {
         Menu parentMenu = menuService.getById(parentId);
         if (id != null) {
             menu = menuService.getById(id);
-        }else{
+        } else {
             menu.setType(parentMenu == null ? type : parentMenu.getType());
         }
         MenuDto menuDto = MenuAdapter.getDto(menu);
@@ -69,7 +70,7 @@ public class MenuController extends BaseController {
     @RequestMapping("/menu/addOrUpdate.do")
     @ResponseBody
     @AuthPassport(authority = C_AUTH_MENU)
-    public JsonResult addOrUpdate(@ModelAttribute MenuDto menuDto) throws MyException{
+    public JsonResult addOrUpdate(@ModelAttribute MenuDto menuDto) throws MyException {
         // 子菜单类型和父菜单类型一致
         Menu parentMenu = menuService.getById(menuDto.getParentId());
         if (parentMenu != null && parentMenu.getId() != null) {

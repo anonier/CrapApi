@@ -41,6 +41,7 @@ public class SystemService {
     private final static String CSS_COMPRESS_URL = "https://tool.oschina.net/action/jscompress/css_compress?linebreakpos=5000";
 
     private static final LinkedHashMap<Integer, String> CHANGE_SQL_MAP = Maps.newLinkedHashMap();
+
     static {
         // V8.2.0_0630 修改，允许模块为空，2018-11-17
         CHANGE_SQL_MAP.put(1, "ALTER TABLE `interface` CHANGE `moduleId` `moduleId` VARCHAR(50) NULL  DEFAULT ''  COMMENT '所属模块ID'");
@@ -101,7 +102,7 @@ public class SystemService {
 
         CHANGE_SQL_MAP.put(44, "ALTER TABLE `project_user` DROP `addError`");
         CHANGE_SQL_MAP.put(45, "ALTER TABLE `project_user` DROP `delError`");
-        CHANGE_SQL_MAP.put(46  , "ALTER TABLE `project_user` DROP `modError`");
+        CHANGE_SQL_MAP.put(46, "ALTER TABLE `project_user` DROP `modError`");
 
         // 废弃 role字段，但是不删除：mybatis需要修改
         CHANGE_SQL_MAP.put(47, "UPDATE user SET auth=concat(auth,',SUPER,') WHERE roleId like '%super%'");
@@ -239,26 +240,26 @@ public class SystemService {
         CHANGE_SQL_MAP.put(107, "ALTER TABLE `user` ADD `loginTime` TIMESTAMP  NULL  DEFAULT CURRENT_TIMESTAMP  COMMENT '最后登录时间'  AFTER `attributes`");
 
 
-
     }
 
     /**
      * 清理日志
      */
-    public void cleanLog(){
+    public void cleanLog() {
         jdbcTemplate.execute("DELETE FROM log WHERE createTime < DATE_SUB(NOW(),INTERVAL 30 day)");
     }
+
     /**
      * 数据库更新
      */
-    public void updateDataBase(){
+    public void updateDataBase() {
         Setting setting = settingService.getByKey(SettingEnum.DATABASE_CHANGE_LOG.getKey());
         Integer lastSqIndex = 0;
         try {
             if (setting != null && MyString.isNotEmpty(setting.getValue())) {
                 lastSqIndex = Integer.parseInt(setting.getValue());
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("检查数据库更新，获取最后一条执行序号失败", e);
         }
 
@@ -277,7 +278,7 @@ public class SystemService {
                 lastSqIndex = sqlIndex;
                 log.warn("检查数据库更新，序号:" + sqlIndex + "，执行sql:" + sql);
                 jdbcTemplate.execute(sql);
-            }catch (Throwable e){
+            } catch (Throwable e) {
                 log.error("执行sql失败，sqlIndex:" + sqlIndex + ", sql:" + sql, e);
             }
         }
@@ -288,7 +289,7 @@ public class SystemService {
     /**
      * 合并资源
      */
-    public void mergeSource(){
+    public void mergeSource() {
         try {
             String allCss = "";
             String cssBaseFileUrl = Tools.getServicePath() + "resources/css/";
@@ -303,32 +304,34 @@ public class SystemService {
                 allJs = allJs + Tools.readFile(jsBaseFileUrl + jsFileUrl) + "\n";
             }
             Tools.staticize(allJs, jsBaseFileUrl + "allJs.js");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     /**
      * 压缩资源
+     *
      * @throws Exception
      */
-    public void compressSource() throws Exception{
+    public void compressSource() throws Exception {
         String cssBaseFileUrl = Tools.getServicePath() + "resources/css/";
-        for (String cssFileUrl : CSS_FILE_URLS){
+        for (String cssFileUrl : CSS_FILE_URLS) {
             compress(CSS_COMPRESS_URL, cssBaseFileUrl, cssFileUrl);
         }
 
         String jsBaseFileUrl = Tools.getServicePath() + "resources/js/";
-        for (String jsFileUrl : JS_FILE_URLS){
+        for (String jsFileUrl : JS_FILE_URLS) {
             compress(JS_COMPRESS_URL, jsBaseFileUrl, jsFileUrl);
         }
     }
 
     /**
      * 静态化setting.css文件
+     *
      * @throws Exception
      */
-    public void updateSettingCss() throws Exception{
+    public void updateSettingCss() throws Exception {
         // 更新css模板，静态化css文件
         String cssPath = Tools.getServicePath() + "resources/css/";
         Tools.createFile(cssPath);
@@ -357,8 +360,8 @@ public class SystemService {
             JSONObject jsonObject = JSONObject.fromObject(compressText);
             compressResult = jsonObject.getString("result");
             Tools.staticize(compressResult, baseFileUrl + fileUrl);
-        } catch (Throwable e){
-            log.error("压缩js、css异常,compressText:" + compressText,  e);
+        } catch (Throwable e) {
+            log.error("压缩js、css异常,compressText:" + compressText, e);
             throw e;
         }
         return compressResult;

@@ -4,8 +4,9 @@
  */
     // 标识是否初始化过，display = none时，初始化样式有问题
 var markdownEditor;
+
 function createEditorMe(id, markdownContent) {
-    if (markdownEditor != null){
+    if (markdownEditor != null) {
         return;
     }
     markdownEditor = editormd(id, {
@@ -59,9 +60,9 @@ function createEditorMe(id, markdownContent) {
             //this.height(480);
             //this.resize("100%", 640);
         }, onfullscreen: function () {
-            $("#"+id).css("z-index", 101);
+            $("#" + id).css("z-index", 101);
         }, onfullscreenExit: function () {
-            $("#"+id).css("z-index", 99);
+            $("#" + id).css("z-index", 99);
         }
     });
 }
@@ -83,7 +84,7 @@ function createWangEditor(id, editorHtml, init, height) {
     }
     $(".w-e-text-container").css("z-index", 98);
     $(".w-e-menu").css("z-index", 99);
-    if (!editorHtml){
+    if (!editorHtml) {
         editorHtml = "";
     }
     editor.txt.html(editorHtml);
@@ -144,7 +145,7 @@ function initDragTable(id) {
         handle: "span", // 只有span才支持拖拽
         items: ".drag",                       //只是tr可以拖动
         opacity: 1.0,                      //拖动时，透明度为0.6
-        update: function(event, ui) {      //更新排序之后
+        update: function (event, ui) {      //更新排序之后
             // var tr = ui.item; //当前拖动的元素
             // var index = tr.attr("index"); //当前元素的顺序
             // var header = $rootScope.headerList.splice(index, 1);
@@ -157,27 +158,29 @@ function initDragTable(id) {
         }
     });
     $("#" + id + " tbody").sortable({
-        connectToSortable : "#body",  //目标区域列表div的dom
+        connectToSortable: "#body",  //目标区域列表div的dom
         helper: fixHelperModified,
         stop: updateIndex
     }).disableSelection()
 }
+
 /**
  * 表格拖动
  * @param e
  * @param tr
  */
-var fixHelperModified = function(e, tr) {
+var fixHelperModified = function (e, tr) {
     var $originals = tr.children();
     var $helper = tr.clone();
-    $helper.children().each(function(index) {
+    $helper.children().each(function (index) {
         $(this).width($originals.eq(index).width() + 6)
     });
     $helper.width(tr.width() + 1);
     $helper.css("margin-left", "-1px");
     return $helper;
 }
-var updateIndex = function(e, ui) {};
+var updateIndex = function (e, ui) {
+};
 /********************** end:表格拖动 ********************/
 
 /**********************接口、表格公用编辑方法 ************/
@@ -196,13 +199,13 @@ function deleteOneTr(nowTr) {
  * @returns {boolean}
  */
 function isLast(target, model) {
-    if (target){
-        if ( $(target).val() == ''){
+    if (target) {
+        if ($(target).val() == '') {
             return false;
         }
         var tr = $(target).parent().parent();
         var totalTrNum = tr.parent().children().length;
-        if( tr.index() + 1 != totalTrNum){
+        if (tr.index() + 1 != totalTrNum) {
             return false;
         }
     }
@@ -270,40 +273,40 @@ var interParamPositionHtml = "<td> <select name='inUrl' class='form-control'>"
 
 function addOneDictionaryTr(target, model) {
     // 自动添加下一行
-    if (!isLast(target, model)){
+    if (!isLast(target, model)) {
         return;
     }
-    if (!model){
+    if (!model) {
         model = new Object();
     }
     $("#content").append("<tr class='drag'>"
         + replaceAll(dictNameHtml, 'DICT_NAME', model.name)
         + replaceAll(dictTypeHtml, 'DICT_TYPE', model.type)
-        + replaceAll(dictNotNullHtml, model.notNull+'_select', ' selected ')
+        + replaceAll(dictNotNullHtml, model.notNull + '_select', ' selected ')
         + replaceAll(replaceAll(defHtml, 'DEF', model.def), "ADD_ONE_TR", "addOneDictionaryTr")
         + replaceAll(dictFlagHtml, model.flag + '_select', ' selected ')
         + replaceAll(replaceAll(remarkHtml, 'REMARK', model.remark), "ADD_ONE_TR", "addOneDictionaryTr")
         + interOperateHtml
-        +"</tr>");
+        + "</tr>");
 }
 
 /************** 接口 ******************/
 function addOneInterHeadTr(target, model) {
     // 自动添加下一行
-    if (!isLast(target, model)){
+    if (!isLast(target, model)) {
         return;
     }
-    if (!model){
+    if (!model) {
         model = new Object();
     }
     $("#editHeaderTable").append("<tr class='drag'>"
         + replaceAll(replaceAll(interNameHtml, 'INTER_NAME', model.name), "ADD_ONE_TR", "addOneInterHeadTr")
-        + replaceAll(interNecessaryHtml, model.necessary+'_select', ' selected ')
-        + replaceAll(interTypeHtml, model.type+'_select', ' selected ')
+        + replaceAll(interNecessaryHtml, model.necessary + '_select', ' selected ')
+        + replaceAll(interTypeHtml, model.type + '_select', ' selected ')
         + replaceAll(replaceAll(defHtml, 'DEF', model.def), "ADD_ONE_TR", "addOneInterHeadTr")
         + replaceAll(replaceAll(remarkHtml, 'REMARK', model.remark), "ADD_ONE_TR", "addOneInterHeadTr")
         + interOperateHtml
-        +"</tr>");
+        + "</tr>");
 }
 
 var debugValueHtml = "<td> <input class='form-control C000 fw500' type= 'text' name='def' autocomplete='off' onkeyup=\"ADD_ONE_TR('TABLE_ID',this)\" value='DEBUG_VALUE' placeholder='值'></td>";
@@ -311,58 +314,58 @@ var debugNameHtml = "<td><input class='form-control C000 fw500' type='text' name
 
 function addOneDebugTr(id, target, model) {
     // 自动添加下一行
-    if (!isLast(target, model)){
+    if (!isLast(target, model)) {
         return;
     }
-    if (!model){
+    if (!model) {
         model = new Object();
     }
     $("#" + id).append("<tr class='drag'>"
         + replaceAll(replaceAll(replaceAll(debugNameHtml, 'DEBUG_NAME', model.realName), "ADD_ONE_TR", "addOneDebugTr"), 'TABLE_ID', id)
         + replaceAll(replaceAll(replaceAll(debugValueHtml, 'DEBUG_VALUE', model.def), "ADD_ONE_TR", "addOneDebugTr"), 'TABLE_ID', id)
         + interOperateHtml
-        +"</tr>");
+        + "</tr>");
 }
 
 function addOneInterParamTr(target, model) {
     // 自动添加下一行
-    if (!isLast(target, model)){
+    if (!isLast(target, model)) {
         return;
     }
-    if (!model){
+    if (!model) {
         model = new Object();
     }
     $("#editParamTable").append("<tr class='drag'>"
         + replaceAll(replaceAll(interNameHtml, 'INTER_NAME', model.name), "ADD_ONE_TR", "addOneInterParamTr")
-        + replaceAll(interNecessaryHtml, model.necessary+'_select', ' selected ')
-        + replaceAll(interParamPositionHtml, model.inUrl+'_select', ' selected ')
-        + replaceAll(interTypeHtml, model.type+'_select', ' selected ')
+        + replaceAll(interNecessaryHtml, model.necessary + '_select', ' selected ')
+        + replaceAll(interParamPositionHtml, model.inUrl + '_select', ' selected ')
+        + replaceAll(interTypeHtml, model.type + '_select', ' selected ')
         + replaceAll(replaceAll(defHtml, 'DEF', model.def), "ADD_ONE_TR", "addOneInterParamTr")
         + replaceAll(replaceAll(remarkHtml, 'REMARK', model.remark), "ADD_ONE_TR", "addOneInterParamTr")
         + interOperateHtml
-        +"</tr>");
+        + "</tr>");
 }
 
 // 返回字段
 function addOneInterRespTr(target, model, isInsert) {
     // 自动添加下一行:最后一行，且不是插入
-    if (!isLast(target, model) && (!isInsert)){
+    if (!isLast(target, model) && (!isInsert)) {
         return;
     }
-    if (!model){
+    if (!model) {
         model = new Object();
     }
 
     var trContent = "<tr class='drag'>"
-    + replaceAll(replaceAll(interNameHtml, 'INTER_NAME', model.name), "ADD_ONE_TR", "addOneInterRespTr")
-    + replaceAll(interNecessaryHtml, model.necessary+'_select', ' selected ')
-    + replaceAll(interTypeHtml, model.type+'_select', ' selected ')
-    + replaceAll(replaceAll(remarkHtml, 'REMARK', model.remark), "ADD_ONE_TR", "addOneInterRespTr")
-    + replaceAll(interResOperateHtml, "ADD_ONE_TR", "addOneInterRespTr")
-    +"</tr>";
-    if (!isInsert){
+        + replaceAll(replaceAll(interNameHtml, 'INTER_NAME', model.name), "ADD_ONE_TR", "addOneInterRespTr")
+        + replaceAll(interNecessaryHtml, model.necessary + '_select', ' selected ')
+        + replaceAll(interTypeHtml, model.type + '_select', ' selected ')
+        + replaceAll(replaceAll(remarkHtml, 'REMARK', model.remark), "ADD_ONE_TR", "addOneInterRespTr")
+        + replaceAll(interResOperateHtml, "ADD_ONE_TR", "addOneInterRespTr")
+        + "</tr>";
+    if (!isInsert) {
         $("#editResponseParamTable").append(trContent);
-        if (target){
+        if (target) {
             // 自动追加一行，不需要选中
             return;
         }
@@ -375,7 +378,7 @@ function addOneInterRespTr(target, model, isInsert) {
     var $tr = $(target).parent().parent();
     $tr.after(trContent);
     var resParamName = $tr.find('td').find('input').first().val();
-    if (resParamName && resParamName.length > 0){
+    if (resParamName && resParamName.length > 0) {
         resParamName = resParamName + "->";
     }
     // 选中新增加的行
@@ -383,19 +386,19 @@ function addOneInterRespTr(target, model, isInsert) {
 }
 
 // 根据json，导入至参数
-function importJson(type){
+function importJson(type) {
     var jsonText = jsonToDiv($("#importResponseParam").val());
-    if(jsonText.length > 0){
-        if(type == 'responseParam'){
-            $.each( eval("("+jsonText+")"), function (n, value) {
+    if (jsonText.length > 0) {
+        if (type == 'responseParam') {
+            $.each(eval("(" + jsonText + ")"), function (n, value) {
                 addOneInterRespTr(null, value);
             });
-        } else if(type == 'header'){
-            $.each( eval("("+jsonText+")"), function (n, value) {
+        } else if (type == 'header') {
+            $.each(eval("(" + jsonText + ")"), function (n, value) {
                 addOneInterHeadTr(null, value);
             });
-        }else if(type == 'param'){
-            $.each( eval("("+jsonText+")"), function (n, value) {
+        } else if (type == 'param') {
+            $.each(eval("(" + jsonText + ")"), function (n, value) {
                 addOneInterParamTr(null, value);
             });
         }

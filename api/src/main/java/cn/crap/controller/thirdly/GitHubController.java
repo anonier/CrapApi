@@ -55,7 +55,7 @@ public class GitHubController extends BaseController {
         GitHubUser gitHubUser;
         try {
             gitHubUser = githHubService.getUser(githHubService.getAccessToken(code, getCallBackUrl(domain)).getAccess_token());
-        } catch (Throwable e){
+        } catch (Throwable e) {
             request.setAttribute("result", "授权失败，请重试！");
             return ERROR_VIEW;
         }
@@ -100,7 +100,7 @@ public class GitHubController extends BaseController {
         return IConst.GITHUB + gitHubUser.getId();
     }
 
-    private String getCallBackUrl(String callDomain) throws Exception{
+    private String getCallBackUrl(String callDomain) throws Exception {
         return URLEncoder.encode(Tools.getUrlPath() + "/github/login.ignore?domain=" + URLEncoder.encode(callDomain, "utf-8"), "utf-8");
     }
 }

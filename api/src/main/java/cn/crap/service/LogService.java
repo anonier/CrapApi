@@ -40,9 +40,10 @@ public class LogService extends BaseService<Log, LogDao> {
         this.logDao = logDao;
         super.setBaseDao(logDao, TableId.LOG);
     }
-    
+
     /**
      * 查询日志
+     *
      * @param query
      * @return
      * @throws MyException
@@ -61,6 +62,7 @@ public class LogService extends BaseService<Log, LogDao> {
 
     /**
      * 查询日志数量
+     *
      * @param query
      * @return
      * @throws MyException
@@ -75,10 +77,10 @@ public class LogService extends BaseService<Log, LogDao> {
     private LogCriteria getLogCriteria(LogQuery query) throws MyException {
         LogCriteria example = new LogCriteria();
         LogCriteria.Criteria criteria = example.createCriteria();
-        if (query.getIdenty() != null){
+        if (query.getIdenty() != null) {
             criteria.andIdentyEqualTo(query.getIdenty());
         }
-        if (query.getModelName() != null){
+        if (query.getModelName() != null) {
             criteria.andModelNameEqualTo(query.getModelName());
         }
         return example;
@@ -135,44 +137,44 @@ public class LogService extends BaseService<Log, LogDao> {
                 checkModule(source.getModuleId());
                 checkLog(source.getProjectId());
                 sourceService.update(source);
-                break;         
+                break;
         }
     }
 
-    public String getProjectIdByLog(Log log){
-            log = getById(log.getId());
-            switch (log.getModelClass().toUpperCase()) {
-                case "INTERFACEWITHBLOBS"://恢复接口
-                case "INTERFACE"://恢复接口
-                    JSONObject json = JSONObject.fromObject(log.getContent());
-                    InterfaceWithBLOBs inter = (InterfaceWithBLOBs) JSONObject.toBean(json, InterfaceWithBLOBs.class);
-                    return inter.getProjectId();
-                case "ARTICLEWITHBLOBS":// 恢复文档
-                case "ARTICLE":// 恢复文档
-                    json = JSONObject.fromObject(log.getContent());
-                    ArticleWithBLOBs article = (ArticleWithBLOBs) JSONObject.toBean(json, ArticleWithBLOBs.class);
-                    return article.getProjectId();
-                case "MODULEWITHBLOBS"://恢复模块
-                case "MODULE"://恢复模块
-                    json = JSONObject.fromObject(log.getContent());
-                    ModulePO module = (ModulePO) JSONObject.toBean(json, ModulePO.class);
-                    return module.getProjectId();
-                case "PROJECTWITHBLOBS":
-                case "PROJECT"://恢复日志
-                    json = JSONObject.fromObject(log.getContent());
-                    Log project = (Log) JSONObject.toBean(json, Log.class);
-                    return project.getId();
-                case "SOURCEWITHBLOBS":
-                case "SOURCE"://恢复文件
-                    json = JSONObject.fromObject(log.getContent());
-                    Source source = (Source) JSONObject.toBean(json, Source.class);
-                    return source.getProjectId();
-            }
-            return null;
+    public String getProjectIdByLog(Log log) {
+        log = getById(log.getId());
+        switch (log.getModelClass().toUpperCase()) {
+            case "INTERFACEWITHBLOBS"://恢复接口
+            case "INTERFACE"://恢复接口
+                JSONObject json = JSONObject.fromObject(log.getContent());
+                InterfaceWithBLOBs inter = (InterfaceWithBLOBs) JSONObject.toBean(json, InterfaceWithBLOBs.class);
+                return inter.getProjectId();
+            case "ARTICLEWITHBLOBS":// 恢复文档
+            case "ARTICLE":// 恢复文档
+                json = JSONObject.fromObject(log.getContent());
+                ArticleWithBLOBs article = (ArticleWithBLOBs) JSONObject.toBean(json, ArticleWithBLOBs.class);
+                return article.getProjectId();
+            case "MODULEWITHBLOBS"://恢复模块
+            case "MODULE"://恢复模块
+                json = JSONObject.fromObject(log.getContent());
+                ModulePO module = (ModulePO) JSONObject.toBean(json, ModulePO.class);
+                return module.getProjectId();
+            case "PROJECTWITHBLOBS":
+            case "PROJECT"://恢复日志
+                json = JSONObject.fromObject(log.getContent());
+                Log project = (Log) JSONObject.toBean(json, Log.class);
+                return project.getId();
+            case "SOURCEWITHBLOBS":
+            case "SOURCE"://恢复文件
+                json = JSONObject.fromObject(log.getContent());
+                Source source = (Source) JSONObject.toBean(json, Source.class);
+                return source.getProjectId();
+        }
+        return null;
     }
 
     private void checkModule(String moduleId) throws MyException {
-        if (MyString.isEmpty(moduleId)){
+        if (MyString.isEmpty(moduleId)) {
             return;
         }
         Assert.notNull(moduleId);

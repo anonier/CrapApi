@@ -12,10 +12,10 @@ import java.util.List;
 @Service
 public class CustomHotSearchDao {
 
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
-    public List<String> queryTop10(){
-		return jdbcTemplate.queryForList("select keyword from hot_search order by times DESC limit 10", String.class);
-	}
+    public List<String> queryTop10() {
+        return jdbcTemplate.queryForList("select keyword from hot_search order by times DESC limit 10", String.class);
+    }
 }

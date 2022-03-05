@@ -13,8 +13,8 @@ import java.util.List;
  * 避免暴露敏感数据和修改不允许修改得数据
  */
 public class SettingAdapter {
-    public static SettingDto getDto(Setting model){
-        if (model == null){
+    public static SettingDto getDto(Setting model) {
+        if (model == null) {
             return null;
         }
 
@@ -25,8 +25,8 @@ public class SettingAdapter {
         return dto;
     }
 
-    public static Setting getModel(SettingDto dto){
-        if (dto == null){
+    public static Setting getModel(SettingDto dto) {
+        if (dto == null) {
             return null;
         }
         Setting model = new Setting();
@@ -39,12 +39,12 @@ public class SettingAdapter {
         return model;
     }
 
-    public static List<SettingDto> getDto(List<Setting> models){
-        if (models == null){
+    public static List<SettingDto> getDto(List<Setting> models) {
+        if (models == null) {
             return new ArrayList<>();
         }
         List<SettingDto> dtos = new ArrayList<>();
-        for (Setting model : models){
+        for (Setting model : models) {
             dtos.add(getDto(model));
         }
         return dtos;

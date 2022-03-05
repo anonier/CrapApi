@@ -69,7 +69,7 @@ public class ArticleCriteria {
     }
 
     public void setLimitStart(int limitStart) {
-        this.limitStart=limitStart;
+        this.limitStart = limitStart;
     }
 
     public int getLimitStart() {
@@ -77,7 +77,7 @@ public class ArticleCriteria {
     }
 
     public void setMaxResults(int maxResults) {
-        this.maxResults=maxResults;
+        this.maxResults = maxResults;
     }
 
     public int getMaxResults() {

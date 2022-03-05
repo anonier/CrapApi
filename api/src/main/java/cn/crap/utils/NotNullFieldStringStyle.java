@@ -13,23 +13,23 @@ import java.util.Map;
  * @date 2019/3/30 14:30
  */
 public class NotNullFieldStringStyle extends ToStringStyle {
-    public NotNullFieldStringStyle(){
+    public NotNullFieldStringStyle() {
         super();
         this.setUseShortClassName(true);
         this.setUseIdentityHashCode(false);
     }
 
     @Override
-    public void append(StringBuffer buffer, String fieldName, Object value, Boolean fullDetail){
-        if (value == null){
+    public void append(StringBuffer buffer, String fieldName, Object value, Boolean fullDetail) {
+        if (value == null) {
             return;
         }
-        if (value instanceof  String){
-            if (MyString.isEmpty(value)){
+        if (value instanceof String) {
+            if (MyString.isEmpty(value)) {
                 return;
             }
         }
-        if (value instanceof Date){
+        if (value instanceof Date) {
             value = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(value);
         }
 
@@ -37,7 +37,7 @@ public class NotNullFieldStringStyle extends ToStringStyle {
         format(value, sb);
         value = (sb == null ? null : sb.toString());
 
-        if (value == null){
+        if (value == null) {
             return;
         }
 
@@ -54,7 +54,7 @@ public class NotNullFieldStringStyle extends ToStringStyle {
             formatMap((Map<?, ?>) object, sb);
         } else if (object instanceof Iterable<?>) {
             formatIterable((Iterable<?>) object, sb);
-        }else if (object.getClass().isArray()) {
+        } else if (object.getClass().isArray()) {
             formatArray(object, sb);
         } else if (object.getClass() == Object.class) {
             sb.append(object);
@@ -113,14 +113,14 @@ public class NotNullFieldStringStyle extends ToStringStyle {
     }
 
     private static <T> void formatIterable(Iterable<T> iterable, StringBuilder sb) {
-        Iterator<T> it=iterable.iterator();
+        Iterator<T> it = iterable.iterator();
         if (!it.hasNext()) {
             return;
         }
 
         boolean first = true;
         sb.append('[');
-        while(it.hasNext()){
+        while (it.hasNext()) {
             if (first) {
                 first = false;
             } else {

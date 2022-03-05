@@ -55,7 +55,7 @@ public class InterfaceController extends BaseController {
     public String pdf(String id, String moduleId, @RequestParam String secretKey) throws Exception {
         HttpServletRequest request = ThreadContext.request();
         try {
-            if (MyString.isEmpty(id) && MyString.isEmpty(moduleId)){
+            if (MyString.isEmpty(id) && MyString.isEmpty(moduleId)) {
                 request.setAttribute("result", "接口ID&模块ID不能同时为空！");
                 return ERROR_VIEW;
             }
@@ -138,14 +138,14 @@ public class InterfaceController extends BaseController {
             String secretKey = settingCache.get(S_SECRETKEY).getValue();
             String fileName = Html2Pdf.createPdf(req, Tools.getUrlPath(), id, moduleId, secretKey);
             DownloadUtils.downloadWord(response, new File(fileName), downloadName, true);
-        }else{
+        } else {
             Map<String, Object> map = new HashMap<>();
             List<InterfacePDFDto> interfacePDFDtos = new ArrayList<>();
-            if (interFace == null){
+            if (interFace == null) {
                 for (InterfaceWithBLOBs interfaceWithBLOBs : interfaceService.queryAll(new InterfaceQuery().setModuleId(moduleId))) {
                     interfacePDFDtos.add(interfaceService.getInterPDFDto(interfaceWithBLOBs, module, true, false));
                 }
-            }else {
+            } else {
                 interfacePDFDtos.add(interfaceService.getInterPDFDto(interFace, module, true, false));
             }
 
@@ -158,7 +158,7 @@ public class InterfaceController extends BaseController {
     @RequestMapping("/list.do")
     @ResponseBody
     public JsonResult webList(@RequestParam String moduleId, String interfaceName, String url,
-                               Integer currentPage, String password, String visitCode) throws MyException {
+                              Integer currentPage, String password, String visitCode) throws MyException {
         if (MyString.isEmpty(moduleId)) {
             throw new MyException(MyError.E000020);
         }

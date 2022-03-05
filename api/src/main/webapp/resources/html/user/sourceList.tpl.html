@@ -46,9 +46,10 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="item in sources">
-                    <td><input type="checkbox" name="deleteIds" ng-click="checkboxSelect('deleteIds',item.id);stopPropagation($event);"></td>
+                    <td><input type="checkbox" name="deleteIds"
+                               ng-click="checkboxSelect('deleteIds',item.id);stopPropagation($event);"></td>
                     <td>{{item.name}}</td>
-                    <td>{{item.remark|cut:true:50:' ...'}}</td>
+                    <td>{{item.remark | cut:true:50:' ...'}}</td>
                     <td>{{item.updateTimeStr}}</td>
                     <td class="f12">
                         <a ng-class="{true: 'mr5 btn btn-xs btn-default', false:'mr5 btn btn-xs btn-default disabled'}[isProjectUser('modSource')]"

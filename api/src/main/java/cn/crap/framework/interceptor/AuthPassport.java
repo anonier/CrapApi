@@ -16,5 +16,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AuthPassport {
     boolean validate() default true;
+
     String authority() default "";
 }

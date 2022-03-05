@@ -31,7 +31,6 @@ public abstract class BaseQuery<T> {
     private Boolean queryAll;
 
 
-
     abstract T getQuery();
 
     public T setQueryAll(boolean queryAll) {
@@ -40,7 +39,7 @@ public abstract class BaseQuery<T> {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 
@@ -59,7 +58,7 @@ public abstract class BaseQuery<T> {
         return getQuery();
     }
 
-    public String getSort() throws MyException{
+    public String getSort() throws MyException {
         SafetyUtil.checkSqlParam(sort);
         return sort;
     }
@@ -96,13 +95,14 @@ public abstract class BaseQuery<T> {
 
     /**
      * 一次查询不能超过100
+     *
      * @return
      */
     public int getPageSize() {
-        if (pageSize == null){
+        if (pageSize == null) {
             return 20;
         }
-        if (pageSize > 100){
+        if (pageSize > 100) {
             return 100;
         }
         return (pageSize <= 0 ? 20 : pageSize);
@@ -111,15 +111,15 @@ public abstract class BaseQuery<T> {
     /**
      * 起始位置
      */
-    public int getStart(){
-        return  this.getPageSize() * (this.getCurrentPage() - 1);
+    public int getStart() {
+        return this.getPageSize() * (this.getCurrentPage() - 1);
     }
 
     public int getAllRow() {
-        return (allRow == null ||allRow < 0) ? 0 : allRow;
+        return (allRow == null || allRow < 0) ? 0 : allRow;
     }
 
-    public int getTotalPage(){
-        return (this.getAllRow() + this.getPageSize() -1) / this.getPageSize();
+    public int getTotalPage() {
+        return (this.getAllRow() + this.getPageSize() - 1) / this.getPageSize();
     }
 }

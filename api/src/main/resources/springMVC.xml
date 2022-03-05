@@ -77,19 +77,6 @@
 
     <!-- 邮件类 -->
     <bean id="mailSenderService" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-        <property name="username">
-            <value>${mail.username}</value>
-        </property>
-        <property name="password">
-            <value>${mail.password}</value>
-        </property>
-        <property name="host">
-            <value>${mail.host}</value>
-        </property>
-        <property name="port">
-            <value>465</value>
-        </property>
-
         <!-- TODO mail.transport.protocol smtp-->
         <property name="javaMailProperties">
             <props>
@@ -109,7 +96,6 @@
                 <prop key="mail.imap.writetimeout">3000</prop>
                 <prop key="mail.imap.timeout">3000</prop>
                 <prop key="mail.imap.connectiontimeout">3000</prop>
-
             </props>
         </property>
     </bean>

@@ -3,7 +3,7 @@ package cn.crap.dto;
 import cn.crap.enu.SettingType;
 import cn.crap.utils.MyString;
 
-public class SettingDto{
+public class SettingDto {
     private String id;
     private String key;
     private String value;
@@ -77,8 +77,8 @@ public class SettingDto{
         this.sequence = sequence;
     }
 
-    public String getTypeName(){
-        if(!MyString.isEmpty(type)){
+    public String getTypeName() {
+        if (!MyString.isEmpty(type)) {
             return SettingType.getName(type);
         }
         return "";

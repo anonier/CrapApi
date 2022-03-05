@@ -8,12 +8,12 @@ import cn.crap.dto.MailBean;
 
 public interface IEmailService {
 
-	void sendMail(MailBean mailBean) throws UnsupportedEncodingException, MessagingException;
+    void sendMail(MailBean mailBean) throws UnsupportedEncodingException, MessagingException;
 
-	void sendRegisterEmail(String eamil, String id) throws UnsupportedEncodingException, MessagingException;
+    void sendRegisterEmail(String email, String id, String emailPasswd) throws UnsupportedEncodingException, MessagingException;
 
-	void sendFindPwdEmail(String eamil) throws UnsupportedEncodingException, MessagingException;
+    void sendFindPwdEmail(String email) throws UnsupportedEncodingException, MessagingException;
 
-	boolean sendMail(String subject, String toEmail, String context);
+    boolean sendMail(String subject, String toEmail, String context);
 
 }

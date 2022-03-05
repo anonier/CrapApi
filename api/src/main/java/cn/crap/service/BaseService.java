@@ -20,13 +20,14 @@ public class BaseService<PO extends BasePO, DAO> {
 
     private BaseDao<PO> baseDao;
     private TableId tableId;
+
     public void setBaseDao(BaseDao<PO> baseDao, TableId tableId) {
         this.baseDao = baseDao;
         this.tableId = tableId;
     }
 
     public PO getById(String id) {
-        if (id == null){
+        if (id == null) {
             return null;
         }
         return baseDao.selectByPrimaryKey(id);
@@ -38,21 +39,21 @@ public class BaseService<PO extends BasePO, DAO> {
         }
 
         // 兼容CrapDebug系统
-        if (MyString.isEmpty(po.getId())){
+        if (MyString.isEmpty(po.getId())) {
             po.setId(IdGenerator.getId(tableId));
         }
 
-        if (po.getSequence() == null){
+        if (po.getSequence() == null) {
             po.setSequence(System.currentTimeMillis());
         }
 
-        if (po.getSequence() < 0){
+        if (po.getSequence() < 0) {
             po.setSequence(System.currentTimeMillis());
         }
         /**
          * 不能超过mysql最大限制
          */
-        if (po.getSequence() > IConst.C_MAX_SEQUENCE){
+        if (po.getSequence() > IConst.C_MAX_SEQUENCE) {
             po.setSequence(IConst.C_MAX_SEQUENCE);
         }
 
@@ -69,7 +70,7 @@ public class BaseService<PO extends BasePO, DAO> {
         return baseDao.updateByPrimaryKeySelective(po) > 0 ? true : false;
     }
 
-    public boolean delete(String id) throws MyException{
+    public boolean delete(String id) throws MyException {
         Assert.notNull(id, "id can't be null");
         return baseDao.deleteByPrimaryKey(id) > 0 ? true : false;
     }

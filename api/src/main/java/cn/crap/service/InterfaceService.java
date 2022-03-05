@@ -45,24 +45,24 @@ public class InterfaceService extends BaseService<InterfaceWithBLOBs, InterfaceD
     }
 
     @Override
-    public boolean insert(InterfaceWithBLOBs model) throws MyException{
+    public boolean insert(InterfaceWithBLOBs model) throws MyException {
         if (model == null) {
             return false;
         }
 
         // TODO 提取到公共内
-        if (model.getVersionNum() == null){
+        if (model.getVersionNum() == null) {
             model.setVersionNum(0);
         }
 
-        if (model.getUniKey() == null){
+        if (model.getUniKey() == null) {
             model.setUniKey(IdGenerator.getId(TableId.INTERFACE));
         }
 
-        if (model.getIsTemplate() == null){
+        if (model.getIsTemplate() == null) {
             model.setIsTemplate(false);
         }
-        if(model.getParam() == null){
+        if (model.getParam() == null) {
             model.setParam("");
         }
         model.setUpdateTime(new Date());
@@ -72,6 +72,7 @@ public class InterfaceService extends BaseService<InterfaceWithBLOBs, InterfaceD
 
     /**
      * 查询项目
+     *
      * @param query
      * @return
      * @throws MyException
@@ -102,6 +103,7 @@ public class InterfaceService extends BaseService<InterfaceWithBLOBs, InterfaceD
 
     /**
      * 查询项目数量
+     *
      * @param query
      * @return
      * @throws MyException
@@ -127,8 +129,8 @@ public class InterfaceService extends BaseService<InterfaceWithBLOBs, InterfaceD
         if (query.getEqualInterfaceName() != null) {
             criteria.andInterfaceNameEqualTo(query.getEqualInterfaceName());
         }
-        if (query.getModuleId() != null ) {
-            if (IConst.NULL.equals(query.getModuleId())){
+        if (query.getModuleId() != null) {
+            if (IConst.NULL.equals(query.getModuleId())) {
                 criteria.andModuleIdEqualTo("");
             } else {
                 criteria.andModuleIdEqualTo(query.getModuleId());
@@ -155,27 +157,27 @@ public class InterfaceService extends BaseService<InterfaceWithBLOBs, InterfaceD
 
         return example;
     }
+
     /**
-     *
      * @param interFace
      * @param module
-     * @param escape 是否需要处理字符内容
+     * @param escape    是否需要处理字符内容
      * @return
      */
     public InterfacePDFDto getInterPDFDto(InterfaceWithBLOBs interFace, ModulePO module, boolean escape, boolean isPdf) {
         InterfacePDFDto interDto = new InterfacePDFDto();
         interDto.setModel(InterfaceAdapter.getDtoWithBLOBs(interFace, module, null, escape));
 
-        if(interFace.getParam() != null && interFace.getParam().startsWith("form=")){
+        if (interFace.getParam() != null && interFace.getParam().startsWith("form=")) {
             List<ParamDto> paramList = JSONArray.parseArray(interFace.getParam() == null ? "[]" : interFace.getParam().substring(5, interFace.getParam().length()), ParamDto.class);
             interDto.setFormParams(InterfaceAdapter.sortParam(null, paramList, null));
-        }else{
+        } else {
             interDto.setCustom(true);
             interDto.setCustomParams(interDto.getModel().getParam());
         }
 
         // 如果是pdf，需要将 <w:br/> 转成<br/>
-        if (escape && isPdf){
+        if (escape && isPdf) {
             InterfaceDto interfaceDTO = interDto.getModel();
             interfaceDTO.setFalseExam(interfaceDTO.getFalseExam().replaceAll("<w:br/>", "<br/>"));
             interfaceDTO.setTrueExam(interfaceDTO.getTrueExam().replaceAll("<w:br/>", "<br/>"));
@@ -183,8 +185,8 @@ public class InterfaceService extends BaseService<InterfaceWithBLOBs, InterfaceD
             interfaceDTO.setRemark(interfaceDTO.getRemark().replaceAll("<w:br/>", "<br/>"));
         }
 
-        interDto.setTrueMockUrl(Tools.getUrlPath()+"/mock/trueExam.do?id="+interFace.getId());
-        interDto.setFalseMockUrl(Tools.getUrlPath()+"/mock/falseExam.do?id="+interFace.getId());
+        interDto.setTrueMockUrl(Tools.getUrlPath() + "/mock/trueExam.do?id=" + interFace.getId());
+        interDto.setFalseMockUrl(Tools.getUrlPath() + "/mock/falseExam.do?id=" + interFace.getId());
         List<ParamDto> headerList = JSONArray.parseArray(interFace.getHeader() == null ? "[]" : interFace.getHeader(), ParamDto.class);
         interDto.setHeaders(InterfaceAdapter.sortParam(null, headerList, null));
 
@@ -196,53 +198,54 @@ public class InterfaceService extends BaseService<InterfaceWithBLOBs, InterfaceD
     }
 
     /**
-    public void getInterFaceRequestExam(InterfaceDto interFace) {
-        Module module = moduleCache.get(interFace.getModuleId());
-        interFace.setRequestExam("请求地址:"+ module.getUrl() + interFace.getUrl()+"\r\n");
+     public void getInterFaceRequestExam(InterfaceDto interFace) {
+     Module module = moduleCache.get(interFace.getModuleId());
+     interFace.setRequestExam("请求地址:"+ module.getUrl() + interFace.getUrl()+"\r\n");
 
-        // 请求头
-        List<ParamDto> headerList =JSONArray.toList(JSONArray.fromObject(
-                interFace.getHeader() == null ? "[]" : interFace.getHeader()), new ParamDto(), new JsonConfig());
-        InterfaceAdapter.sortParam(null, headerList, null);
+     // 请求头
+     List<ParamDto> headerList =JSONArray.toList(JSONArray.fromObject(
+     interFace.getHeader() == null ? "[]" : interFace.getHeader()), new ParamDto(), new JsonConfig());
+     InterfaceAdapter.sortParam(null, headerList, null);
 
-        StringBuilder strHeaders = new StringBuilder("请求头:\r\n");
-        ParamDto paramDto = null;
-        for(int i=0;i<headerList.size();i++){
-            paramDto = headerList.get(i);
-            strHeaders.append("\t"+paramDto.getRealName() + "="+ paramDto.getDef() +"\r\n");
-        }
+     StringBuilder strHeaders = new StringBuilder("请求头:\r\n");
+     ParamDto paramDto = null;
+     for(int i=0;i<headerList.size();i++){
+     paramDto = headerList.get(i);
+     strHeaders.append("\t"+paramDto.getRealName() + "="+ paramDto.getDef() +"\r\n");
+     }
 
-        // 请求参数
-        JSONObject obj = null;
-        StringBuilder strParams = new StringBuilder("请求参数:\r\n");
-        if(!MyString.isEmpty(interFace.getParam())){
-            JSONArray params = null;
-            if(interFace.getParam().startsWith("form=")){
-                params = JSONArray.fromObject(interFace.getParam().substring(5));
-                for(int i=0;i<params.size();i++){
-                    obj = (JSONObject) params.get(i);
-                    if(obj.containsKey("inUrl") && obj.getString("inUrl").equals("true")){
-                        interFace.setRequestExam(interFace.getRequestExam().replace("{"+obj.getString("name")+"}", (obj.containsKey("def")?obj.getString("def"):"")));
-                    }else{
-                        strParams.append("\t"+obj.getString("name") + "=" + (obj.containsKey("def")?obj.getString("def"):"")+"\r\n");
-                    }
-                }
-            }else{
-                strParams.append(interFace.getParam());
-            }
-        }
-        interFace.setRequestExam(interFace.getRequestExam()+strHeaders.toString()+strParams.toString());
-    }**/
+     // 请求参数
+     JSONObject obj = null;
+     StringBuilder strParams = new StringBuilder("请求参数:\r\n");
+     if(!MyString.isEmpty(interFace.getParam())){
+     JSONArray params = null;
+     if(interFace.getParam().startsWith("form=")){
+     params = JSONArray.fromObject(interFace.getParam().substring(5));
+     for(int i=0;i<params.size();i++){
+     obj = (JSONObject) params.get(i);
+     if(obj.containsKey("inUrl") && obj.getString("inUrl").equals("true")){
+     interFace.setRequestExam(interFace.getRequestExam().replace("{"+obj.getString("name")+"}", (obj.containsKey("def")?obj.getString("def"):"")));
+     }else{
+     strParams.append("\t"+obj.getString("name") + "=" + (obj.containsKey("def")?obj.getString("def"):"")+"\r\n");
+     }
+     }
+     }else{
+     strParams.append(interFace.getParam());
+     }
+     }
+     interFace.setRequestExam(interFace.getRequestExam()+strHeaders.toString()+strParams.toString());
+     }**/
 
     /**
      * update article and add update log
+     *
      * @param model
      * @param modelName
      * @param remark
      */
-    public void update(InterfaceWithBLOBs model, String modelName, String remark) throws MyException{
+    public void update(InterfaceWithBLOBs model, String modelName, String remark) throws MyException {
         InterfaceWithBLOBs dbModel = interfaceDao.selectByPrimaryKey(model.getId());
-        if(MyString.isEmpty(remark)) {
+        if (MyString.isEmpty(remark)) {
             remark = model.getInterfaceName();
         }
 
@@ -252,10 +255,10 @@ public class InterfaceService extends BaseService<InterfaceWithBLOBs, InterfaceD
         super.update(model);
     }
 
-    public void delete(String id, String modelName, String remark) throws MyException{
+    public void delete(String id, String modelName, String remark) throws MyException {
         Assert.notNull(id);
         InterfaceWithBLOBs dbModel = interfaceDao.selectByPrimaryKey(id);
-        if(MyString.isEmpty(remark)) {
+        if (MyString.isEmpty(remark)) {
             remark = dbModel.getInterfaceName();
         }
         super.delete(id);
@@ -266,43 +269,44 @@ public class InterfaceService extends BaseService<InterfaceWithBLOBs, InterfaceD
 
     /**
      * 根据模块下的所有fullUrl
+     *
      * @param moduleUrl
      * @param moduleId
      */
-    public void updateFullUrlByModuleId(String moduleUrl, String moduleId){
+    public void updateFullUrlByModuleId(String moduleUrl, String moduleId) {
         Assert.notNull(moduleId);
-        if (MyString.isEmpty(moduleUrl)){
+        if (MyString.isEmpty(moduleUrl)) {
             moduleUrl = "";
         }
         customInterfaceMapper.updateFullUrlByModuleId(moduleUrl, moduleId);
         return;
     }
 
-    public void  deleteTemplateByModuleId(String moduleId){
+    public void deleteTemplateByModuleId(String moduleId) {
         Assert.notNull(moduleId);
         customInterfaceMapper.deleteTemplateByModuleId(moduleId);
     }
 
-    public void  deleteByModuleId(String moduleId){
+    public void deleteByModuleId(String moduleId) {
         Assert.notNull(moduleId);
         customInterfaceMapper.deleteByModuleId(moduleId);
     }
 
-    public void  deleteByModuleId(String moduleId, List<String> uniKeyList) throws Exception{
+    public void deleteByModuleId(String moduleId, List<String> uniKeyList) throws Exception {
         Assert.notNull(moduleId);
         customInterfaceMapper.deleteByModuleId(moduleId, uniKeyList);
     }
 
     @Override
-    public List<SearchDto> selectOrderById(String projectId, String id, int pageSize){
+    public List<SearchDto> selectOrderById(String projectId, String id, int pageSize) {
         Assert.isTrue(pageSize > 0 && pageSize <= 1000);
         InterfaceCriteria example = new InterfaceCriteria();
         InterfaceCriteria.Criteria criteria = example.createCriteria();
-        if (projectId != null){
+        if (projectId != null) {
             criteria.andProjectIdEqualTo(projectId);
         }
         example.setMaxResults(pageSize);
-        if (id != null){
+        if (id != null) {
             criteria.andIdGreaterThan(id);
         }
         example.setOrderByClause(TableField.SORT.ID_ASC);

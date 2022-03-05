@@ -15,26 +15,26 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/mock")
-public class MockController extends BaseController{
+public class MockController extends BaseController {
 
-	@Autowired
-	private InterfaceService interfaceService;
-	@Autowired
-	private StringCache stringCache;
+    @Autowired
+    private InterfaceService interfaceService;
+    @Autowired
+    private StringCache stringCache;
 
-	private static final String MOCK_KEY_PRE = "inter:mock:";
+    private static final String MOCK_KEY_PRE = "inter:mock:";
 
-	@RequestMapping("/trueExam.do")
-	@ResponseBody
-	public void trueExam(HttpServletResponse response,  @RequestParam String id, @RequestParam(defaultValue = "false") Boolean cache){
+    @RequestMapping("/trueExam.do")
+    @ResponseBody
+    public void trueExam(HttpServletResponse response, @RequestParam String id, @RequestParam(defaultValue = "false") Boolean cache) {
         getExam(response, id, true, cache);
     }
 
     @RequestMapping("/falseExam.do")
-	@ResponseBody
-	public void falseExam(HttpServletResponse response, @RequestParam String id, @RequestParam(defaultValue = "false") Boolean cache){
+    @ResponseBody
+    public void falseExam(HttpServletResponse response, @RequestParam String id, @RequestParam(defaultValue = "false") Boolean cache) {
         getExam(response, id, false, cache);
-	}
+    }
 
 
     private void getExam(HttpServletResponse response, String id, boolean isTrueExam, boolean cache) {
@@ -46,10 +46,10 @@ public class MockController extends BaseController{
         String mockKey = getMockKey(id, isTrueExam);
         String contentTypeKey = getMockKey(id, null);
 
-        if (cache){
+        if (cache) {
             String contentType = stringCache.get(contentTypeKey);
             String mockResult = stringCache.get(mockKey);
-            if (contentType != null && mockResult != null){
+            if (contentType != null && mockResult != null) {
                 printMsg(mockResult, InterfaceContentType.getByType(contentType));
                 return;
             }
@@ -57,17 +57,17 @@ public class MockController extends BaseController{
 
         InterfaceWithBLOBs interfaceWithBLOBs = interfaceService.getById(id);
         String mockResult = isTrueExam ? interfaceWithBLOBs.getTrueExam() : interfaceWithBLOBs.getFalseExam();
-        if (cache){
+        if (cache) {
             stringCache.add(mockKey, mockResult);
             stringCache.add(contentTypeKey, interfaceWithBLOBs.getContentType());
         }
         printMsg(mockResult, InterfaceContentType.getByType(interfaceWithBLOBs.getContentType()));
     }
 
-	public static String getMockKey(String id, Boolean isTrueExam){
-	    if (isTrueExam == null){
+    public static String getMockKey(String id, Boolean isTrueExam) {
+        if (isTrueExam == null) {
             return MOCK_KEY_PRE + "contentType:" + id;
         }
-		return MOCK_KEY_PRE + (isTrueExam ? "true:" : "false:")+ id;
-	}
+        return MOCK_KEY_PRE + (isTrueExam ? "true:" : "false:") + id;
+    }
 }

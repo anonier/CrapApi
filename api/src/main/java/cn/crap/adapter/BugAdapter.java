@@ -23,8 +23,8 @@ import java.util.Optional;
  * Avoid exposing sensitive data and modifying data that is not allowed to be modified
  */
 public class BugAdapter {
-    public static BugDTO getDto(BugPO model, ModulePO module, ProjectPO project){
-        if (model == null){
+    public static BugDTO getDto(BugPO model, ModulePO module, ProjectPO project) {
+        if (model == null) {
             return null;
         }
 
@@ -45,8 +45,8 @@ public class BugAdapter {
         return dto;
     }
 
-    public static BugPO getPO(BugDTO bugDTO){
-        if (bugDTO == null){
+    public static BugPO getPO(BugDTO bugDTO) {
+        if (bugDTO == null) {
             return null;
         }
 
@@ -56,7 +56,7 @@ public class BugAdapter {
     }
 
 
-    public static BugDTO getDTO(ProjectPO project, ModulePO module){
+    public static BugDTO getDTO(ProjectPO project, ModulePO module) {
         Assert.notNull(project, "project 不能为空");
         BugPO bugPO = new BugPO();
         bugPO.setType(BugType.FUNCTION.getByteValue());
@@ -73,8 +73,8 @@ public class BugAdapter {
         return bugDTO;
     }
 
-    public static BugPO getDTO(BugDTO dto){
-        if (dto == null){
+    public static BugPO getDTO(BugDTO dto) {
+        if (dto == null) {
             return null;
         }
         BugPO model = new BugPO();
@@ -83,45 +83,45 @@ public class BugAdapter {
         return model;
     }
 
-    public static List<BugDTO> getDto(List<BugPO> models){
-        if (models == null){
+    public static List<BugDTO> getDto(List<BugPO> models) {
+        if (models == null) {
             return new ArrayList<>();
         }
         List<BugDTO> dtos = new ArrayList<>();
-        for (BugPO model : models){
+        for (BugPO model : models) {
             dtos.add(getDto(model, null, null));
         }
         return dtos;
     }
 
-    public static List<SearchDto> getSearchDto(List<BugPO> models){
-        if (models == null){
+    public static List<SearchDto> getSearchDto(List<BugPO> models) {
+        if (models == null) {
             return new ArrayList<>();
         }
         List<SearchDto> dtos = new ArrayList<>();
-        for (BugPO model : models){
+        for (BugPO model : models) {
             try {
                 dtos.add(getSearchDto(model));
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         return dtos;
     }
 
-    public static SearchDto getSearchDto(BugPO model){
+    public static SearchDto getSearchDto(BugPO model) {
         ProjectPO project = ServiceFactory.getInstance().getProjectCache().get(model.getProjectId());
         boolean open = false;
-        if(LuceneSearchType.Yes.getByteValue().equals(project.getLuceneSearch())){
+        if (LuceneSearchType.Yes.getByteValue().equals(project.getLuceneSearch())) {
             open = true;
         }
 
         // 私有项目不能建立索引
-        if(project.getType() == ProjectType.PRIVATE.getType()){
+        if (project.getType() == ProjectType.PRIVATE.getType()) {
             open = false;
         }
 
         return new SearchDto(model.getProjectId(), model.getModuleId(), model.getId(), model.getName(), TableId.BUG,
-                 MyString.getStr(model.getContent()), null,  open, model.getCreateTime());
+                MyString.getStr(model.getContent()), null, open, model.getCreateTime());
     }
 }

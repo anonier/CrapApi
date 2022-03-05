@@ -25,9 +25,9 @@
         <div class="container p0">
             <div class="row p0 m0 CFFF">
                 <div class="mt100 tc">
-                        <a href="/">
-                            <img class="h100" src="${logo}"/>
-                        </a>
+                    <a href="/">
+                        <img class="h100" src="${logo}"/>
+                    </a>
 
                 </div>
                 <div class="f60 tc mt30">CRAP-Api</div>
@@ -50,19 +50,19 @@
                 </div>
 
 
-                    <div class="tr mt50">
-                        <div class="fr ml20">
-                            <a href='https://gitee.com/CrapApi/CrapApi/stargazers' target="_blank" class="CFFF">
-                                ${starNum} Stars (GitHub & Gitee)
-                            </a>
-                        </div>
-                        <div class="fr ml20">
-                            <a href='https://gitee.com/CrapApi/CrapApi/members' target="_blank" class="CFFF">
-                                ${forkNum} Forks
-                            </a>
-                        </div>
-                        <div class="fr ml20">10k+ Users</div>
+                <div class="tr mt50">
+                    <div class="fr ml20">
+                        <a href='https://gitee.com/CrapApi/CrapApi/stargazers' target="_blank" class="CFFF">
+                            ${starNum} Stars (GitHub & Gitee)
+                        </a>
                     </div>
+                    <div class="fr ml20">
+                        <a href='https://gitee.com/CrapApi/CrapApi/members' target="_blank" class="CFFF">
+                            ${forkNum} Forks
+                        </a>
+                    </div>
+                    <div class="fr ml20">10k+ Users</div>
+                </div>
 
             </div>
         </div>
@@ -79,7 +79,8 @@
                         <span class="adorn-color fn">${menuDto.menu.iconRemark}</span> ${menuDto.menu.menuName}
                     </div>
                     <c:forEach items="${menuDto.subMenu}" var="subMenu" varStatus="id">
-                        <a class="dis fl b1 p3 pl10 pr10 r12 mr10 f12 fn no_unl hover-adorn C999 mb5" href="${subMenu.menuUrl}">${subMenu.menuName}</a>
+                        <a class="dis fl b1 p3 pl10 pr10 r12 mr10 f12 fn no_unl hover-adorn C999 mb5"
+                           href="${subMenu.menuUrl}">${subMenu.menuName}</a>
                     </c:forEach>
                 </c:if>
             </c:forEach>
@@ -88,7 +89,8 @@
         <div class="col-sm-9 col-xs-12">
             <div class="cb dashed-b p3 pl10 pr10 mr10 f16 fw600 mt10 mb10 adorn-bl-3">
                 推荐文档
-                <div class="fr f12"><a class="adorn-color fn" href="index.do#/article/list?type=ARTICLE&status=2">More...</a></div>
+                <div class="fr f12"><a class="adorn-color fn" href="index.do#/article/list?type=ARTICLE&status=2">More...</a>
+                </div>
             </div>
             <c:forEach items="${articleList}" var="article" varStatus="id">
                 <div class="dashed-b">
@@ -118,7 +120,8 @@
                                 <i class="iconfont f12">&#xe6b7; 错误码</i>
                             </a>
                             <br/>
-                            <a class="f12 text-primary mr5 cursor mt10" href="project.do#/module/list?projectId=${item.id}"
+                            <a class="f12 text-primary mr5 cursor mt10"
+                               href="project.do#/module/list?projectId=${item.id}"
                                target="_blank">
                                 <i class="iconfont f12">&#xe83b; 模块</i>
                             </a>
@@ -191,7 +194,8 @@
                                 class="bg_line"></span></li>
                         <c:forEach items="${menuList}" var="menuDto" varStatus="id">
                             <c:if test="${menuDto.menu.type=='FRIEND'}">
-                                <a target="_blank" class="mr20" href="${menuDto.menu.menuUrl}">${menuDto.menu.menuName}</a>
+                                <a target="_blank" class="mr20"
+                                   href="${menuDto.menu.menuUrl}">${menuDto.menu.menuName}</a>
                             </c:if>
                         </c:forEach>
                     </ul>

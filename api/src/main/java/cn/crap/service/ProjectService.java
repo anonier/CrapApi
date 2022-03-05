@@ -31,26 +31,29 @@ public class ProjectService extends NewBaseService<ProjectPO, ProjectQuery> impl
     private SettingCache settingCache;
 
     private ProjectDao projectDao;
+
     @Resource
     public void ProjectDao(ProjectDao projectDao) {
         this.projectDao = projectDao;
         super.setBaseDao(projectDao, TableId.PROJECT);
     }
 
-    public ProjectPO getByUniKey(String userId, String projectUniKey) throws MyException{
+    public ProjectPO getByUniKey(String userId, String projectUniKey) throws MyException {
         List<ProjectPO> projectPOS = this.select(new ProjectQuery().setUserId(userId).setUniKey(projectUniKey));
-        if (CollectionUtils.isEmpty(projectPOS)){
+        if (CollectionUtils.isEmpty(projectPOS)) {
             return null;
         }
         return projectPOS.get(0);
     }
+
     /**
      * 添加
+     *
      * @param project
      * @return
      */
     @Override
-    public boolean insert(ProjectPO project) throws MyException{
+    public boolean insert(ProjectPO project) throws MyException {
         if (project == null) {
             return false;
         }
@@ -58,19 +61,19 @@ public class ProjectService extends NewBaseService<ProjectPO, ProjectQuery> impl
             project.setPassword(MD5.encrytMD5(project.getPassword(), project.getId()));
         }
 
-        if (project.getStatus() == null){
+        if (project.getStatus() == null) {
             project.setStatus(ProjectStatus.COMMON.getStatus());
         }
 
-        if (project.getType() == null){
+        if (project.getType() == null) {
             project.setType(ProjectType.PRIVATE.getByteType());
         }
 
-        if (project.getUniKey() == null){
+        if (project.getUniKey() == null) {
             project.setUniKey(IdGenerator.getId(TableId.PROJECT));
         }
 
-        if (MyString.isEmpty(project.getCover())){
+        if (MyString.isEmpty(project.getCover())) {
             project.setCover(Tools.getAvatar());
         }
         return super.insert(project);
@@ -78,9 +81,10 @@ public class ProjectService extends NewBaseService<ProjectPO, ProjectQuery> impl
 
     /**
      * 记录日志，再更新
+     *
      * @param project
      */
-    public boolean update(ProjectPO project, boolean needAddLog) throws MyException{
+    public boolean update(ProjectPO project, boolean needAddLog) throws MyException {
         if (needAddLog) {
             ProjectPO dbModel = super.get(project.getId());
             Log log = Adapter.getLog(dbModel.getId(), L_PROJECT_CHINESE, dbModel.getName(), LogType.UPDATE, dbModel.getClass(), dbModel);
@@ -103,7 +107,7 @@ public class ProjectService extends NewBaseService<ProjectPO, ProjectQuery> impl
      * @param id
      */
     @Override
-    public boolean delete(String id) throws MyException{
+    public boolean delete(String id) throws MyException {
         Assert.notNull(id);
         ProjectPO dbModel = super.get(id);
 
@@ -114,7 +118,7 @@ public class ProjectService extends NewBaseService<ProjectPO, ProjectQuery> impl
     }
 
 
-    public List<ProjectPO> query(String userId, boolean onlyJoin, String name, Page page) throws MyException{
+    public List<ProjectPO> query(String userId, boolean onlyJoin, String name, Page page) throws MyException {
         Assert.notNull(userId, "userId can't be null");
         return customMapper.queryProjectByUserId(userId, onlyJoin, name, page);
     }
@@ -126,6 +130,7 @@ public class ProjectService extends NewBaseService<ProjectPO, ProjectQuery> impl
 
     /**
      * 获取邀请将入的链接
+     *
      * @param projectDto
      * @return
      */
@@ -139,25 +144,26 @@ public class ProjectService extends NewBaseService<ProjectPO, ProjectQuery> impl
 
     /**
      * 解析邀请码
+     *
      * @param code
      * @return
      * @throws MyException
      */
     @Nullable
-    public String getProjectIdFromInviteCode(String code) throws MyException{
-        if (MyString.isEmpty(code)){
+    public String getProjectIdFromInviteCode(String code) throws MyException {
+        if (MyString.isEmpty(code)) {
             throw new MyException(MyError.E000065, "邀请码不能为空");
         }
 
-        try{
+        try {
             String originalCode = Aes.desEncrypt(code);
             String projectId = originalCode.split(SEPARATOR)[0];
             String timeStr = originalCode.split(SEPARATOR)[1];
-            if (Long.parseLong(timeStr) + TWO_HOUR > System.currentTimeMillis()){
+            if (Long.parseLong(timeStr) + TWO_HOUR > System.currentTimeMillis()) {
                 return projectId;
             }
             throw new MyException(MyError.E000065, "抱歉，来得太晚了，邀请码过期");
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new MyException(MyError.E000065, "未知异常：" + e.getMessage());
         }
     }

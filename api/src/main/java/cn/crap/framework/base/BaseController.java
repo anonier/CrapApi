@@ -46,44 +46,44 @@ public abstract class BaseController implements IConst, ISetting {
     @Resource(name = "objectCache")
     protected ObjectCache objectCache;
 
-    protected ProjectPO getProject(BaseQuery query){
+    protected ProjectPO getProject(BaseQuery query) {
         Assert.isTrue(MyString.isNotEmptyOrNUll(query.getProjectId())
                 || MyString.isNotEmptyOrNUll(query.getModuleId()), "projectId、moduleId不能同时为空");
 
-        if (MyString.isNotEmptyOrNUll(query.getModuleId())){
+        if (MyString.isNotEmptyOrNUll(query.getModuleId())) {
             ModulePO module = moduleCache.get(query.getModuleId());
             return projectCache.get(module.getProjectId());
         }
 
-        if (query.getProjectId()!= null){
+        if (query.getProjectId() != null) {
             return projectCache.get(query.getProjectId());
         }
         return null;
     }
 
-    protected String getProjectId(String projectId, String moduleId){
+    protected String getProjectId(String projectId, String moduleId) {
         Assert.isTrue(MyString.isNotEmptyOrNUll(projectId)
                 || MyString.isNotEmptyOrNUll(moduleId), "projectId、moduleId不能同时为空");
 
-        if (MyString.isNotEmptyOrNUll(moduleId)){
+        if (MyString.isNotEmptyOrNUll(moduleId)) {
             String moduleProjectId = moduleCache.get(moduleId).getProjectId();
             return moduleProjectId == null ? projectId : moduleProjectId;
         }
         return projectId;
     }
 
-    protected ProjectPO getProject(String projectId, String moduleId){
+    protected ProjectPO getProject(String projectId, String moduleId) {
         Assert.isTrue(MyString.isNotEmptyOrNUll(projectId)
                 || MyString.isNotEmptyOrNUll(moduleId), "projectId、moduleId不能同时为空");
 
-        if (MyString.isNotEmptyOrNUll(moduleId)){
+        if (MyString.isNotEmptyOrNUll(moduleId)) {
             projectId = moduleCache.get(moduleId).getProjectId();
         }
         return projectCache.get(projectId);
     }
 
-    protected ModulePO getModule(BaseQuery query){
-        if (query.getModuleId() != null){
+    protected ModulePO getModule(BaseQuery query) {
+        if (query.getModuleId() != null) {
             ModulePO module = moduleCache.get(query.getModuleId());
             return module.getId() == null ? null : module;
         }
@@ -91,13 +91,13 @@ public abstract class BaseController implements IConst, ISetting {
     }
 
     /**
-     * @param param 待校验参数
-     * @param tip 前端提示文案
+     * @param param   待校验参数
+     * @param tip     前端提示文案
      * @param myError
      * @throws MyException
      */
-    protected void throwExceptionWhenIsNull(String param, String tip, MyError myError) throws MyException{
-        if (myError == null){
+    protected void throwExceptionWhenIsNull(String param, String tip, MyError myError) throws MyException {
+        if (myError == null) {
             myError = MyError.E000020;
         }
         if (MyString.isEmpty(param)) {
@@ -105,7 +105,7 @@ public abstract class BaseController implements IConst, ISetting {
         }
     }
 
-    protected void throwExceptionWhenIsNull(String param, String tip) throws MyException{
+    protected void throwExceptionWhenIsNull(String param, String tip) throws MyException {
         throwExceptionWhenIsNull(param, tip, null);
     }
 
@@ -119,7 +119,7 @@ public abstract class BaseController implements IConst, ISetting {
 
         String userId = null;
         LoginInfoDto loginInfoDto = LoginUserHelper.tryGetUser();
-        if (loginInfoDto != null){
+        if (loginInfoDto != null) {
             userId = loginInfoDto.getId();
         }
 
@@ -167,10 +167,10 @@ public abstract class BaseController implements IConst, ISetting {
     }
 
     protected void printMsg(String message, InterfaceContentType contentType) {
-        if (contentType == null){
+        if (contentType == null) {
             contentType = InterfaceContentType.JSON;
         }
-        if (MyString.isEmpty(message)){
+        if (MyString.isEmpty(message)) {
             message = " ";
         }
         ThreadContext.response().setHeader("Content-Type", contentType.getType());
@@ -187,6 +187,7 @@ public abstract class BaseController implements IConst, ISetting {
 
     /**
      * 权限校验
+     *
      * @param project
      * @throws MyException
      */
@@ -252,9 +253,9 @@ public abstract class BaseController implements IConst, ISetting {
          */
         if (settingCache.get(S_VISITCODE).getValue().equals("true")) {
             String imgCode = "";
-            try{
+            try {
                 imgCode = Tools.getImgCode();
-            }catch (MyException e){
+            } catch (MyException e) {
                 throw new MyException(MyError.E000007);
             }
             if (MyString.notEquals(imgCode, visitCode)) {
@@ -312,7 +313,7 @@ public abstract class BaseController implements IConst, ISetting {
         return value == null ? def : value;
     }
 
-    private String getAllStrParam(HttpServletRequest request){
+    private String getAllStrParam(HttpServletRequest request) {
         try {
             StringBuilder sb = new StringBuilder("[");
             Enumeration paramNames = request.getParameterNames();
@@ -328,7 +329,7 @@ public abstract class BaseController implements IConst, ISetting {
             }
             sb.append("]");
             return sb.toString();
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("获取请求参数异常", e);
             return "";
         }

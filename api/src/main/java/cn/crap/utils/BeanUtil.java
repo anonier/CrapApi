@@ -18,10 +18,11 @@ import java.util.List;
 /**
  * 属性拷贝，详情见org.springframework.beans.BeanUtils
  * 区别在于类型不匹配时，不报错
+ *
  * @author Ehsan
  * @date 2018/7/1 11:26
  */
-public class BeanUtil extends BeanUtils{
+public class BeanUtil extends BeanUtils {
     private static Log logger = LogFactory.getLog(BeanUtil.class);
     private static String[] defIgnoreProperties = new String[]{"password", "passwordSalt", "createTime", "updateTime"};
     private static String[] canNotUpdateProperties = new String[]{"createTime", "password", "passwordSalt", "click",
@@ -39,8 +40,8 @@ public class BeanUtil extends BeanUtils{
 
 
     /**
-     * @param source the source bean
-     * @param target the target bean
+     * @param source           the source bean
+     * @param target           the target bean
      * @param ignoreProperties array of property names to ignore
      * @throws BeansException if the copying failed
      * @see BeanWrapper
@@ -76,14 +77,13 @@ public class BeanUtil extends BeanUtils{
 
                             //新增逻辑，类型一致才拷贝
                             if (writeMethod.getParameterTypes().length == 1
-                                    && isAssignmentCompatible(readMethod.getReturnType(), writeMethod.getParameterTypes()[0])){
+                                    && isAssignmentCompatible(readMethod.getReturnType(), writeMethod.getParameterTypes()[0])) {
                                 writeMethod.invoke(target, value);
-                            }else if(logger.isInfoEnabled() || logger.isDebugEnabled()){
+                            } else if (logger.isInfoEnabled() || logger.isDebugEnabled()) {
                                 logger.info("BeanUtil 拷贝属性" + source.getClass().getName() + "[" + sourcePd.getName() + "]至"
-                                + target.getClass().getName() + "[" + targetPd.getName() + "]失败");
+                                        + target.getClass().getName() + "[" + targetPd.getName() + "]失败");
                             }
-                        }
-                        catch (Throwable ex) {
+                        } catch (Throwable ex) {
                             throw new FatalBeanException(
                                     "Could not copy property '" + targetPd.getName() + "' from source to target", ex);
                         }
@@ -93,23 +93,23 @@ public class BeanUtil extends BeanUtils{
         }
     }
 
-    public static final boolean isAssignmentCompatible(Class<?> targetType, Class<?> sourceType){
+    public static final boolean isAssignmentCompatible(Class<?> targetType, Class<?> sourceType) {
         Assert.notNull(targetType);
 
-        if (sourceType == null){
+        if (sourceType == null) {
             // 此方法主要用来判断Class是否为原始类型，8种基本类型返回false，基本类型不能为null
             return !targetType.isPrimitive();
         }
 
         // targetType 为 sourceType 的父类或是相同类型返回true
-        if (targetType.isAssignableFrom(sourceType)){
+        if (targetType.isAssignableFrom(sourceType)) {
             return true;
         }
 
         // 基本类型与包装类型一致，返回true
-        if (targetType.isPrimitive()){
+        if (targetType.isPrimitive()) {
             Class<?> targetWrapperClazz = getPrimitiveWrapper(targetType);
-            if (targetWrapperClazz != null){
+            if (targetWrapperClazz != null) {
                 return targetType.equals(sourceType);
             }
         }
@@ -118,32 +118,33 @@ public class BeanUtil extends BeanUtils{
 
     /**
      * 获取基本类型的包装类
+     *
      * @param primitiveType
      * @return
      */
-    public static Class<?> getPrimitiveWrapper(Class<?> primitiveType){
-        if (boolean.class.equals(primitiveType)){
+    public static Class<?> getPrimitiveWrapper(Class<?> primitiveType) {
+        if (boolean.class.equals(primitiveType)) {
             return Boolean.class;
         }
-        if (float.class.equals(primitiveType)){
+        if (float.class.equals(primitiveType)) {
             return Float.class;
         }
-        if (long.class.equals(primitiveType)){
+        if (long.class.equals(primitiveType)) {
             return Long.class;
         }
-        if (int.class.equals(primitiveType)){
+        if (int.class.equals(primitiveType)) {
             return Integer.class;
         }
-        if (short.class.equals(primitiveType)){
+        if (short.class.equals(primitiveType)) {
             return Short.class;
         }
-        if (byte.class.equals(primitiveType)){
+        if (byte.class.equals(primitiveType)) {
             return Byte.class;
         }
-        if (double.class.equals(primitiveType)){
+        if (double.class.equals(primitiveType)) {
             return Double.class;
         }
-        if (char.class.equals(primitiveType)){
+        if (char.class.equals(primitiveType)) {
             return Character.class;
         }
         return null;

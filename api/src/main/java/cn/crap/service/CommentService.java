@@ -44,7 +44,7 @@ public class CommentService extends NewBaseService<CommentPO, CommentQuery> impl
             commentPO.setUserId(u.getId());
             commentPO.setAvatarUrl(u.getAvatarUrl());
             // bug
-            if (commentPO.getType().equals(C_BUG)){
+            if (commentPO.getType().equals(C_BUG)) {
                 commentPO.setUserName(LoginUserHelper.getName(u));
             } else {
                 commentPO.setUserName(LoginUserHelper.getSecretName(u));

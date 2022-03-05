@@ -29,36 +29,36 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/user/projectMeta")
-public class ProjectMetaController extends BaseController{
+public class ProjectMetaController extends BaseController {
 
-	@Autowired
-	private ProjectService projectService;
+    @Autowired
+    private ProjectService projectService;
     @Autowired
     private ProjectCache projectCache;
-	@Autowired
-	private UserService userService;
-	@Autowired
-	private ProjectMetaService projectMetaService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private ProjectMetaService projectMetaService;
 
-	@RequestMapping("/list.do")
-	@ResponseBody
+    @RequestMapping("/list.do")
+    @ResponseBody
     @AuthPassport
-	public JsonResult list(@ModelAttribute ProjectMetaQuery query) throws MyException{
-		Assert.notNull(query.getProjectId());
-        checkPermission( projectCache.get(query.getProjectId()), ProjectPermissionEnum.READ);
+    public JsonResult list(@ModelAttribute ProjectMetaQuery query) throws MyException {
+        Assert.notNull(query.getProjectId());
+        checkPermission(projectCache.get(query.getProjectId()), ProjectPermissionEnum.READ);
 
-		List<ProjectMetaPO> projectMetas = projectMetaService.select(query);
-        Page page= new Page(query);
+        List<ProjectMetaPO> projectMetas = projectMetaService.select(query);
+        Page page = new Page(query);
         page.setAllRow(projectMetaService.count(query));
 
         List<ProjectMetaDTO> dto = ProjectMetaAdapter.getDto(projectMetas);
         return new JsonResult(1, dto, page);
-	}	
-	
-	@RequestMapping("/detail.do")
-	@ResponseBody
+    }
+
+    @RequestMapping("/detail.do")
+    @ResponseBody
     @AuthPassport
-	public JsonResult detail(String id, @ModelAttribute ProjectMetaQuery query) throws MyException{
+    public JsonResult detail(String id, @ModelAttribute ProjectMetaQuery query) throws MyException {
         ProjectMetaPO projectMeta;
         ProjectPO project;
         ModulePO module = null;
@@ -75,16 +75,16 @@ public class ProjectMetaController extends BaseController{
             projectMeta.setSequence(System.currentTimeMillis());
         }
 
-		checkPermission(project, ProjectPermissionEnum.READ);
+        checkPermission(project, ProjectPermissionEnum.READ);
         ProjectMetaDTO projectMetaDto = ProjectMetaAdapter.getDto(projectMeta, module);
-		return JsonResult.of().success().data(projectMetaDto);
-	}
-	
-	@RequestMapping("/addOrUpdate.do")
-	@ResponseBody
+        return JsonResult.of().success().data(projectMetaDto);
+    }
+
+    @RequestMapping("/addOrUpdate.do")
+    @ResponseBody
     @AuthPassport
-	public JsonResult addOrUpdate(@ModelAttribute ProjectMetaDTO projectMeta) throws Exception{
-	    Assert.notNull(projectMeta.getProjectId());
+    public JsonResult addOrUpdate(@ModelAttribute ProjectMetaDTO projectMeta) throws Exception {
+        Assert.notNull(projectMeta.getProjectId());
 
         ProjectMetaPO model = ProjectMetaAdapter.getModel(projectMeta);
         if (projectMeta.getId() != null) {
@@ -97,16 +97,16 @@ public class ProjectMetaController extends BaseController{
             projectMetaService.insert(model);
         }
 
-		return new JsonResult(1,projectMeta);
-	}
-	
-	@RequestMapping("/delete.do")
-	@ResponseBody
+        return new JsonResult(1, projectMeta);
+    }
+
+    @RequestMapping("/delete.do")
+    @ResponseBody
     @AuthPassport
-	public JsonResult delete(@RequestParam String id) throws Exception{
-		ProjectMetaPO projectMeta = projectMetaService.get(id);
-		checkPermission(projectMeta.getProjectId(), ProjectPermissionEnum.DEL_ENV);
-		projectMetaService.delete(projectMeta.getId());
-		return new JsonResult(1,null);
-	}
+    public JsonResult delete(@RequestParam String id) throws Exception {
+        ProjectMetaPO projectMeta = projectMetaService.get(id);
+        checkPermission(projectMeta.getProjectId(), ProjectPermissionEnum.DEL_ENV);
+        projectMetaService.delete(projectMeta.getId());
+        return new JsonResult(1, null);
+    }
 }

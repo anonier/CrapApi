@@ -11,13 +11,13 @@ import org.springframework.util.Assert;
 @Service
 public class CustomDebugDao {
 
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
 
-	public void deleteByModuleId(String moduleId){
+    public void deleteByModuleId(String moduleId) {
         Assert.notNull(moduleId);
         jdbcTemplate.update("delete from debug where moduleId=?", moduleId);
-	}
+    }
 
 }

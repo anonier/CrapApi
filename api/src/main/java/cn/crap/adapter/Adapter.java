@@ -11,7 +11,7 @@ import org.springframework.util.Assert;
  * @date 18/1/1 18:52
  */
 public class Adapter {
-    public static Log getLog(String id, String modelName, String remark, LogType type, Class c, Object model){
+    public static Log getLog(String id, String modelName, String remark, LogType type, Class c, Object model) {
         Assert.notNull(id);
         Assert.notNull(type);
         Log log = new Log();
@@ -23,9 +23,9 @@ public class Adapter {
         log.setIdenty(id);
         try {
             log.setUpdateBy(LoginUserHelper.getUser().getTrueName());
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return  log;
+        return log;
     }
 }

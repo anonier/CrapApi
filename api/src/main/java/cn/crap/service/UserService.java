@@ -35,32 +35,32 @@ public class UserService extends NewBaseService<UserPO, UserQuery> implements IL
     }
 
     @Override
-    public boolean insert(UserPO user) throws MyException{
+    public boolean insert(UserPO user) throws MyException {
         if (user == null) {
             return false;
         }
-        if (user.getAvatarUrl() == null){
+        if (user.getAvatarUrl() == null) {
             user.setAvatarUrl(Tools.getAvatar());
         }
-        if (user.getAuthName() == null){
+        if (user.getAuthName() == null) {
             user.setAuthName("");
         }
-        if (user.getAuth() == null){
+        if (user.getAuth() == null) {
             user.setAuth("");
         }
-        if (user.getRoleId() == null){
+        if (user.getRoleId() == null) {
             user.setRoleId("");
         }
-        if (user.getRoleName() == null){
+        if (user.getRoleName() == null) {
             user.setRoleName("");
         }
-        if (user.getTrueName() == null){
+        if (user.getTrueName() == null) {
             user.setTrueName("");
         }
-        if (user.getStatus() == null){
+        if (user.getStatus() == null) {
             user.setStatus(UserStatus.INVALID.getType());
         }
-        if (user.getLoginType() == null){
+        if (user.getLoginType() == null) {
             user.setLoginType(LoginType.COMMON.getValue());
         }
 
@@ -69,8 +69,8 @@ public class UserService extends NewBaseService<UserPO, UserQuery> implements IL
     }
 
 
-    public void login(LoginDto loginDto, UserPO user) throws MyException{
-        String token  = Aes.encrypt(user.getId());
+    public void login(LoginDto loginDto, UserPO user) throws MyException {
+        String token = Aes.encrypt(user.getId());
         MyCookie.addCookie(IConst.COOKIE_TOKEN, token);
         // 将用户信息存入缓存
         userCache.add(user.getId(), new LoginInfoDto(user));
@@ -95,11 +95,12 @@ public class UserService extends NewBaseService<UserPO, UserQuery> implements IL
 
     /**
      * 根据用户名称查询数量
+     *
      * @param name
      * @param expectUserId 可以为空
      * @return
      */
-    public int countByNameExceptUserId(String name, String expectUserId){
+    public int countByNameExceptUserId(String name, String expectUserId) {
         UserQuery query = new UserQuery().setEqualUserName(name).setNotEqualId(expectUserId);
         return userDao.count(query);
     }

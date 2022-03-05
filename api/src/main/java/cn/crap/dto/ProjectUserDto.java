@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 public class ProjectUserDto extends ProjectUserPO {
-	private String projectName;
+    private String projectName;
     private List<PermissionDTO> crShowPermissionList;
     private Set<String> crShowPermissionSet;
     private String permissionStr;

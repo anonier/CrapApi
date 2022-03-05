@@ -11,7 +11,7 @@ import java.util.*;
  * 2. 导出为interfaceTemplete.xml
  * 3. 使用程序替换xml中的汉字
  * 4. 处理循环
- *
+ * <p>
  * 注意：html问题
  */
 public class WordXmlHander {
@@ -84,10 +84,10 @@ public class WordXmlHander {
 //        </#if>
     }
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         String xmlPath = templateFolder + "/" + templateFileName + ".xml";
         String xmlContent = Tools.readFile(xmlPath);
-        for (String str : placeHolder){
+        for (String str : placeHolder) {
             xmlContent = xmlContent.replaceAll(str, "\\$\\{" + str + "\\}");
         }
         Tools.staticize(xmlContent, "/Users/apple/ijworkspace/ApiManager/api/src/main/resources/interfaceTemplete.xml");

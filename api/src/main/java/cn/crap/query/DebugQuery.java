@@ -6,13 +6,13 @@ import java.util.List;
  * @author Ehsan
  * @date 2018/6/30 14:17
  */
-public class DebugQuery extends BaseQuery<DebugQuery>{
+public class DebugQuery extends BaseQuery<DebugQuery> {
     private String userId;
 
     private List<String> moduleIds;
 
     @Override
-    public DebugQuery getQuery(){
+    public DebugQuery getQuery() {
         return this;
     }
 

@@ -11,6 +11,7 @@ import java.net.URLEncoder;
 import java.util.Map;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 
@@ -34,7 +35,7 @@ public class WordUtils {
         DownloadUtils.downloadWord(response, file, name, false);
     }
 
-    private static File createDoc(Map<?, ?> dataMap, Template template) throws Exception{
+    private static File createDoc(Map<?, ?> dataMap, Template template) throws Exception {
         String destDir = Tools.getServicePath() + "resources/download";
         destDir += "/word_" + System.currentTimeMillis() + Tools.getChar(20) + ".doc";
         File f = new File(destDir);
@@ -44,11 +45,11 @@ public class WordUtils {
             // 这个地方不能使用FileWriter因为需要指定编码类型否则生成的Word文档会因为有无法识别的编码而无法打开
             w = new OutputStreamWriter(new FileOutputStream(f), "utf-8");
             t.process(dataMap, w);
-        }finally {
-            if (t != null){
+        } finally {
+            if (t != null) {
                 try {
                     w.close();
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

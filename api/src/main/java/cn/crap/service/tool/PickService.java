@@ -24,7 +24,7 @@ import java.util.List;
  * @author Ehsan
  */
 @Service("pickService")
-public class PickService implements IPickService{
+public class PickService implements IPickService {
     @Resource(name = "userPickService")
     private IPickService userPickService;
 
@@ -153,16 +153,16 @@ public class PickService implements IPickService{
                 return picks;
             case BUG_STATUS:// bug状态
                 for (BugStatus status : BugStatus.values()) {
-                    if (status.getByteValue() == 0){
+                    if (status.getByteValue() == 0) {
                         pick = new PickDto(IConst.C_SEPARATOR, "完结");
                         picks.add(pick);
-                    }else if (status.getByteValue() == 10){
+                    } else if (status.getByteValue() == 10) {
                         pick = new PickDto(IConst.C_SEPARATOR, "激活");
                         picks.add(pick);
-                    }else if (status.getByteValue() == 20){
+                    } else if (status.getByteValue() == 20) {
                         pick = new PickDto(IConst.C_SEPARATOR, "解决");
                         picks.add(pick);
-                    }else if (status.getByteValue() == 30){
+                    } else if (status.getByteValue() == 30) {
                         pick = new PickDto(IConst.C_SEPARATOR, "测试");
                         picks.add(pick);
                     }
@@ -185,10 +185,10 @@ public class PickService implements IPickService{
 
             case PROJECT_PERMISSION:// 项目权限
                 for (ProjectPermissionEnum permissionEnum : ProjectPermissionEnum.values()) {
-                    if (permissionEnum.getValue().equals("read") || permissionEnum.getValue().equals("myData")){
+                    if (permissionEnum.getValue().equals("read") || permissionEnum.getValue().equals("myData")) {
                         continue;
                     }
-                    if (permissionEnum.isSeparator()){
+                    if (permissionEnum.isSeparator()) {
                         pick = new PickDto(IConst.C_SEPARATOR, permissionEnum.getSeparatorTitle());
                         picks.add(pick);
                     }

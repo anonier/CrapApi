@@ -45,7 +45,8 @@
                        target="_blank" class="menu_a">插件下载 <i class="iconfont adorn-color f14">&#xe624;</i></a>
                 </li>
                 <c:if test="${login}">
-                    <li><a class="cursor" onclick="loginOut()"><i class="iconfont f16 mt-5 adorn-color">&#xe609;</i>&nbsp;&nbsp;注销</a></li>
+                    <li><a class="cursor" onclick="loginOut()"><i class="iconfont f16 mt-5 adorn-color">&#xe609;</i>&nbsp;&nbsp;注销</a>
+                    </li>
                 </c:if>
             </ul>
         </div>
@@ -66,26 +67,30 @@
                            target="_self">查看项目</a>
                     </c:if>
                     <c:if test="${login == false}">
-                        <a class="btn btn-adorn btn-sm r20 w150 f14" href="loginOrRegister.do#/register" target="_self">快速注册<i
-                                class="iconfont f18 pl10">&#xe604;</i></a>
+                        <%--                        <a class="btn btn-adorn btn-sm r20 w150 f14" href="loginOrRegister.do#/register" target="_self">快速注册<i--%>
+                        <%--                                class="iconfont f18 pl10">&#xe604;</i></a>--%>
                         <a class="btn btn-adorn btn-sm r20 w150 f14 ml10" href="loginOrRegister.do#/login"
                            target="_self">登录<i class="iconfont f18 pl10">&#xe601;</i></a>
                     </c:if>
                 </div>
                 <div class="hidden-sm hidden-xs col-md-3  p50 shadow h300 mt100 r10 dashboard f12">
                     <div class="adorn-bl-3 f14 pl10 mb20">快速入门</div>
-                    <a class="btn btn-adorn btn-sm w f14 r20" href="http://v.youku.com/v_show/id_XMzU4NjQwODIzNg==.html" target="_blank">
-                        视频-用户版  <i class="iconfont f18">&#xe634;</i></a>
+                    <a class="btn btn-adorn btn-sm w f14 r20" href="http://v.youku.com/v_show/id_XMzU4NjQwODIzNg==.html"
+                       target="_blank">
+                        视频-用户版 <i class="iconfont f18">&#xe634;</i></a>
 
-                    <a class="btn btn-main btn-sm w f14 mt10 r20" href="https://gitee.com/CrapApi/ApiDebug" target="_blank">
-                        浏览器接口调试插件  <i class="iconfont f18">&#xe613;</i></a>
+                    <a class="btn btn-main btn-sm w f14 mt10 r20" href="https://gitee.com/CrapApi/ApiDebug"
+                       target="_blank">
+                        浏览器接口调试插件 <i class="iconfont f18">&#xe613;</i></a>
 
-                    <a class="btn btn-main btn-sm w f14 mt10 r20" href="https://v.youku.com/v_show/id_XMzYwMzA2MzUyNA==.html" target="_blank">
-                        视频-管理员版  <i class="iconfont f18">&#xe6f5;</i></a>
+                    <a class="btn btn-main btn-sm w f14 mt10 r20"
+                       href="https://v.youku.com/v_show/id_XMzYwMzA2MzUyNA==.html" target="_blank">
+                        视频-管理员版 <i class="iconfont f18">&#xe6f5;</i></a>
                     <div class="mt20 tc">
                         <a href='https://gitee.com/CrapApi/CrapApi/stargazers'><img
                                 src='https://gitee.com/CrapApi/CrapApi/badge/star.svg?theme=dark' alt='star'></img></a>
-                        <a href='https://gitee.com/CrapApi/CrapApi/members'><img src='https://gitee.com/CrapApi/CrapApi/badge/fork.svg?theme=dark' alt='fork'></img></a>
+                        <a href='https://gitee.com/CrapApi/CrapApi/members'><img
+                                src='https://gitee.com/CrapApi/CrapApi/badge/fork.svg?theme=dark' alt='fork'></img></a>
                     </div>
                 </div>
             </div>
@@ -103,7 +108,8 @@
                         <span class="adorn-color fn">${menuDto.menu.iconRemark}</span> ${menuDto.menu.menuName}
                     </div>
                     <c:forEach items="${menuDto.subMenu}" var="subMenu" varStatus="id">
-                        <a class="dis fl b1 p3 pl10 pr10 r12 mr10 f12 fn no_unl hover-adorn C999 mb5" href="${subMenu.menuUrl}">${subMenu.menuName}</a>
+                        <a class="dis fl b1 p3 pl10 pr10 r12 mr10 f12 fn no_unl hover-adorn C999 mb5"
+                           href="${subMenu.menuUrl}">${subMenu.menuName}</a>
                     </c:forEach>
                 </c:if>
             </c:forEach>
@@ -112,7 +118,8 @@
         <div class="col-sm-9 col-xs-12">
             <div class="cb dashed-b p3 pl10 pr10 mr10 f16 fw600 mt10 mb10 adorn-bl-3">
                 推荐文档
-                <div class="fr f12"><a class="adorn-color fn" href="index.do#/article/list?type=ARTICLE&status=2">More...</a></div>
+                <div class="fr f12"><a class="adorn-color fn" href="index.do#/article/list?type=ARTICLE&status=2">More...</a>
+                </div>
             </div>
             <c:forEach items="${articleList}" var="article" varStatus="id">
                 <div class="dashed-b">
@@ -142,7 +149,8 @@
                                 <i class="iconfont f12">&#xe6b7; 错误码</i>
                             </a>
                             <br/>
-                            <a class="f12 text-primary mr5 cursor mt10" href="project.do#/module/list?projectId=${item.id}"
+                            <a class="f12 text-primary mr5 cursor mt10"
+                               href="project.do#/module/list?projectId=${item.id}"
                                target="_blank">
                                 <i class="iconfont f12">&#xe83b; 模块</i>
                             </a>
@@ -192,7 +200,8 @@
                                 class="bg_line"></span></li>
                         <c:forEach items="${menuList}" var="menuDto" varStatus="id">
                             <c:if test="${menuDto.menu.type=='FRIEND'}">
-                                <a target="_blank" class="mr20" href="${menuDto.menu.menuUrl}">${menuDto.menu.menuName}</a>
+                                <a target="_blank" class="mr20"
+                                   href="${menuDto.menu.menuUrl}">${menuDto.menu.menuName}</a>
                             </c:if>
                         </c:forEach>
                     </ul>

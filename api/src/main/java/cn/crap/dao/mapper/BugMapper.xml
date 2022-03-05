@@ -29,9 +29,10 @@
 
     <!-- 基本的字段，供其他查询引用-->
     <sql id="baseColumn">
-        id,createTime,executor,executorStr,priority,updateBy,name,content,severity,creator,creatorStr,updateTime,sequence,moduleId,
+        id
+        ,createTime,executor,executorStr,priority,updateBy,name,content,severity,creator,creatorStr,updateTime,sequence,moduleId,
         attributes,tester,testerStr,projectId,type,tracer,tracerStr,status,deadline
-   </sql>
+    </sql>
 
     <sql id="querySql">
         <where>
@@ -66,15 +67,18 @@
     <!-- 新增 -->
     <insert id="insert" parameterType="cn.crap.model.BugPO">
         insert into bug (
-          <include refid="baseColumn"/>
+        <include refid="baseColumn"/>
         )
-        values (#{id},NOW(),#{executor},#{executorStr},#{priority},#{updateBy},#{name},#{content},#{severity},#{creator},#{creatorStr},
+        values
+        (#{id},NOW(),#{executor},#{executorStr},#{priority},#{updateBy},#{name},#{content},#{severity},#{creator},#{creatorStr},
         NOW(),#{sequence},#{moduleId},#{attributes},#{tester},#{testerStr},#{projectId},#{type},#{tracer},#{tracerStr},#{status},#{deadline})
-   </insert>
+    </insert>
 
     <!-- 删除 -->
     <delete id="delete">
-        delete from bug where id=#{id}
+        delete
+        from bug
+        where id = #{id}
     </delete>
 
 

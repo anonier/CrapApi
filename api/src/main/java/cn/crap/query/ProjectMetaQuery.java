@@ -4,11 +4,11 @@ package cn.crap.query;
  * @author Ehsan
  * @date 2018/6/30 14:17
  */
-public class ProjectMetaQuery extends BaseQuery<ProjectMetaQuery>{
+public class ProjectMetaQuery extends BaseQuery<ProjectMetaQuery> {
     private Byte type;
 
     @Override
-    public ProjectMetaQuery getQuery(){
+    public ProjectMetaQuery getQuery() {
         return this;
     }
 

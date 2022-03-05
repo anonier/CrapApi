@@ -8,7 +8,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import java.io.Serializable;
 import java.util.Date;
 
-public class BasePO implements Serializable{
+public class BasePO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Getter
@@ -32,7 +32,7 @@ public class BasePO implements Serializable{
     private String attributes;
 
     @Override
-    public String toString(){
+    public String toString() {
         return ToStringBuilder.reflectionToString(this, new NotNullFieldStringStyle());
     }
 

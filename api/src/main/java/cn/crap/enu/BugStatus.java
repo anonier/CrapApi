@@ -37,44 +37,45 @@ public enum BugStatus {
     INVALID("-2", "无效"),
     CLOSE("-1", "关闭");
 
-	private final String value;
-	private final String name;
+    private final String value;
+    private final String name;
 
-    public static BugStatus getByValue(String value){
+    public static BugStatus getByValue(String value) {
         return getByValue(Byte.parseByte(value));
     }
-    public static BugStatus getByValue(Byte value){
-        if (value == null){
+
+    public static BugStatus getByValue(Byte value) {
+        if (value == null) {
             return null;
         }
-        for( BugStatus status : BugStatus.values()){
-            if(status.value.equals(value + "")){
+        for (BugStatus status : BugStatus.values()) {
+            if (status.value.equals(value + "")) {
                 return status;
             }
         }
         return null;
     }
 
-	public static String getNameByValue(Byte value){
+    public static String getNameByValue(Byte value) {
         BugStatus bugStatus = getByValue(value);
-        return Optional.ofNullable(bugStatus).map(s->s.getName()).orElse("");
+        return Optional.ofNullable(bugStatus).map(s -> s.getName()).orElse("");
 
     }
 
-	BugStatus(String value, String name){
-		this.value = value;
-		this.name = name;
-	}
+    BugStatus(String value, String name) {
+        this.value = value;
+        this.name = name;
+    }
 
-	public Byte getByteValue(){
-		return new Byte(value);
-	}
+    public Byte getByteValue() {
+        return new Byte(value);
+    }
 
-	public String getValue(){
-		return value;
-	}
+    public String getValue() {
+        return value;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 }

@@ -24,7 +24,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/user/bugLog")
-public class BugLogController extends BaseController{
+public class BugLogController extends BaseController {
     // TODO 权限目前只要项目成员即可操作
     @Autowired
     private BugLogService bugLogService;
@@ -32,6 +32,7 @@ public class BugLogController extends BaseController{
 
     /**
      * bug列表
+     *
      * @return
      * @throws MyException
      */
@@ -39,7 +40,7 @@ public class BugLogController extends BaseController{
     @ResponseBody
     @AuthPassport
     public JsonResult list(@ModelAttribute BugLogQuery query) throws Exception {
-        if (query.getBugId() == null){
+        if (query.getBugId() == null) {
             return new JsonResult().data(Lists.newArrayList()).page(new Page(query));
         }
 

@@ -6,7 +6,7 @@ import lombok.Getter;
  * @author Ehsan
  * @date 2018/6/30 14:17
  */
-public class SearchQuery extends BaseQuery<SearchQuery>{
+public class SearchQuery extends BaseQuery<SearchQuery> {
     @Getter
     private String keyword;
 
@@ -17,7 +17,7 @@ public class SearchQuery extends BaseQuery<SearchQuery>{
     private Boolean open;
 
     @Override
-    public SearchQuery getQuery(){
+    public SearchQuery getQuery() {
         return this;
     }
 

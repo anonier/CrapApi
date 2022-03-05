@@ -3,10 +3,10 @@ package cn.crap.dto;
 import cn.crap.model.ProjectMetaPO;
 
 public class ProjectMetaDTO extends ProjectMetaPO {
-	private String typeStr;
-	private String envUrl;
-	private String createTimeStr;
-	private String moduleName;
+    private String typeStr;
+    private String envUrl;
+    private String createTimeStr;
+    private String moduleName;
 
     public String getTypeStr() {
         return typeStr;

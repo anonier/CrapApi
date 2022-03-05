@@ -24,6 +24,7 @@ public class NewBaseService<PO extends BasePO, Query extends BaseQuery> {
 
     private NewBaseDao<PO, Query> newBaseDao;
     private TableId tableId;
+
     public void setBaseDao(NewBaseDao<PO, Query> myBaseDao, TableId tableId) {
         this.newBaseDao = myBaseDao;
         this.tableId = tableId;
@@ -34,31 +35,31 @@ public class NewBaseService<PO extends BasePO, Query extends BaseQuery> {
         return newBaseDao.get(id);
     }
 
-    public boolean insert(PO po) throws MyException{
+    public boolean insert(PO po) throws MyException {
         Assert.notNull(po);
 
-        if (MyString.isEmpty(po.getId())){
+        if (MyString.isEmpty(po.getId())) {
             po.setId(IdGenerator.getId(tableId));
         }
 
-        if (po.getSequence() == null){
+        if (po.getSequence() == null) {
             po.setSequence(System.currentTimeMillis());
         }
 
-        if (po.getSequence() < 0){
+        if (po.getSequence() < 0) {
             po.setSequence(System.currentTimeMillis());
         }
         /**
          * 不能超过mysql最大限制
          */
-        if (po.getSequence() > IConst.C_MAX_SEQUENCE){
+        if (po.getSequence() > IConst.C_MAX_SEQUENCE) {
             po.setSequence(IConst.C_MAX_SEQUENCE);
         }
         po.setCreateTime(new Date());
         return newBaseDao.insert(po) > 0;
     }
 
-    public boolean update(PO po){
+    public boolean update(PO po) {
         Assert.notNull(po);
         Assert.notNull(po.getId());
 
@@ -67,19 +68,19 @@ public class NewBaseService<PO extends BasePO, Query extends BaseQuery> {
         return newBaseDao.update(po) > 0 ? true : false;
     }
 
-    public boolean delete(String id) throws MyException{
+    public boolean delete(String id) throws MyException {
         Assert.notNull(id, "id can't be null");
         return newBaseDao.delete(id) > 0 ? true : false;
     }
 
-    public int count(Query query){
+    public int count(Query query) {
         Assert.notNull(query, "query can't be null");
         return newBaseDao.count(query);
     }
 
     public List<PO> select(Query query) throws MyException {
         Assert.notNull(query, "query can't be null");
-        if (query.getSort() == null){
+        if (query.getSort() == null) {
             query.setSort(TableField.SORT.SEQUENCE_DESC);
         }
         return newBaseDao.select(query);
@@ -87,12 +88,13 @@ public class NewBaseService<PO extends BasePO, Query extends BaseQuery> {
 
     /**
      * 更新属性
+     *
      * @param id
      * @param attributeKey
      * @param attributeValue
-     * @param po 空的更新对象
+     * @param po             空的更新对象
      */
-    public void updateAttribute(String id, String attributeKey, String attributeValue, PO po){
+    public void updateAttribute(String id, String attributeKey, String attributeValue, PO po) {
         Assert.notNull(id);
         Assert.notNull(attributeKey);
         Assert.notNull(po);
@@ -111,11 +113,12 @@ public class NewBaseService<PO extends BasePO, Query extends BaseQuery> {
 
     /**
      * 删除属性值
+     *
      * @param id
      * @param attributeKey
-     * @param po 空的更新对象
+     * @param po           空的更新对象
      */
-    public void deleteAttribute(String id, String attributeKey, PO po){
+    public void deleteAttribute(String id, String attributeKey, PO po) {
         Assert.notNull(id);
         Assert.notNull(attributeKey);
         Assert.notNull(po);

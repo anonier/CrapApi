@@ -33,7 +33,7 @@ public class SourceService extends BaseService<Source, SourceDao> implements ILo
         super.setBaseDao(sourceDao, TableId.SOURCE);
     }
 
-    public void update(Source model, boolean needAddLog) throws MyException{
+    public void update(Source model, boolean needAddLog) throws MyException {
         if (needAddLog) {
             Source dbModel = sourceDao.selectByPrimaryKey(model.getId());
             Log log = Adapter.getLog(dbModel.getId(), L_SOURCE_CHINESE, dbModel.getName(), LogType.UPDATE, dbModel.getClass(), dbModel);
@@ -43,7 +43,7 @@ public class SourceService extends BaseService<Source, SourceDao> implements ILo
     }
 
     @Override
-    public boolean delete(String id) throws MyException{
+    public boolean delete(String id) throws MyException {
         Assert.notNull(id);
         Source dbModel = sourceDao.selectByPrimaryKey(id);
         Log log = Adapter.getLog(dbModel.getId(), L_SOURCE_CHINESE, dbModel.getName(), LogType.DELTET, dbModel.getClass(), dbModel);
@@ -106,15 +106,15 @@ public class SourceService extends BaseService<Source, SourceDao> implements ILo
     }
 
     @Override
-    public List<SearchDto> selectOrderById(String projectId, String id, int pageSize){
+    public List<SearchDto> selectOrderById(String projectId, String id, int pageSize) {
         Assert.isTrue(pageSize > 0 && pageSize <= 1000);
         SourceCriteria example = new SourceCriteria();
         SourceCriteria.Criteria criteria = example.createCriteria();
-        if (projectId != null){
+        if (projectId != null) {
             criteria.andProjectIdEqualTo(projectId);
         }
         example.setMaxResults(pageSize);
-        if (id != null){
+        if (id != null) {
             criteria.andIdGreaterThan(id);
         }
         example.setOrderByClause(TableField.SORT.ID_ASC);

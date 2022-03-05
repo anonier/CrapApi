@@ -15,39 +15,39 @@ import java.util.List;
 @Service
 public class CustomInterfaceDao {
 
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
-	public void updateFullUrlByModuleId(String moduleUrl, String moduleId){
-		jdbcTemplate.update("update interface set fullUrl=CONCAT(?,url) where moduleId=?", moduleUrl, moduleId);
-	}
+    public void updateFullUrlByModuleId(String moduleUrl, String moduleId) {
+        jdbcTemplate.update("update interface set fullUrl=CONCAT(?,url) where moduleId=?", moduleUrl, moduleId);
+    }
 
-	public void deleteTemplateByModuleId(String moduleId){
-		Assert.notNull(moduleId);
-		jdbcTemplate.update("update interface set isTemplate=0 where moduleId =?", moduleId);
-	}
-
-	public void deleteByModuleId(String moduleId){
-		Assert.notNull(moduleId);
-		jdbcTemplate.update("delete from interface where moduleId=?", moduleId);
-	}
-
-    public void deleteByModuleId(String moduleId, List<String> uniKeys) throws Exception{
+    public void deleteTemplateByModuleId(String moduleId) {
         Assert.notNull(moduleId);
-        if (CollectionUtils.isEmpty(uniKeys)){
-        	return;
-		}
+        jdbcTemplate.update("update interface set isTemplate=0 where moduleId =?", moduleId);
+    }
 
-		StringBuffer buf= new StringBuffer("delete from interface where moduleId=? and uniKey in (");
+    public void deleteByModuleId(String moduleId) {
+        Assert.notNull(moduleId);
+        jdbcTemplate.update("delete from interface where moduleId=?", moduleId);
+    }
 
-		for (int i=0; i< uniKeys.size(); i++) {
-			SafetyUtil.checkSqlParam(uniKeys.get(i));
+    public void deleteByModuleId(String moduleId, List<String> uniKeys) throws Exception {
+        Assert.notNull(moduleId);
+        if (CollectionUtils.isEmpty(uniKeys)) {
+            return;
+        }
 
-			if (i!=0) buf.append(",");
+        StringBuffer buf = new StringBuffer("delete from interface where moduleId=? and uniKey in (");
 
-			buf.append("'" + uniKeys.get(i) + "'");
-		}
-		buf.append(")");
+        for (int i = 0; i < uniKeys.size(); i++) {
+            SafetyUtil.checkSqlParam(uniKeys.get(i));
+
+            if (i != 0) buf.append(",");
+
+            buf.append("'" + uniKeys.get(i) + "'");
+        }
+        buf.append(")");
 
         jdbcTemplate.update(buf.toString(), moduleId);
     }

@@ -15,8 +15,8 @@ import java.util.List;
  * 避免暴露敏感数据和修改不允许修改得数据
  */
 public class MenuAdapter {
-    public static MenuDto getDto(Menu menu){
-        if (menu == null){
+    public static MenuDto getDto(Menu menu) {
+        if (menu == null) {
             return null;
         }
 
@@ -27,13 +27,13 @@ public class MenuAdapter {
         return menuDto;
     }
 
-    public static Menu getModel(MenuDto menuDto){
-        if (menuDto == null){
+    public static Menu getModel(MenuDto menuDto) {
+        if (menuDto == null) {
             return null;
         }
         Menu menu = new Menu();
         menu.setIconRemark(menuDto.getIconRemark());
-        if (IConst.NULL.equals(menuDto.getIconRemark())){
+        if (IConst.NULL.equals(menuDto.getIconRemark())) {
             menu.setIconRemark("");
         }
         menu.setId(menuDto.getId());
@@ -47,12 +47,12 @@ public class MenuAdapter {
         return menu;
     }
 
-    public static List<MenuDto> getDto(List<Menu> menus){
-        if (menus == null){
+    public static List<MenuDto> getDto(List<Menu> menus) {
+        if (menus == null) {
             return new ArrayList<>();
         }
         List<MenuDto> menuDtos = new ArrayList<>();
-        for (Menu menu : menus){
+        for (Menu menu : menus) {
             menuDtos.add(getDto(menu));
         }
         return menuDtos;

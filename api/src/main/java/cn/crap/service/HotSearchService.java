@@ -33,6 +33,7 @@ public class HotSearchService extends BaseService<HotSearch, HotSearchDao> {
 
     /**
      * 查询热搜
+     *
      * @param query
      * @return
      * @throws MyException
@@ -51,6 +52,7 @@ public class HotSearchService extends BaseService<HotSearch, HotSearchDao> {
 
     /**
      * 查询热搜数量
+     *
      * @param query
      * @return
      * @throws MyException
@@ -67,7 +69,7 @@ public class HotSearchService extends BaseService<HotSearch, HotSearchDao> {
         HotSearchCriteria.Criteria criteria = example.createCriteria();
         return example;
     }
-    
+
     public List<String> queryTop10() {
         return customHotSearchDao.queryTop10();
     }

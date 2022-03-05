@@ -25,7 +25,7 @@ public class HotSearchController extends BaseController {
     @RequestMapping("/admin/hotSearch/list.do")
     @ResponseBody
     @AuthPassport(authority = C_HOT_SEARCH)
-    public JsonResult list(@ModelAttribute HotSearchQuery query) throws MyException{
+    public JsonResult list(@ModelAttribute HotSearchQuery query) throws MyException {
         Page page = new Page(query);
 
         page.setAllRow(hotSearchService.count(query));

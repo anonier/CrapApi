@@ -1,6 +1,6 @@
 package cn.crap.dto;
 
-public class MenuDto{
+public class MenuDto {
     private String id;
     private String menuName;
     private String menuUrl;

@@ -18,12 +18,12 @@ import java.util.Map;
 
 // v7.9升级v8.0
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:springMVC.xml"})
+@ContextConfiguration(locations = {"classpath:springMVC.xml"})
 public class UpdateProjectId {
     private Map<String, String> moduleProjectMap = new HashMap<String, String>();
 
-	@Test
-    public void addProjectIdForArticle(){
+    @Test
+    public void addProjectIdForArticle() {
         getModuleProjectMap();
         Connection conn = GenSqlUtil.openConnection(); // 得到数据库连接
         PreparedStatement pstmt = null;
@@ -34,13 +34,13 @@ public class UpdateProjectId {
             Iterator<Map.Entry<String, String>> entries = moduleProjectMap.entrySet().iterator();
             while (entries.hasNext()) {
                 Map.Entry<String, String> entry = entries.next();
-                for (String sql: sqls) {
+                for (String sql : sqls) {
                     pstmt = conn.prepareStatement(String.format(sql, entry.getValue(), entry.getKey()));
                     pstmt.execute();
                     System.out.println(String.format(sql, entry.getValue(), entry.getKey()));
                 }
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             GenSqlUtil.closeDatabase(conn, pstmt);
@@ -48,12 +48,12 @@ public class UpdateProjectId {
     }
 
 
-	public void getModuleProjectMap(){
-		Connection conn = GenSqlUtil.openConnection(); // 得到数据库连接
-		PreparedStatement pstmt = null;
+    public void getModuleProjectMap() {
+        Connection conn = GenSqlUtil.openConnection(); // 得到数据库连接
+        PreparedStatement pstmt = null;
         String strsql = "select id,projectId from module";
         try {
-			pstmt = conn.prepareStatement(strsql);
+            pstmt = conn.prepareStatement(strsql);
             ResultSet rs = pstmt.executeQuery();
             while (null != rs && rs.next()) {
                 String moduleId = rs.getString(1);
@@ -61,9 +61,9 @@ public class UpdateProjectId {
                 moduleProjectMap.put(moduleId, projectId);
             }
         } catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			GenSqlUtil.closeDatabase(conn, pstmt);
-		}
-	}
+            e.printStackTrace();
+        } finally {
+            GenSqlUtil.closeDatabase(conn, pstmt);
+        }
+    }
 }

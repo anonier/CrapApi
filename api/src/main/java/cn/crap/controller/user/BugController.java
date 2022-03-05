@@ -31,7 +31,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/user/bug")
-public class BugController extends BaseController{
+public class BugController extends BaseController {
     // TODO 权限目前只要项目成员即可操作
     @Autowired
     private CommentService commentService;
@@ -44,6 +44,7 @@ public class BugController extends BaseController{
 
     /**
      * bug管理系统下拉选择框
+     *
      * @param request
      * @param type
      * @param def
@@ -55,7 +56,7 @@ public class BugController extends BaseController{
     @RequestMapping(value = "pick.do")
     @AuthPassport
     public String pickUp(HttpServletRequest request, String type, String def,
-                          String tag, String pickParam) throws Exception {
+                         String tag, String pickParam) throws Exception {
         String pickContent = customMenuService.pick("true", type, pickParam, def, "true");
         request.setAttribute("tag", tag);
         request.setAttribute("pickContent", pickContent);
@@ -65,7 +66,8 @@ public class BugController extends BaseController{
 
     /**
      * 修改缺陷状态（严重程度、优先级等）
-     * @param type 待修改的状态类型
+     *
+     * @param type  待修改的状态类型
      * @param value 新的状态
      * @return
      * @throws Exception
@@ -73,10 +75,10 @@ public class BugController extends BaseController{
     @RequestMapping(value = "changeBug.do")
     @ResponseBody
     @AuthPassport
-    public JsonResult changeBug(String id, @RequestParam(defaultValue = "") String type, String value) throws Exception{
+    public JsonResult changeBug(String id, @RequestParam(defaultValue = "") String type, String value) throws Exception {
         // TODO 修改日志
         // id为0，忽略
-        if (MyString.isEmpty(id)){
+        if (MyString.isEmpty(id)) {
             return new JsonResult(true);
         }
         BugPO dbBug = bugService.get(id);
@@ -101,7 +103,7 @@ public class BugController extends BaseController{
     @RequestMapping(value = "add.do")
     @ResponseBody
     @AuthPassport
-    public JsonResult add(BugDTO dto) throws Exception{
+    public JsonResult add(BugDTO dto) throws Exception {
         throwExceptionWhenIsNull(dto.getProjectId(), "projectId 不能为空");
 
         dto.setProjectId(getProjectId(dto.getProjectId(), dto.getModuleId()));
@@ -113,6 +115,7 @@ public class BugController extends BaseController{
 
     /**
      * bug列表
+     *
      * @return
      * @throws MyException
      */

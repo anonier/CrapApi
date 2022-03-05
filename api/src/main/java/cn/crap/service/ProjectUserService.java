@@ -25,14 +25,14 @@ public class ProjectUserService extends NewBaseService<ProjectUserPO, ProjectUse
 
     public ProjectUserPO getByProjectUniKey(String userId, String projectUniKey) throws MyException {
         List<ProjectUserPO> projectPOS = this.select(new ProjectUserQuery().setUserId(userId).setProjectUniKey(projectUniKey));
-        if (CollectionUtils.isEmpty(projectPOS)){
+        if (CollectionUtils.isEmpty(projectPOS)) {
             return null;
         }
         return projectPOS.get(0);
     }
 
-    public boolean batchUpdateByProjectId(String projectId, Long sequence, String projectName){
-        if (projectId == null || sequence == null){
+    public boolean batchUpdateByProjectId(String projectId, Long sequence, String projectName) {
+        if (projectId == null || sequence == null) {
             return false;
         }
         ProjectUserPO userPO = new ProjectUserPO();
@@ -42,8 +42,8 @@ public class ProjectUserService extends NewBaseService<ProjectUserPO, ProjectUse
         return projectUserDao.batchUpdateByProjectId(userPO) > 0;
     }
 
-    public boolean deleteByProjectId(String projectId){
-        if (projectId == null){
+    public boolean deleteByProjectId(String projectId) {
+        if (projectId == null) {
             return false;
         }
         return projectUserDao.deleteByProjectId(projectId) > 0;

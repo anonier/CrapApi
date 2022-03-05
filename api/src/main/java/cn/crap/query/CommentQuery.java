@@ -4,12 +4,12 @@ package cn.crap.query;
  * @author Ehsan
  * @date 2018/6/30 14:17
  */
-public class CommentQuery extends BaseQuery<CommentQuery>{
+public class CommentQuery extends BaseQuery<CommentQuery> {
     private String targetId;
     private String type;
 
     @Override
-    public CommentQuery getQuery(){
+    public CommentQuery getQuery() {
         return this;
     }
 
@@ -27,7 +27,7 @@ public class CommentQuery extends BaseQuery<CommentQuery>{
         return this;
     }
 
-    public String getType(){
+    public String getType() {
         return type;
     }
 }

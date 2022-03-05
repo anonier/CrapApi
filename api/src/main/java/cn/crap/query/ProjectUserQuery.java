@@ -6,7 +6,7 @@ import lombok.Getter;
  * @author Ehsan
  * @date 2018/6/30 14:17
  */
-public class ProjectUserQuery extends BaseQuery<ProjectUserQuery>{
+public class ProjectUserQuery extends BaseQuery<ProjectUserQuery> {
     @Getter
     private String userId;
 
@@ -17,7 +17,7 @@ public class ProjectUserQuery extends BaseQuery<ProjectUserQuery>{
     private String projectUniKey;
 
     @Override
-    public ProjectUserQuery getQuery(){
+    public ProjectUserQuery getQuery() {
         return this;
     }
 

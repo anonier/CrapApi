@@ -15,8 +15,8 @@ import java.util.List;
  * Avoid exposing sensitive data and modifying data that is not allowed to be modified
  */
 public class LogAdapter {
-    public static LogDto getDto(Log model){
-        if (model == null){
+    public static LogDto getDto(Log model) {
+        if (model == null) {
             return null;
         }
 
@@ -27,31 +27,31 @@ public class LogAdapter {
         return dto;
     }
 
-    public static Log getModel(LogDto dto){
-        if (dto == null){
+    public static Log getModel(LogDto dto) {
+        if (dto == null) {
             return null;
         }
         Log model = new Log();
         model.setId(dto.getId());
-		model.setStatus(dto.getStatus());
-		model.setSequence(dto.getSequence());
-		model.setModelClass(dto.getModelClass());
-		model.setModelName(dto.getModelName());
-		model.setType(dto.getType());
-		model.setUpdateBy(dto.getUpdateBy());
-		model.setRemark(dto.getRemark());
-		model.setContent(dto.getContent());
-		model.setIdenty(dto.getIdenty());
-		
+        model.setStatus(dto.getStatus());
+        model.setSequence(dto.getSequence());
+        model.setModelClass(dto.getModelClass());
+        model.setModelName(dto.getModelName());
+        model.setType(dto.getType());
+        model.setUpdateBy(dto.getUpdateBy());
+        model.setRemark(dto.getRemark());
+        model.setContent(dto.getContent());
+        model.setIdenty(dto.getIdenty());
+
         return model;
     }
 
-    public static List<LogDto> getDto(List<Log> models){
-        if (models == null){
+    public static List<LogDto> getDto(List<Log> models) {
+        if (models == null) {
             return new ArrayList<>();
         }
         List<LogDto> dtos = new ArrayList<>();
-        for (Log model : models){
+        for (Log model : models) {
             dtos.add(getDto(model));
         }
         return dtos;

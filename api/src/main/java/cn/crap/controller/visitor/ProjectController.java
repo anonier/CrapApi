@@ -21,36 +21,37 @@ import cn.crap.framework.base.BaseController;
 import cn.crap.utils.Page;
 
 import java.util.List;
+
 @Controller("forntProjectController")
 @RequestMapping("/visitor/project")
-public class ProjectController extends BaseController{
-	@Autowired
-	private ProjectService projectService;
-	
-	@RequestMapping("/list.do")
-	@ResponseBody
-	public JsonResult list(@ModelAttribute ProjectQuery query, @RequestParam(defaultValue="3") Integer projectShowType) throws MyException{
-		
-		Page page= new Page(query);
-		LoginInfoDto user =  LoginUserHelper.getUser();
-		String userId = user.getId();
-		List<ProjectPO> models = null;
-		// 我创建 & 加入的项目
-		if (ProjectShowType.CREATE_JOIN.getType() == projectShowType) {
-			page.setAllRow(projectService.count(userId, false, query.getName()));
-			models = projectService.query(userId, false, query.getName(), page);
-		}
+public class ProjectController extends BaseController {
+    @Autowired
+    private ProjectService projectService;
 
-		// 我加入的项目
-		else if (ProjectShowType.JOIN.getType() == projectShowType) {
-			page.setAllRow(projectService.count(userId, true, query.getName()));
-			models = projectService.query(userId, true, query.getName(), page);
-		}
+    @RequestMapping("/list.do")
+    @ResponseBody
+    public JsonResult list(@ModelAttribute ProjectQuery query, @RequestParam(defaultValue = "3") Integer projectShowType) throws MyException {
+
+        Page page = new Page(query);
+        LoginInfoDto user = LoginUserHelper.getUser();
+        String userId = user.getId();
+        List<ProjectPO> models = null;
+        // 我创建 & 加入的项目
+        if (ProjectShowType.CREATE_JOIN.getType() == projectShowType) {
+            page.setAllRow(projectService.count(userId, false, query.getName()));
+            models = projectService.query(userId, false, query.getName(), page);
+        }
+
+        // 我加入的项目
+        else if (ProjectShowType.JOIN.getType() == projectShowType) {
+            page.setAllRow(projectService.count(userId, true, query.getName()));
+            models = projectService.query(userId, true, query.getName(), page);
+        }
 
         List<ProjectDTO> projectDtos = ProjectAdapter.getDTOS(models, null);
         page.setAllRow(projectService.count(query));
 
         return new JsonResult().data(projectDtos).page(page);
-		
-	}
+
+    }
 }

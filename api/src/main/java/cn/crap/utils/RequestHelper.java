@@ -26,7 +26,6 @@ public class RequestHelper {
     }
 
     /**
-     *
      * @return
      */
     public static HashMap<String, String> getRequestParams() {

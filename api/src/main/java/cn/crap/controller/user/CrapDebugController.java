@@ -102,7 +102,7 @@ public class CrapDebugController extends BaseController {
             // 处理模块：删除、更新、添加，处理异常
             module = handelModule(user, project, module, moduleSequence, debutModuleDTO);
             moduleSequence = moduleSequence - 1;
-            if (module == null){
+            if (module == null) {
                 continue;
             }
             modulePOMap.put(moduleUniKey, module);
@@ -123,7 +123,7 @@ public class CrapDebugController extends BaseController {
             int maxInterNum = VipUtil.getPostWomanPlugInterNum(settingCache, user);
             if (totalNum > maxInterNum) {
                 log.error("sync addDebug error, totalNum:" + maxInterNum + ",userId:" + userId);
-                return new JsonResult(0, null , MyError.E000058.name(), "最多允许同步" + maxInterNum + "个接口，请删除部分接口再试，或联系管理员修改数量！");
+                return new JsonResult(0, null, MyError.E000058.name(), "最多允许同步" + maxInterNum + "个接口，请删除部分接口再试，或联系管理员修改数量！");
             }
         }
 
@@ -132,7 +132,7 @@ public class CrapDebugController extends BaseController {
          *  id 全部使用uniKey替代
          */
         List<ModulePO> modules = moduleService.select(new ModuleQuery().setProjectId(projectId).setPageSize(100));
-        Map<String, ModulePO> moduleMap = modules.stream().collect(Collectors.toMap(ModulePO::getId, a -> a,(k1, k2)->k1));
+        Map<String, ModulePO> moduleMap = modules.stream().collect(Collectors.toMap(ModulePO::getId, a -> a, (k1, k2) -> k1));
 
         List<InterfaceWithBLOBs> debugs = interfaceService.queryAll(new InterfaceQuery().setProjectId(projectId));
         Map<String, List<DebugDto>> mapDebugs = new HashMap<>();
@@ -144,7 +144,7 @@ public class CrapDebugController extends BaseController {
                 mapDebugs.put(moduleId, moduleDebugs);
             }
             DebugDto dtoFromInterface = DebugAdapter.getDtoFromInterface(project, moduleMap, d);
-            if (dtoFromInterface == null){
+            if (dtoFromInterface == null) {
                 continue;
             }
             moduleDebugs.add(dtoFromInterface);
@@ -174,7 +174,7 @@ public class CrapDebugController extends BaseController {
     }
 
     private int addDebug(String projectId, ModulePO module, LoginInfoDto user, DebugInterfaceParamDto moduleDTO, int totalNum) throws MyException {
-        if (module == null){
+        if (module == null) {
             return totalNum;
         }
 
@@ -203,8 +203,8 @@ public class CrapDebugController extends BaseController {
 
                 String uniKey = debug.getUniKey() == null ? debug.getId() : debug.getUniKey();
                 InterfaceWithBLOBs old = interfaceMap.get(uniKey);
-                if (old != null){
-                    if (old.getVersionNum() >= debug.getVersion()){
+                if (old != null) {
+                    if (old.getVersionNum() >= debug.getVersion()) {
                         log.error("addDebug ignore name:" + debug.getName());
                         continue;
                     }
@@ -232,7 +232,7 @@ public class CrapDebugController extends BaseController {
     }
 
 
-    private void deleteDebug(ModulePO module, DebugInterfaceParamDto moduleDTO) throws Exception{
+    private void deleteDebug(ModulePO module, DebugInterfaceParamDto moduleDTO) throws Exception {
         Assert.notNull(module, "deleteDebug module is null");
         if (moduleDTO.getStatus() == -1) {
             return;
@@ -253,7 +253,7 @@ public class CrapDebugController extends BaseController {
         interfaceService.deleteByModuleId(moduleId, uniKeyList);
     }
 
-    private ModulePO handelModule(LoginInfoDto user, ProjectPO project, ModulePO module, long moduleSequence, DebugInterfaceParamDto moduleDTO) throws Exception{
+    private ModulePO handelModule(LoginInfoDto user, ProjectPO project, ModulePO module, long moduleSequence, DebugInterfaceParamDto moduleDTO) throws Exception {
 
         // 新增模块
         if (module == null && moduleDTO.getStatus() != -1) {
@@ -266,7 +266,7 @@ public class CrapDebugController extends BaseController {
             try {
                 interfaceService.deleteByModuleId(module.getId());
                 moduleService.delete(module.getId());
-            } catch (MyException e){
+            } catch (MyException e) {
                 log.error("crapDebugController delete module fail:" + module.getId() + "," + e.getErrorCode());
             }
         }

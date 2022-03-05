@@ -16,16 +16,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.net.InetAddress;
 
 
-
 /**
  * 对登录状态进行拦截
- * @author 
  *
+ * @author
  */
-public class AuthInterceptor extends HandlerInterceptorAdapter{
-	@Autowired
-	private UserCache userCache;
-	private static String serviceIp = "null";
+public class AuthInterceptor extends HandlerInterceptorAdapter {
+    @Autowired
+    private UserCache userCache;
+    private static String serviceIp = "null";
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -36,7 +35,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
                 return true;
             }
 
-            if (RequestMethod.OPTIONS.name().equals(request.getMethod())){
+            if (RequestMethod.OPTIONS.name().equals(request.getMethod())) {
                 return false;
             }
 
@@ -57,7 +56,9 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
             }
 
             try {
-                if (serviceIp == null){serviceIp = InetAddress.getLocalHost().getHostAddress();}
+                if (serviceIp == null) {
+                    serviceIp = InetAddress.getLocalHost().getHostAddress();
+                }
                 response.setHeader("serviceIp", serviceIp);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -93,20 +94,20 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
             userCache.add(uid, user);
 
             if (!authPassport.authority().equals("")) {
-                if (!LoginUserHelper.checkAuthPassport(authPassport.authority())){
+                if (!LoginUserHelper.checkAuthPassport(authPassport.authority())) {
                     throw new MyException(MyError.E000022);
                 }
             }
 
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             throw e;
-        }finally {
+        } finally {
             if (!threadHasRequest) {
                 ThreadContext.clear();
             }
         }
     }
-	
+
 
 }

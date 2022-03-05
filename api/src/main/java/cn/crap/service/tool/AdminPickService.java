@@ -26,7 +26,7 @@ import java.util.List;
  * @author Ehsan
  */
 @Service("adminPickService")
-public class AdminPickService implements IPickService{
+public class AdminPickService implements IPickService {
     @Autowired
     private ProjectService projectService;
     @Autowired
@@ -96,7 +96,7 @@ public class AdminPickService implements IPickService{
 
                 preUrl = "index.do#/NULL/article/detail/NULL/PAGE/";
                 for (Article w : articleService.queryTop100Page()) {
-                    pick = new PickDto("wp_" + w.getMkey(), preUrl + w.getMkey(), w.getName()+" [页面]");
+                    pick = new PickDto("wp_" + w.getMkey(), preUrl + w.getMkey(), w.getName() + " [页面]");
                     picks.add(pick);
                 }
                 return picks;
@@ -125,7 +125,7 @@ public class AdminPickService implements IPickService{
                 preUrl = "index.do#/NULL/article/detail/NULL/PAGE/";
 
                 for (Article w : articleService.queryTop100Page()) {
-                    pick = new PickDto("wp_" + w.getMkey(), preUrl + w.getMkey(), w.getName()+" [页面]");
+                    pick = new PickDto("wp_" + w.getMkey(), preUrl + w.getMkey(), w.getName() + " [页面]");
                     picks.add(pick);
                 }
                 return picks;

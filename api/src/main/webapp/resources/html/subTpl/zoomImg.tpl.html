@@ -5,9 +5,10 @@
     <img class="zoom-img-content w" id="zoom-img-content-id">
 </div>
 <style type="text/css">
-    #bug-detail-div img{
+    #bug-detail-div img {
         cursor: pointer;
     }
+
     /* 弹窗背景 */
     .zoom-img-modal {
         display: none; /* Hidden by default */
@@ -19,8 +20,8 @@
         width: 100%; /* Full width */
         height: 100%; /* Full height */
         overflow: auto; /* Enable scroll if needed */
-        background-color: rgb(0,0,0); /* Fallback color */
-        background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+        background-color: rgb(0, 0, 0); /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
     }
 
     /* 图片 */
@@ -40,14 +41,22 @@
         animation-duration: 0.6s;
     }
 
-@-webkit-keyframes zoom {
-        from {-webkit-transform:scale(0)}
-        to {-webkit-transform:scale(1)}
+    @-webkit-keyframes zoom {
+        from {
+            -webkit-transform: scale(0)
+        }
+        to {
+            -webkit-transform: scale(1)
+        }
     }
 
-@keyframes zoom {
-        from {transform:scale(0)}
-        to {transform:scale(1)}
+    @keyframes zoom {
+        from {
+            transform: scale(0)
+        }
+        to {
+            transform: scale(1)
+        }
     }
 
     /* 关闭按钮 */
@@ -69,21 +78,21 @@
     }
 
     /* 小屏幕中图片宽度为 100% */
-    @media only screen and (max-width: 600px){
-    .zoom-img-content {
+    @media only screen and (max-width: 600px) {
+        .zoom-img-content {
             width: 100%;
         }
     }
 </style>
 <script type="text/javascript">
-    $(function() {
+    $(function () {
         $("#bug-detail-div").on("click", "img", function () {
             // 获取弹窗
             var modal = document.getElementById('zoom-img-modal');
             modal.style.display = "block";
             // 获取图片插入到弹窗
             var modalImg = document.getElementById("zoom-img-content-id");
-            modalImg.src =  $(this).attr('src');
+            modalImg.src = $(this).attr('src');
             // 获取 <span> 元素，设置关闭按钮
             var span = document.getElementsByClassName("zoom-img-close")[0];
             // 当点击 (x), 关闭弹窗

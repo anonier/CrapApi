@@ -37,7 +37,7 @@ public class SettingController extends BaseController {
     @RequestMapping("/setting/list.do")
     @ResponseBody
     @AuthPassport(authority = C_AUTH_SETTING)
-    public JsonResult list(@ModelAttribute SettingQuery query) throws MyException{
+    public JsonResult list(@ModelAttribute SettingQuery query) throws MyException {
         Page page = new Page(query);
 
         page.setAllRow(settingService.count(query));

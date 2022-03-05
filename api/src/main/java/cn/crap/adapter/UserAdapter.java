@@ -15,8 +15,8 @@ import java.util.List;
  * 避免暴露敏感数据和修改不允许修改得数据
  */
 public class UserAdapter {
-    public static UserDTO getDto(UserPO user){
-        if (user == null){
+    public static UserDTO getDto(UserPO user) {
+        if (user == null) {
             return null;
         }
 
@@ -31,12 +31,12 @@ public class UserAdapter {
         return userDto;
     }
 
-    public static List<UserDTO> getDto(List<UserPO> users){
-        if (users == null){
+    public static List<UserDTO> getDto(List<UserPO> users) {
+        if (users == null) {
             return new ArrayList<>();
         }
         List<UserDTO> userDtos = new ArrayList<>();
-        for (UserPO user : users){
+        for (UserPO user : users) {
             userDtos.add(getDto(user));
         }
         return userDtos;
@@ -44,11 +44,12 @@ public class UserAdapter {
 
     /**
      * 将前端不能修改得字段赋值为null
+     *
      * @param userDto
      * @return
      */
-    public static UserPO getModel(UserDTO userDto){
-        if (userDto == null){
+    public static UserPO getModel(UserDTO userDto) {
+        if (userDto == null) {
             return null;
         }
         UserPO user = new UserPO();

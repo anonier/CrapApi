@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface InterfaceDao extends BaseDao<InterfaceWithBLOBs>{
+public interface InterfaceDao extends BaseDao<InterfaceWithBLOBs> {
     int countByExample(InterfaceCriteria example);
 
     int deleteByExample(InterfaceCriteria example);

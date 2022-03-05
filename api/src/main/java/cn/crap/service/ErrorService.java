@@ -18,6 +18,7 @@ import java.util.List;
 @Service
 public class ErrorService extends BaseService<Error, ErrorDao> {
     private ErrorDao errorDao;
+
     @Resource
     public void ErrorDao(ErrorDao errorDao) {
         this.errorDao = errorDao;
@@ -26,6 +27,7 @@ public class ErrorService extends BaseService<Error, ErrorDao> {
 
     /**
      * 查询错误码
+     *
      * @param query
      * @return
      * @throws MyException
@@ -44,6 +46,7 @@ public class ErrorService extends BaseService<Error, ErrorDao> {
 
     /**
      * 查询错误码数量
+     *
      * @param query
      * @return
      * @throws MyException
@@ -70,7 +73,7 @@ public class ErrorService extends BaseService<Error, ErrorDao> {
         if (query.getErrorMsg() != null) {
             criteria.andErrorMsgLike("%" + query.getErrorMsg() + "%");
         }
-        if (!CollectionUtils.isEmpty(query.getErrorCodeList())){
+        if (!CollectionUtils.isEmpty(query.getErrorCodeList())) {
             criteria.andErrorCodeIn(query.getErrorCodeList());
         }
         return example;

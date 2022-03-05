@@ -168,10 +168,10 @@ public class MainController extends BaseController {
     @ResponseBody
     @RequestMapping("/admin/compress.do")
     @AuthPassport(authority = C_SUPER)
-    public JsonResult compress() throws Exception{
+    public JsonResult compress() throws Exception {
         try {
             systemService.compressSource();
-        } catch (Throwable e){
+        } catch (Throwable e) {
             log.error("压缩js、css文件异常", e);
         }
         systemService.mergeSource();
@@ -181,7 +181,7 @@ public class MainController extends BaseController {
     @ResponseBody
     @RequestMapping("/admin/cleanLog.do")
     @AuthPassport(authority = C_SUPER)
-    public JsonResult cleanLog() throws Exception{
+    public JsonResult cleanLog() throws Exception {
         systemService.cleanLog();
         return new JsonResult().success();
     }
@@ -190,21 +190,22 @@ public class MainController extends BaseController {
      * 搜索目前只支持项目下搜索
      * 跨项目涉及到用户、成员权限问题，暂不实现
      * 搜索
+     *
      * @return
      * @throws Exception
      */
     @ResponseBody
     @RequestMapping("/user/search.do")
     @AuthPassport
-    public JsonResult search(@ModelAttribute SearchQuery query) throws Exception{
-        if (query.getProjectId() == null){
+    public JsonResult search(@ModelAttribute SearchQuery query) throws Exception {
+        if (query.getProjectId() == null) {
             throw new MyException(MyError.E000056);
         }
         checkPermission(query.getProjectId(), ProjectPermissionEnum.READ);
 
         String keyword = (query.getKeyword() == null ? "" : query.getKeyword().trim());
         query.setKeyword(keyword.length() > 200 ? keyword.substring(0, 200) : keyword.trim());
-        
+
         List<SearchDto> search = luceneService.search(query);
         Page page = new Page(query);
         return new JsonResult().success().data(search).page(page);
